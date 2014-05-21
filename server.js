@@ -104,11 +104,10 @@ app.get(
 	}
 );
 
-app.get( '/logout', function( req, res ) {
-	console.log( 'Logging out of all services.' );
-	console.log( req.getAuthTokens( 'facebook' ));
-	console.log( req.getAuthTokens( 'twitter' ));
-	req.logout();
+app.get( '/disconnect/:service', function( req, res ) {
+	var toRemove = req.getAuthTokens( req.params.service );
+	if( toRemove )
+		delete req.session.passport.user[ req.params.service ];
 	res.redirect( '/' );
 });
  
