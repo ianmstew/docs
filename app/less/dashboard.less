@@ -111,12 +111,12 @@
 
   padding: 0;
   height: 100%;
-  background-color: @gray-even-lighter;
+  // background-color: @gray-even-lighter;
 
   .nav-dashboard {
-    padding: 0;
+    padding: 1% 0 0 1%;
     height: 100%;
-    background-color: @gray-even-lighter;
+    //background-color: @gray-even-lighter;
   }
 
   .list-group {
@@ -124,7 +124,7 @@
 
     > .list-group-item {
       padding: 0;
-      background-color: @gray-even-lighter;
+      // background-color: @gray-even-lighter;
       border-radius: 0;
       border: none;
     }
@@ -188,4 +188,23 @@
 .nav-secondary-form {
   margin: 2.25% auto;
   width: 200px;
+}
+
+// JSON Output
+// --------------------------------------------------
+pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 400px;
+
+  &:before {
+    display: block;
+    width: 100%;
+    margin: 0 0 1% 0;
+    padding: 1%;
+    content: "JSON Output";
+    color: @gray-light;
+    background: @gray-lighter;
+  }
 }
