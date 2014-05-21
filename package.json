@@ -1,7 +1,7 @@
 {
   "name": "hosted-apis",
   "version": "0.0.1",
-  "description": "Engine API Examples",
+  "description": "API Network Hosted APIs",
   "main": "server.js",
   "scripts": {
     "test": "node server.js"
@@ -24,6 +24,10 @@
     "grunt-bower-task": "^0.3.4",
     "grunt-contrib-less": "^0.11.0",
     "grunt-jscs-checker": "^0.4.1",
-    "grunt-contrib-jshint": "^0.10.0"
+    "grunt-contrib-jshint": "^0.10.0",
+    "engine-data-module": "git+https://github.com/LDEngine/Engine-Data-Module.git#master",
+    "passport": "~0.2.0",
+    "passport-facebook": "~1.0.3",
+    "passport-twitter": "~1.0.2"
   }
 }
