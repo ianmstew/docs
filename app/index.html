@@ -32,11 +32,6 @@
                     Help
                   </a>
                 </li>
-                <li>
-                  <a href="/logout">
-                    Logout
-                  </a>
-                </li>
               </ul>
             </div><!-- /#main-navigation -->
           </div><!-- /.container-fluid -->
@@ -56,7 +51,7 @@
                           Facebook
                         </a>
                         <div class="btn-group btn-group-xs pull-right">
-                          <button type="button" class="btn btn-default" href="/auth/facebook">Connect</button>
+                          <button type="button" class="btn btn-default" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
                           <button type="button" class="btn btn-default">Disconnect</button>
                         </div>
                       </h4>
@@ -88,7 +83,7 @@
                           Twitter
                         </a>
                         <div class="btn-group btn-group-xs pull-right">
-                          <button type="button" class="btn btn-default" href="/auth/twitter">Connect</button>
+                          <button type="button" class="btn btn-default" onclick="window.location.assign( '/auth/twitter' );">Connect</button>
                           <button type="button" class="btn btn-default">Disconnect</button>
                         </div>
                       </h4>
