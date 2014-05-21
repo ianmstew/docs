@@ -1,6 +1,7 @@
 var express = require('express'),
 	passport = require( 'passport' ),
-	FacebookStrategy = require( 'passport-facebook' ).Strategy;
+	FacebookStrategy = require( 'passport-facebook' ).Strategy,
+	TwitterStrategy = require( 'passport-twitter' ).Strategy;
 
 // Configure the login mechanisms.
 
@@ -22,7 +23,7 @@ passport.use( new FacebookStrategy(
 	{
 		clientID: '1435264953389408',
     	clientSecret: 'a2e8fef3bd4897e2ac34d92cbebfa49a',
-    	callbackURL: "http://localhost:3000/auth/facebook/callback",
+    	callbackURL: "http://local.apinetwork.co:3000/auth/facebook/callback",
     	enableProof: false,
     	passReqToCallback: true
 	},
@@ -34,6 +35,25 @@ passport.use( new FacebookStrategy(
 			accessToken: accessToken
 		};
 		return done( null, allUserData );
+	}
+));
+passport.use( new TwitterStrategy(
+	{
+		consumerKey: 'NMWWu6OYHQwS3SOTaN0UpYmPX',
+		consumerSecret: 'xh0HbjlGeiZpQl7S1X5s8skSnO3PXvK9RaDFuC8zu7KqYsEFqr',
+		callbackUrl: 'http://local.apinetwork.co:3000/auth/twitter/callback',
+		passReqToCallback: true
+	},
+	function( req, token, tokenSecret, profile, done ) {
+		// Need to get the original user here, so we can add our new item to the session.
+		var allUserData = req.user ? req.user : {};
+		allUserData[ 'twitter' ] = {
+			owner: 'twitter:' + profile.id,
+			token: token,
+			tokenSecret: tokenSecret
+		};
+		return done( null, allUserData );
+
 	}
 ));
  
@@ -67,7 +87,6 @@ app.configure(function () {
 
 app.get( '/auth/facebook',
 	passport.authenticate( 'facebook' ));
-
 app.get( 
 	'/auth/facebook/callback',
 	passport.authenticate( 'facebook', { failureRedirect: '/auth-failure' }),
@@ -75,9 +94,20 @@ app.get(
 		res.redirect( '/' );
 	}
 );
+app.get( '/auth/twitter',
+	passport.authenticate( 'twitter' ));
+app.get( 
+	'/auth/twitter/callback',
+	passport.authenticate( 'twitter', { failureRedirect: '/auth-failure' }),
+	function( req, res ) {
+		res.redirect( '/' );
+	}
+);
+
 app.get( '/logout', function( req, res ) {
-	console.log( 'Logging out of all services, facebook was:' );
+	console.log( 'Logging out of all services.' );
 	console.log( req.getAuthTokens( 'facebook' ));
+	console.log( req.getAuthTokens( 'twitter' ));
 	req.logout();
 	res.redirect( '/' );
 });
