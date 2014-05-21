@@ -6,19 +6,24 @@
 1. Install latest MongoDB
 1. Ensure Mongo is running: `$ mongo` (Ctrl+C to quit)
 1. Install grunt comand line app `$ sudo npm install -g grunt-cli`
+1. Add the following to ``/etc/hosts``:
+```
+# To allow development of OAuth stuff locally.
+127.0.0.1       local.apinetwork.co
+```
 
 ## Run
 
 1. `$ npm install`
 1. `$ grunt`
 1. `$ node server`
-1. Access `http://localhost:3000`
+1. Access `http://local.apinetwork.co:3000`
 
 ## Developing App (front end)
 
 1. Start Hosted APIs app (see **Run**)
 1. Start watch command `$ grunt watch` (required to be running continually during front end development)
-1. `app` folder is compiled to `dist`, which is also the web server root.  Accessing `http://localhost:3000` reaches `dist/index.html`.
+1. `app` folder is compiled to `dist`, which is also the web server root.  Accessing `http://local.apinetwork.co:3000` reaches `dist/index.html`.
 1. Install [LiveReload Chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) to take advatage of automatic brower refreshing while editing .html and .less files (optional)
 1. Before committing any front end code, run `$ grunt jshint` and solve Javascript syntax issues, then `$ grunt jscs` and solve any style issues.
 
