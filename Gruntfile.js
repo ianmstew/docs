@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     path: {
       // Source folders
       app: 'app',
-      // manager: 'app/manager',
+      app_js: 'app/app-js',
       less: 'app/less',
 
       // Intermediate folders (transient)
@@ -76,8 +76,8 @@ module.exports = function(grunt) {
           'cd <%- path.app %>',
           'rsync . $cwd/<%- path.dist %> ' +
               '--update --delete --verbose --recursive ' +
-              '--exclude less --exclude style --exclude vendor'
-        ].join('&&')
+              '--exclude less --exclude style --exclude vendor' 
+        ].join('&&') 
       },
 
       sourcemap_links: {
@@ -95,15 +95,15 @@ module.exports = function(grunt) {
         jshintrc: true
       },
 
-      // app: ['Gruntfile.js', 'app/manager/**/*.js']
+      app: ['Gruntfile.js', '<%- app.app_js %>/**/*.js']
     },
 
     jscs: {
       options: {
-        config: '.jscsrc'
+        config: '<%- app.app_js %>/.jscsrc'
       },
 
-      // app: ['Gruntfile.js', 'app/manager/**/*.js']
+      app: ['Gruntfile.js', '<%- app.app_js %>/**/*.js']
     },
 
     watch: {
@@ -111,7 +111,7 @@ module.exports = function(grunt) {
         nospawn: true
       },
 
-      manager: {
+      app: {
         files: [
           '<%- path.app %>/**/*',
           '!<%- path.less %>/**/*'
@@ -136,8 +136,7 @@ module.exports = function(grunt) {
 
         files: [
           '*.html',
-          'views/*.html',
-          'manager/**/*.html',
+          'app-js/**/*.html',
           'style/*.css'
         ]
       }
