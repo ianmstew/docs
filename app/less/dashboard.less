@@ -56,11 +56,18 @@
   }
 
   .panel {
+    .btn-group {
+      margin-top: -2px;
+    }
+
     .panel-body {
       padding: 0;
 
       ul {
         margin: 0;
+        list-style-type: none;
+        margin-left: 0;
+        padding: 0;
 
         li {
           a {
@@ -91,7 +98,7 @@
 
   .panel-default {
     > .panel-heading {
-      background-color: @gray-lighter;
+      background-color: #FFF;
     }
   }
 
@@ -127,21 +134,16 @@
   width: 200px;
 }
 
-.panel-body {
-  > ul {
-    list-style-type: none;
-    margin-left: 0;
-    padding: 0;
-  }
-}
-
 // JSON Output
 // --------------------------------------------------
-pre {
-  margin: 0;
+.js-json {
+  &:extend(.row);
+
   padding: 0;
   border: none;
   height: 400px;
+  white-space: pre-wrap;
+  background-color: @gray-even-lighter;
 
   &:before {
     display: block;
@@ -151,5 +153,12 @@ pre {
     content: "JSON Output";
     color: @gray-light;
     background: @gray-lighter;
+  }
+
+  code {
+    margin: 0;
+    white-space: pre-wrap;
+    background-color: @gray-even-lighter;
+    color: #000;
   }
 }
