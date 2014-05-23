@@ -33,9 +33,10 @@ define(function (require) {
     },
 
     showUriHelp: function( service, uriClass ) {
-      console.log( '*** showUriHelp: ' + service + ', ' + uriClass );
-      var tos = require( 'modules/static/tos/tos.view' );
-      appChannel.commands.execute( 'region:content-main:showin', tos );
+      console.log( '*** showUriHelp for: ' + service + ', ' + uriClass );
+
+      $( '.dashboard-content' ).load( '/app-js/modules/tryUri/' + service + '/' + uriClass + '.html' );
+      //appChannel.commands.execute( 'region:content-main:showin', tos );
     }
 
 

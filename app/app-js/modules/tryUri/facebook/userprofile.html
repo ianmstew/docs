@@ -1,0 +1,51 @@
+<div class="alert alert-danger fade in">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <strong>You haven't authenticated with an API.</strong> Connect with a data source on the left to begin.
+</div>
+
+<div class="container-fluid">
+  <div class="bar">
+    <form role="form">
+      <div class="input-group">
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn-green" type="button">Get JSON</button>
+        </span>
+      </div><!-- /input-group -->
+    </form>
+  </div><!-- /.bar -->
+
+    <h1>User Profile</h1>
+    <h3>URI Format:</h3>
+    <p>
+      <code id='sampleUri'>ldengine://{owner}//@acct:facebook:{accountID}/user/{userID}</code>
+    </p>
+    <h3>Sample Output:</h3>
+  <pre>
+    <code id='sampleOutput'>
+    {
+      "uri":"ldengine://curtis.lacy//@acct:facebook:100007891360262/user/100007891360262",
+      "owner":"curtis.lacy",
+      "category":"person",
+      "data": {
+        "id":"ldengine://curtis.lacy//@acct:facebook:100007891360262/user/100007891360262",
+        "displayName": {
+          "formatted":"Curtis Lacy"
+        },
+        "preferredUsername":"curtis.lacy",
+        "thumbnailUrl":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/t1.0-1/p50x50/1622693_10201763345185548_76507595_t.jpg",
+        "appData": {
+          "serviceName":"Facebook",
+          "serviceImgUrl":"/images/512x512-logos/facebook.png",
+          "verified":true
+        },
+        "location":"en_US",
+        "aboutMe":"01/12/1977,curtis.lacy@gmail.com,undefined",
+        "emails": [ "curtis.lacy@gmail.com" ],
+        "urls": ["https://www.facebook.com/curtis.lacy"], 
+        "utcOffset":-4,
+        "languagesSpoken": [null] 
+      }
+    }</code>
+  </pre>
+</div><!-- /.container-fluid -->
