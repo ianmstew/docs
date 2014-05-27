@@ -1,13 +1,9 @@
-<div class="alert alert-danger fade in">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <strong>You haven't authenticated with an API.</strong> Connect with a data source on the left to begin.
-</div>
-
+<div id="alert-area"></div>
 <div class="container-fluid">
-  <div class="bar">
+  <div class="bar" id="test-form">
     <form role="form">
       <div class="input-group">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" id="sample-uri">
         <span class="input-group-btn">
           <button class="btn-green" type="button">Get JSON</button>
         </span>
@@ -48,4 +44,21 @@
       }
     }</code>
   </pre>
+  <script type="text/javascript">
+    $.getJSON( '/sampleUri/userprofile', function( dataStr, status ) {
+      var data = JSON.parse( dataStr );
+      if( data.uri )
+      {
+        console.log( 'Setting sample URI to: ' + data.uri );
+        $( '#sample-uri' ).val( data.uri );
+      }
+    } ).fail( function( status ) {
+      $( '#alert-area' ).html( 
+        '<div class="alert alert-danger fade in hidden">' +
+        '  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+        "  <strong>You haven't authenticated with the Facebook API.</strong> Connect with a data source on the left to begin." +
+        '</div>' );
+      $( '#test-form' ).hide();
+    });
+  </script>
 </div><!-- /.container-fluid -->
