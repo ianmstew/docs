@@ -110,6 +110,8 @@ app.get( '/disconnect/:service', function( req, res ) {
 		delete req.session.passport.user[ req.params.service ];
 	res.redirect( '/' );
 });
+
+require( './lib/facebookUris' )( app );
  
 app.listen(3000);
 console.log('Listening on port 3000...');
