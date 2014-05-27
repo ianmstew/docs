@@ -1,5 +1,11 @@
-<div id="alert-area"></div>
 <div class="container-fluid">
+  <div id="alert-area"></div>
+
+  <h1>User Profile</h1>
+  <h3>URI Format:</h3>
+  <p>
+    <code id='sampleUri'>ldengine://{owner}//@acct:facebook:{accountID}/user/{userID}</code>
+  </p>
   <div class="bar" id="test-form">
     <form role="form">
       <div class="input-group">
@@ -10,37 +16,31 @@
       </div><!-- /input-group -->
     </form>
   </div><!-- /.bar -->
-
-    <h1>User Profile</h1>
-    <h3>URI Format:</h3>
-    <p>
-      <code id='sampleUri'>ldengine://{owner}//@acct:facebook:{accountID}/user/{userID}</code>
-    </p>
-    <h3>Sample Output:</h3>
+  <h3>Sample Output:</h3>
   <pre>
     <code id='sampleOutput'>
     {
-      "uri":"ldengine://curtis.lacy//@acct:facebook:100007891360262/user/100007891360262",
-      "owner":"curtis.lacy",
+      "uri":"{Original URI used to recover this data}",
+      "owner":"{Account holder who owns this data}",
       "category":"person",
       "data": {
-        "id":"ldengine://curtis.lacy//@acct:facebook:100007891360262/user/100007891360262",
+        "id":"{Original URI, again}",
         "displayName": {
-          "formatted":"Curtis Lacy"
+          "formatted":"{User's human-readable name}"
         },
-        "preferredUsername":"curtis.lacy",
-        "thumbnailUrl":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/t1.0-1/p50x50/1622693_10201763345185548_76507595_t.jpg",
+        "preferredUsername":"{Username}",
+        "thumbnailUrl":"{URL of the user's profile picture}",
         "appData": {
           "serviceName":"Facebook",
           "serviceImgUrl":"/images/512x512-logos/facebook.png",
-          "verified":true
+          "verified": {True or false depending on if facebook believes the user is "verified"}
         },
-        "location":"en_US",
-        "aboutMe":"01/12/1977,curtis.lacy@gmail.com,undefined",
-        "emails": [ "curtis.lacy@gmail.com" ],
-        "urls": ["https://www.facebook.com/curtis.lacy"], 
-        "utcOffset":-4,
-        "languagesSpoken": [null] 
+        "location":"{User's country}",
+        "aboutMe":"{Service-specific 'about me' data.}",
+        "emails": [ {Array of user's email addresses} ],
+        "urls": [ {Array of URLs related to the user.} ], 
+        "utcOffset":{User's timezone},
+        "languagesSpoken": [ {Array of languages spoken by the user.} ] 
       }
     }</code>
   </pre>
@@ -48,10 +48,7 @@
     $.getJSON( '/sampleUri/userprofile', function( dataStr, status ) {
       var data = JSON.parse( dataStr );
       if( data.uri )
-      {
-        console.log( 'Setting sample URI to: ' + data.uri );
         $( '#sample-uri' ).val( data.uri );
-      }
     } ).fail( function( status ) {
       $( '#alert-area' ).html( 
         '<div class="alert alert-danger fade in hidden">' +
