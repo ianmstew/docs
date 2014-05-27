@@ -53,6 +53,10 @@
   .nav-dashboard {
     padding: 1% 0 0 1%;
     height: 100%;
+
+    .list-group-item {
+      border: none;
+    }
   }
 
   .panel {
@@ -98,7 +102,7 @@
 
   .panel-default {
     > .panel-heading {
-      background-color: #FFF;
+      background-color: @gray-lighter;
     }
   }
 
@@ -141,7 +145,7 @@
 
   padding: 0;
   border: none;
-  height: 400px;
+  min-height: 400px;
   white-space: pre-wrap;
   background-color: @gray-even-lighter;
 
