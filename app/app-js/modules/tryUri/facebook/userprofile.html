@@ -62,7 +62,7 @@
       $.getJSON( '/getUri', { "uri": $( '#sample-uri' ).val() }, function( data, status ) {
         console.log( 'Got: ' );
         console.log( data );
-        $( '#sampleOutput' ).text( JSON.stringify( data ));
+        $( '#sampleOutput' ).text( JSON.stringify( data, null, 2 ));
       }).fail( function( status, error ) {
         console.log( '')
         $( '#sampleOutput' ).text( status.responseText );
