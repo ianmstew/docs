@@ -11,7 +11,7 @@
       <div class="input-group">
         <input type="text" class="form-control" id="sample-uri">
         <span class="input-group-btn">
-          <button class="btn-green" type="button">Get JSON</button>
+          <button class="btn-green" type="button" id="get-json">Try It!</button>
         </span>
       </div><!-- /input-group -->
     </form>
@@ -56,6 +56,17 @@
         "  <strong>You haven't authenticated with the Facebook API.</strong> Connect with a data source on the left to begin." +
         '</div>' );
       $( '#test-form' ).hide();
+    });
+
+    $( '#get-json' ).click( function() {
+      $.getJSON( '/getUri', { "uri": $( '#sample-uri' ).val() }, function( data, status ) {
+        console.log( 'Got: ' );
+        console.log( data );
+        $( '#sampleOutput' ).text( data );
+      }).fail( function( status, error ) {
+        console.log( '')
+        $( '#sampleOutput' ).text( status.responseText );
+      });
     });
   </script>
 </div><!-- /.container-fluid -->
