@@ -5,7 +5,7 @@ define(function (require) {
 
   ShowView = Marionette.ItemView.extend({
     template: showTemplate,
-    className: 'dashboard-content'
+    // className: 'container-fluid'
   });
 
   return ShowView;

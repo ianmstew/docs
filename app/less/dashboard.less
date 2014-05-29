@@ -1,168 +1,95 @@
 // Dashboard Styling
 // --------------------------------------------------
 
-.dashboard-wrapper {     // contains sidebar navigation + dashboard content
-  &:extend(.row all);
+// Dashboard Wrapper: Contains sidebar navigation + dashboard content
+.dashboard-wrapper {
+  // &:extend(.row all);
 
+  padding-top: 0.75%;
   height: 100%;
 }
 
-.dashboard-content {
-  &:extend(.container-fluid all, .col-xs-12 all, .col-md-8 all, .col-lg-8 all);
-
-  padding: 0 15px;
-  height: 100%;
-
-  h1 {
-    // &:extend(.pull-left);
-  }
-
-  h3 {
-    clear: both;
-  }
-
-  h4 {
-    // border-bottom: 1px @gray-even-lighter solid;
-
-    > a {
-      font-size: @font-size-h6;
-    }
-  }
-
-  table
-   {
-    &:extend(.table all, .table-striped all);
-  }
-
-  .dashboard-accounts,
-  .dashboard-api {
-    &:extend(.col-xs-12 all, .col-md-6 all, .col-lg-6 all);
-  }
-
-  .dashboard-api {
-    .api-list {
-      &:extend(.row all);
-
-      .api {
-        .name {
-          &:extend(.col-md-2 all);
-
-        }
-
-        .status {
-          &:extend(.col-md-2 all);
-
-        }
-
-        .data-usage {
-          &:extend(.col-md-3 all);
-
-        }
-
-        .billing-cycle {
-          &:extend(.col-md-3 all);
-
-        }
-
-        .actions {
-          &:extend(.col-md-2 all);
-
-        }
-      }
-    }
-  }
-
-  .dashboard-accounts {
-    .accounts-list {
-      .account {
-        .select-default {
-          &:extend(.col-md-1 all);
-
-        }
-
-        .name {
-          &:extend(.col-md-3 all);
-
-        }
-
-        .address {
-          &:extend(.col-md-3 all);
-
-        }
-
-        .balance {
-          &:extend(.col-md-2 all);
-
-        }
-
-        .actions {
-          &:extend(.col-md-3 all);
-
-        }
-      }
-    }
-  }
-}
-
-// Nav variations
+// Left Navigation + Content View
 // --------------------------------------------------
+.nav-dashboard-wrapper,
+.dashboard-content {
+  padding: 0 1%;
+}
+
 .nav-dashboard-wrapper {
   &:extend(.col-xs-12 all, .col-md-4 all, .col-lg-4 all);
 
-  padding: 0;
   height: 100%;
-  // background-color: @gray-even-lighter;
 
   .nav-dashboard {
-    padding: 1% 0 0 1%;
+    padding: 0;
     height: 100%;
-    //background-color: @gray-even-lighter;
+
+    .list-group-item {
+      border: none;
+      padding: 0;
+    }
   }
 
+  .panel {
+    button.btn-green {
+      margin-top: -2px;
+      &:extend(.btn-xs, .pull-right);
+      width: 90px;
+    }
+    /*
+    .btn-group {
+      margin-top: -2px;
+    }
+    */
+
+    .panel-body {
+      padding: 0;
+
+      ul {
+        margin: 0;
+        list-style-type: none;
+        margin-left: 0;
+        padding: 0;
+
+        li {
+          a {
+            display: block;
+            padding: 2% 3.1%;
+            color: @gray-dark;
+            border-bottom: 1px @gray-lighter solid;
+
+            &:hover {
+              text-decoration: none;
+              background-color: @gray-even-lighter;
+            }
+          }
+
+          &:nth-child(even) {
+            background-color: lighten(@gray-even-lighter, 2%);
+          }
+
+          &:last-child {
+            a {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .panel-default {
+    > .panel-heading {
+      background-color: @gray-lighter;
+    }
+  }
+
+  /*
   .list-group {
     margin-bottom: 0;
-
-    > .list-group-item {
-      padding: 0;
-      // background-color: @gray-even-lighter;
-      border-radius: 0;
-      border: none;
-    }
-
-    > li:first-child {
-        > a {
-          border-top: 0;
-        }
-      }
-
-    > li {
-      > a {
-        margin-bottom: 1px;
-        padding: 20px;
-        color: @gray-light;
-        font-size: @font-size-h4;
-        border-top: 1px @gray-lightest solid;
-        border-bottom: 1px @gray-lighter solid;
-        border-right: none;
-
-        &:hover, .active {
-          color: @brand-primary;
-          background-color: #fff;
-        }
-
-        i {
-          width: 25px;
-          padding-right: 1%;
-          text-align: center;
-        }
-
-      }
-
-      i {
-        margin-right: 5px;
-      }
-    }
   }
+  */
 }
 
 // Dashboard Content Subnavigation with Search (e.g. Payments - Purchase, Single, Subs, etc.)
@@ -190,13 +117,46 @@
   width: 200px;
 }
 
+// Dashboard Content
+// --------------------------------------------------
+
+.dashboard-content {
+  &:extend(.col-xs-12 all, .col-md-8 all, .col-lg-8 all);
+
+  height: 100%;
+
+  h1 {
+    // &:extend(.pull-left);
+  }
+
+  h3 {
+    clear: both;
+  }
+
+  h4 {
+    // border-bottom: 1px @gray-even-lighter solid;
+
+    > a {
+      font-size: @font-size-h6;
+    }
+  }
+
+  table
+   {
+    &:extend(.table all, .table-striped all);
+  }
+}
+
 // JSON Output
 // --------------------------------------------------
-pre {
-  margin: 0;
+.js-json {
+  // &:extend(.row);
+
   padding: 0;
   border: none;
-  height: 400px;
+  min-height: 400px;
+  white-space: pre-wrap;
+  background-color: @gray-even-lighter;
 
   &:before {
     display: block;
@@ -206,5 +166,12 @@ pre {
     content: "JSON Output";
     color: @gray-light;
     background: @gray-lighter;
+  }
+
+  code {
+    margin: 0;
+    white-space: pre-wrap;
+    background-color: @gray-even-lighter;
+    color: #000;
   }
 }

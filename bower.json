@@ -14,7 +14,7 @@
     "backbone.wreqr": "~1.3.1",
     "requirejs": "~2.1.11",
     "requirejs-hogan-plugin": "~0.3.1",
-    "engine-ui": "https://github.com/LDEngine/engine-ui.git#966762ffe38ce5bbcc28e3e8a727444896136878"
+    "engine-ui": "https://github.com/LDEngine/engine-ui.git#3e5531ea65ec2af42cd59d4ea8be985c94ea6bb9"
   },
   "exportsOverride": {
     "backbone.wreqr": {
