@@ -1,8 +1,13 @@
 var express = require('express'),
 	passport = require( 'passport' ),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
-	TwitterStrategy = require( 'passport-twitter' ).Strategy;
+	TwitterStrategy = require( 'passport-twitter' ).Strategy,
+	EDM = require( 'engine-data-module' ),
+	TokenStore = require( './lib/passportTokenStore' );
 
+var datamodule = new EDM.DataModule( {
+	services: [ 'facebook' ]
+});
 // Configure the login mechanisms.
 
 // Passport session setup.
@@ -21,8 +26,8 @@ passport.deserializeUser(function(obj, done) {
 
 passport.use( new FacebookStrategy( 
 	{
-		clientID: '1435264953389408',
-    	clientSecret: 'a2e8fef3bd4897e2ac34d92cbebfa49a',
+		clientID: TokenStore.tokens.facebook.clientID,
+		clientSecret: TokenStore.tokens.facebook.clientSecret,
     	callbackURL: "http://local.apinetwork.co:3000/auth/facebook/callback",
     	enableProof: false,
     	passReqToCallback: true
@@ -39,8 +44,8 @@ passport.use( new FacebookStrategy(
 ));
 passport.use( new TwitterStrategy(
 	{
-		consumerKey: 'NMWWu6OYHQwS3SOTaN0UpYmPX',
-		consumerSecret: 'xh0HbjlGeiZpQl7S1X5s8skSnO3PXvK9RaDFuC8zu7KqYsEFqr',
+		consumerKey: TokenStore.tokens.twitter.consumerKey,
+		consumerSecret: TokenStore.tokens.twitter.consumerSecret,
 		callbackUrl: 'http://local.apinetwork.co:3000/auth/twitter/callback',
 		passReqToCallback: true
 	},
@@ -110,6 +115,24 @@ app.get( '/disconnect/:service', function( req, res ) {
 		delete req.session.passport.user[ req.params.service ];
 	res.redirect( '/' );
 });
+
+app.get( '/getUri', function( req, res ) {
+	datamodule.fetcher.fetch( 
+		new TokenStore.UserStore( req ),
+		req.query.uri,
+		function( error, result ) {
+			if( error )
+			{
+				res.json( error );
+			}
+			else
+			{
+				res.send( result );
+			}
+		}
+	);
+});
+require( './lib/facebookUris' )( app );
  
 app.listen(3000);
 console.log('Listening on port 3000...');

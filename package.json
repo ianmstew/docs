@@ -13,6 +13,7 @@
   "author": "Engine, Inc.",
   "readmeFilename": "README.md",
   "dependencies": {
+    "underscore": "~1.6.0",
     "express": "^3.4.8",
     "mongodb": "^1.3.23",
     "grunt": "^0.4.4",
@@ -25,7 +26,7 @@
     "grunt-contrib-less": "^0.11.0",
     "grunt-jscs-checker": "^0.4.1",
     "grunt-contrib-jshint": "^0.10.0",
-    "engine-data-module": "git+https://github.com/LDEngine/Engine-Data-Module.git#master",
+    "engine-data-module": "git+https://github.com/curtislacy/Engine-Data-Module.git#Alternate-TokenStore",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.3",
     "passport-twitter": "~1.0.2"
