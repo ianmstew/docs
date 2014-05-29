@@ -3,66 +3,45 @@
 
 // Dashboard Wrapper: Contains sidebar navigation + dashboard content
 .dashboard-wrapper {
-  &:extend(.row all);
+  // &:extend(.row all);
 
+  padding-top: 0.75%;
   height: 100%;
-}
-
-.dashboard-content {
-  &:extend(.container-fluid all, .col-xs-12 all, .col-md-8 all, .col-lg-8 all);
-
-  padding: 0 15px;
-  height: 100%;
-
-  h1 {
-    // &:extend(.pull-left);
-  }
-
-  h3 {
-    clear: both;
-  }
-
-  h4 {
-    // border-bottom: 1px @gray-even-lighter solid;
-
-    > a {
-      font-size: @font-size-h6;
-    }
-  }
-
-  table
-   {
-    &:extend(.table all, .table-striped all);
-  }
-}
-
-.bar {
-  &:hover {
-    background-color: none;
-  }
 }
 
 // Left Navigation + Content View
 // --------------------------------------------------
+.nav-dashboard-wrapper,
+.dashboard-content {
+  padding: 0 1%;
+}
+
 .nav-dashboard-wrapper {
   &:extend(.col-xs-12 all, .col-md-4 all, .col-lg-4 all);
 
-  padding: 0;
   height: 100%;
 
   .nav-dashboard {
-    padding: 1% 0 0 1%;
+    padding: 0;
     height: 100%;
 
     .list-group-item {
       border: none;
+      padding: 0;
     }
   }
 
   .panel {
+    button.btn-green {
+      margin-top: -2px;
+      &:extend(.btn-xs, .pull-right);
+      width: 90px;
+    }
+    /*
     .btn-group {
       margin-top: -2px;
     }
+    */
 
     .panel-body {
       padding: 0;
@@ -138,10 +117,40 @@
   width: 200px;
 }
 
+// Dashboard Content
+// --------------------------------------------------
+
+.dashboard-content {
+  &:extend(.col-xs-12 all, .col-md-8 all, .col-lg-8 all);
+
+  height: 100%;
+
+  h1 {
+    // &:extend(.pull-left);
+  }
+
+  h3 {
+    clear: both;
+  }
+
+  h4 {
+    // border-bottom: 1px @gray-even-lighter solid;
+
+    > a {
+      font-size: @font-size-h6;
+    }
+  }
+
+  table
+   {
+    &:extend(.table all, .table-striped all);
+  }
+}
+
 // JSON Output
 // --------------------------------------------------
 .js-json {
-  &:extend(.row);
+  // &:extend(.row);
 
   padding: 0;
   border: none;
