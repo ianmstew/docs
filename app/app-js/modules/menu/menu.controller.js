@@ -33,10 +33,11 @@ define(function (require) {
     },
 
     showUriHelp: function( service, uriClass ) {
-      console.log( '*** showUriHelp for: ' + service + ', ' + uriClass );
-
-      $( '.dashboard-content' ).load( '/app-js/modules/tryUri/' + service + '/' + uriClass + '.html' );
-      //appChannel.commands.execute( 'region:content-main:showin', tos );
+      $( '.dashboard-content' ).load( '/app-js/modules/tryUri/tryUri.html',
+        function() {
+          window.populateTryUri( service, uriClass );
+        }
+      );
     }
 
 
