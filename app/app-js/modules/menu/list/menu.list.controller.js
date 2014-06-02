@@ -6,6 +6,15 @@ define(function (require) {
 
   MenuListController = Marionette.Controller.extend({
 
+    events: {
+      'click': 'highlightItem'
+    },
+
+    /*
+    highlightItem: function(){
+    }
+    */
+
     showMenu: function () {
       var menuListView = new MenuListView();
       menuChannel.commands.execute('region:content-menu:showin', menuListView);

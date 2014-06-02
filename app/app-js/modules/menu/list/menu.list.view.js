@@ -4,7 +4,9 @@ define(function (require) {
       MenuListView;
 
   MenuListView = Marionette.ItemView.extend({
-    template: template
+    template: template,
+    id: 'accordion',
+    className: 'panel-group'
   });
 
   return MenuListView;

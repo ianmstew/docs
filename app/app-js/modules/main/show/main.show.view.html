@@ -5,13 +5,33 @@
 <div class="bar">
   <form role="form">
     <div class="input-group">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control js-input-expand" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed leo vitae odio pharetra tristique vitae ut arcu. Sed feugiat rutrum ipsum, sit amet aliquet lacus porta ac. Fusce feugiat odio in imperdiet viverra. Pellentesque blandit ligula sit amet magna hendrerit venenatis.">
       <span class="input-group-btn">
         <button class="btn-green" type="button">Get JSON</button>
       </span>
     </div><!-- /input-group -->
   </form>
 </div><!-- /.bar -->
+
+<script text="text/javascript">
+  $(function() {
+    $('.js-input-expand').focus(function() {
+        $(this).animate({
+          height: 50
+        },
+        'slow'
+      );
+    })
+
+    .blur(function() {
+        $(this).animate({
+          height: 35
+        },
+        'slow'
+      );
+    });
+  });
+</script>
 
 <p class="js-json"><code>{{ example JSON here }}</code>
 </p>
