@@ -10,10 +10,7 @@ define(function (require) {
       'click': 'highlightItem'
     },
 
-    /*
-    highlightItem: function(){
-    }
-    */
+    // highlightItem
 
     showMenu: function () {
       var menuListView = new MenuListView();

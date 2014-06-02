@@ -24,7 +24,7 @@
       ".": "lib/backbone.babysitter.js"
     },
     "bootstrap": {
-      ".": "dist/js/bootstrap.js",
+      ".": "dist/lib/bootstrap.js",
       "js": "js",
       "less": "less"
     },
