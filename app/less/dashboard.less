@@ -65,6 +65,10 @@
             }
           }
 
+          .js-data-select {
+            background-color: @brand-primary;
+          }
+
           &:nth-child(even) {
             background-color: lighten(@gray-even-lighter, 2%);
           }
@@ -144,6 +148,16 @@
   table
    {
     &:extend(.table all, .table-striped all);
+  }
+}
+
+// Try URI Field
+// --------------------------------------------------
+.js-input-container {
+  position: relative;
+
+  .js-input-expand {
+    position: absolute;
   }
 }
 

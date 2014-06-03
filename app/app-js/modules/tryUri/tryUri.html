@@ -1,63 +1,72 @@
-<div class="container-fluid">
-  <div id="alert-area"></div>
+<div id="alert-area"></div>
 
-  <h1>User Profile</h1>
-  <h3>URI Format:</h3>
-  <p>
-    <code id='sampleUri'></code>
-  </p>
-  <div class="bar" id="test-form">
-    <form role="form">
-      <div class="input-group">
-        <input type="text" class="form-control" id="sample-uri">
-        <span class="input-group-btn">
-          <button class="btn-green" type="button" id="get-json">Try It!</button>
-        </span>
-      </div><!-- /input-group -->
-    </form>
-  </div><!-- /.bar -->
-  <h3>Sample Output:</h3>
-  <pre>
-    <code id='sampleOutput'>
-    </code>
-  </pre>
-  <script type="text/javascript">
-    window.populateTryUri = function( service, uriClass ) {
-      $.getJSON( '/sampleUri/' + service + '/' + uriClass, function( data, status ) {
-        if( data.uri )
-          $( '#sample-uri' ).val( data.uri );
-      } ).fail( function( status ) {
-        $( '#alert-area' ).html( 
-          '<div class="alert alert-danger fade in hidden">' +
-          '  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
-          "  <strong>You haven't authenticated with the " + service + " API.</strong> Connect with a data source on the left to begin." +
-          '</div>' );
-        $( '#test-form' ).hide();
+<div class="bar">
+  <form role="form">
+    <div class="input-group">
+      <input type="text" class="form-control js-input-expand">
+      <span class="input-group-btn">
+        <button class="btn-green" type="button">Try It!</button>
+      </span>
+    </div><!-- /input-group -->
+  </form>
+</div><!-- /.bar -->
 
+<h1>User Profile</h1>
+<h3>URI Format:</h3>
+<p>
+  <code id='sampleUri'></code>
+</p>
+<div class="bar" id="test-form">
+  <form role="form">
+    <div class="input-group">
+      <input type="text" class="form-control" id="sample-uri">
+      <span class="input-group-btn">
+        <button class="btn-green" type="button" id="get-json">Try It!</button>
+      </span>
+    </div><!-- /input-group -->
+  </form>
+</div><!-- /.bar -->
+<h3>Sample Output:</h3>
+<pre>
+  <code id='sampleOutput'>
+  </code>
+</pre>
+<script type="text/javascript">
+  window.populateTryUri = function( service, uriClass ) {
+    $.getJSON( '/sampleUri/' + service + '/' + uriClass, function( data, status ) {
+      if( data.uri )
+        $( '#sample-uri' ).val( data.uri );
+    } ).fail( function( status ) {
+      $( '#alert-area' ).html(
+        '<div class="alert alert-danger fade in hidden">' +
+        '  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+        "  <strong>You haven't authenticated with the " + service + " API.</strong> Connect with a data source on the left to begin." +
+        '</div>' );
+      $( '#test-form' ).hide();
+
+    });
+
+
+    $.getJSON( '/genericUri/' + service + '/' + uriClass, function( data, status ) {
+      if( data.uri )
+        $( '#sampleUri' ).text( data.uri );
+    }).fail( function( status ) {
+      $( '#sampleUri' ).text( status.responseText );
+    });
+
+    $.getJSON( '/genericOutput/' + service + '/' + uriClass, function( result, status ) {
+      $( '#sampleOutput' ).text( JSON.stringify( result, null, 2 ) );
+    }).fail( function( status ) {
+      $( '#sampleOutput' ).text( JSON.stringify( status, null, 2 ) );
+    });
+
+    $( '#get-json' ).click( function() {
+      $.getJSON( '/getUri', { "uri": $( '#sample-uri' ).val() }, function( data, status ) {
+        $( '#sampleOutput' ).text( JSON.stringify( data, null, 2 ));
+      }).fail( function( status, error ) {
+        $( '#sampleOutput' ).text( status.responseText );
       });
+    });
 
-
-      $.getJSON( '/genericUri/' + service + '/' + uriClass, function( data, status ) {
-        if( data.uri )
-          $( '#sampleUri' ).text( data.uri );
-      }).fail( function( status ) {
-        $( '#sampleUri' ).text( status.responseText );
-      });
-
-      $.getJSON( '/genericOutput/' + service + '/' + uriClass, function( result, status ) {
-        $( '#sampleOutput' ).text( JSON.stringify( result, null, 2 ) );
-      }).fail( function( status ) {
-        $( '#sampleOutput' ).text( JSON.stringify( status, null, 2 ) );
-      });
-
-      $( '#get-json' ).click( function() {
-        $.getJSON( '/getUri', { "uri": $( '#sample-uri' ).val() }, function( data, status ) {
-          $( '#sampleOutput' ).text( JSON.stringify( data, null, 2 ));
-        }).fail( function( status, error ) {
-          $( '#sampleOutput' ).text( status.responseText );
-        });
-      });
-
-    }
-  </script>
-</div><!-- /.container-fluid -->
+  }
+</script>
