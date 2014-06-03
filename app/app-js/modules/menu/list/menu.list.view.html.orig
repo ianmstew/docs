@@ -1,0 +1,209 @@
+<<<<<<< HEAD
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion">
+      Facebook
+    </h4>
+  </div>
+  <div id="collapseOne" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <ul>
+        <li>
+          <a href="tryUri/facebook/userprofile">User Profile for {userID}</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerfriends">User's friends list</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownernews">User's news feed</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerstatus">User's status feed</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerevents">User's created events</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownergroups">User's group details</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerlikes">User's likes</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerlinks">Links shared by user</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerphotos">User's photos</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownerposts">Posts shared by user</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/owneralbums">Albums shared by user</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownernotes">User's notes</a>
+        </li>
+        <li>
+          <a href="tryUri/facebook/ownervideos">User's videos</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+=======
+<ul class="nav nav-dashboard list-group">
+  <li class="list-group-item">
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+              Facebook
+            </a>
+            <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <ul>
+              <li><a href="tryUri/facebook/userprofile">User Profile for {userID}</a></li>
+              <li><a href="tryUri/facebook/ownerfriends">User's friends list</a></li>
+              <li><a href="tryUri/facebook/ownernews">User's news feed</a></li>
+              <li><a href="tryUri/facebook/ownerstatus">User's status feed</a></li>
+              <li><a href="tryUri/facebook/ownerevents">User's created events</a></li>
+              <li><a href="tryUri/facebook/ownergroups">User's group details</a></li>
+              <li><a href="tryUri/facebook/ownerlikes">User's likes</a></li>
+              <li><a href="tryUri/facebook/ownerlinks">Links shared by user</a></li>
+              <li><a href="tryUri/facebook/ownerphotos">User's photos</a></li>
+              <li><a href="tryUri/facebook/ownerposts">Posts shared by user</a></li>
+              <li><a href="tryUri/facebook/owneralbums">Albums shared by user</a></li>
+              <li><a href="tryUri/facebook/ownernotes">User's notes</a></li>
+              <li><a href="tryUri/facebook/ownervideos">User's videos</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+              Twitter
+            </a>
+            <button type="button" class="btn-green" onclick="window.location.assign( '/auth/twitter' );">Connect</button>
+            <!--
+            <div class="btn-group btn-group-xs pull-right">
+              <button type="button" class="btn btn-default" onclick="window.location.assign( '/auth/twitter' );">Connect</button>
+              <button type="button" class="btn btn-default" onclick="window.location.assign( '/disconnect/twitter' );">Disconnect</button>
+            </div>
+            -->
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <li><a href="tryUri/twitter/userprofile">User Profile for {userID}</a></li>
+              <li><a href="tryUri/twitter/statussent">Status messages sent by {accountID}</a></li>
+              <li><a href="tryUri/twitter/following">List of users that {userID} is following.</a></li>
+              <li><a href="tryUri/twitter/pendingfollowing">List of users that {userID} has requested to follow.</a></li>
+              <li><a href="tryUri/twitter/mentions">Status messages that mention {accountID}.</a></li>
+              <li><a href="tryUri/twitter/followers">List of users that follow {userID}.</a></li>
+              <li><a href="tryUri/twitter/pendingfollowers">List of users that have requested to follow {userID}</a></li>
+              <li><a href="tryUri/twitter/directsent">Direct messages sent by {accountID}</a></li>
+              <li><a href="tryUri/twitter/directreceived">Direct messages received by {accountID}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+              Gmail
+            </a>
+            <button type="button" class="btn-green">Connect</button>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <li>Data Type 1</li>
+              <li>Data Type 2</li>
+              <li>Data Type 3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+>>>>>>> origin
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion">
+      Twitter
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion">
+      Gmail
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour" data-parent="#accordion">
+      IMAP
+    </h4>
+  </div>
+  <div id="collapseFour" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFive" data-parent="#accordion">
+      App.net
+    </h4>
+  </div>
+  <div id="collapseFive" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
+      </ul>
+    </div>
+  </div>
+</div><!-- /.panel -->

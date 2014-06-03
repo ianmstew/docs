@@ -6,7 +6,7 @@ var express = require('express'),
 	TokenStore = require( './lib/passportTokenStore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook' ]
+	services: [ 'facebook', 'twitter' ]
 });
 // Configure the login mechanisms.
 
@@ -133,6 +133,7 @@ app.get( '/getUri', function( req, res ) {
 	);
 });
 require( './lib/facebookUris' )( app );
+require( './lib/twitterUris' )( app );
  
 app.listen(3000);
 console.log('Listening on port 3000...');
