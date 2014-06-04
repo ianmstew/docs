@@ -1,7 +1,15 @@
 $(function() {
+
+  var totalHeight = '100%',
+  $uriField = $('.js-input-expand');
+
+  $uriField.each(function(i,el) {
+    $(this).data('height', $(this).height());
+  });
+
   $('.js-input-expand').focus(function() {
       $(this).animate({
-        width: 150
+        height: 100
       },
       'slow'
     );
@@ -9,7 +17,7 @@ $(function() {
 
   .blur(function() {
       $(this).animate({
-        width: 100
+        height: totalHeight
       },
       'slow'
     );
