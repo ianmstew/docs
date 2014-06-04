@@ -3,3 +3,5 @@ bower_components
 dist
 temp
 .DS_Store
+*.log
+
