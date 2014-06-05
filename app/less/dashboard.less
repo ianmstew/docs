@@ -51,6 +51,7 @@
         list-style-type: none;
         margin-left: 0;
         padding: 0;
+        }
 
         li {
           a {
@@ -60,8 +61,8 @@
             border-bottom: 1px @gray-lighter solid;
 
             &:hover {
+              background-color: @brand-primary;
               text-decoration: none;
-              background-color: @gray-even-lighter;
             }
           }
 
@@ -94,10 +95,14 @@
     margin-bottom: 0;
   }
   */
+
+.types-selected {
+  background-color: @brand-primary;
 }
 
-// Dashboard Content Subnavigation with Search (e.g. Payments - Purchase, Single, Subs, etc.)
+// Dashboard Content Subnavigation
 // -------------------------------------------------
+/*
 .nav-secondary {
   &:extend(.pull-left);
 
@@ -120,6 +125,7 @@
   margin: 2.25% auto;
   width: 200px;
 }
+*/
 
 // Dashboard Content
 // --------------------------------------------------
@@ -148,6 +154,50 @@
   table
    {
     &:extend(.table all, .table-striped all);
+  }
+}
+
+// Try URI Landing Page
+// --------------------------------------------------
+.try-uri-intro {
+  h1 {
+    padding-bottom: 1%;
+    border-bottom: 1px @gray-lighter dashed;
+  }
+  ol {
+    padding-left: 20px;
+    padding-bottom: 2%;
+    list-style-type: none;
+    counter-reset: li;
+
+    li {
+      position: relative;
+      padding: 2% 1% 2% 5%;
+      font-size: 1.25em;
+
+      &:before {
+        content: counter(li);
+        counter-increment: li;
+        position: absolute;
+        left: -20px;
+        top: 65%;
+        margin-top: -1.3em;
+        height: 2em;
+        width: 2em;
+        font-size: 1.5em;
+        line-height: 2em;
+        text-align: center;
+        color: #fff;
+        background: @brand-primary;
+        border-radius: 2em;
+      }
+    }
+  }
+
+  .help {
+    padding: 1%;
+    background-color: lighten(@brand-primary, 45%);
+    border-radius: .25em;
   }
 }
 

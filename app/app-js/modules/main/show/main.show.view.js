@@ -12,28 +12,27 @@ define(function (require) {
         var totalHeight = '100%',
         $uriField = $('.js-input-expand');
 
-        $uriField.each(function(i,el) {
+        $uriField.each(function() {
           $(this).data('height', $(this).height());
         });
 
-        $('.js-input-expand').focus(function() {
-          console.log("Another log statement!");
-            $(this).animate({
-              height: 100
-            },
-            'slow'
-          );
-        })
+        $('.js-input-expand')
+          .focus(function() {
+              $(this).animate({
+                height: 100
+              },
+              'slow'
+            );
+          })
 
-        .blur(function() {
-            $(this).animate({
-              height: totalHeight
-            },
-            'slow'
-          );
-        });
+          .blur(function() {
+              $(this).animate({
+                height: totalHeight
+              },
+              'slow'
+            );
+          });
       });
-      console.log("I'm here");
     }
   });
 
