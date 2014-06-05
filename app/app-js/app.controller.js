@@ -15,6 +15,7 @@ define(function (require) {
         'region:header:showin':       'showInHeader',
         'region:footer:showin':       'showInFooter',
         'region:content:showin':      'showInContent',
+        'region:tryUri:showin':       'showInTryUri',
         'region:content-menu:showin': 'showInContentMenu',
         'region:content-main:showin': 'showInContentMain'
       }
@@ -38,9 +39,16 @@ define(function (require) {
       this.appLayoutShown = false;
     },
 
+    showInTryUri: function (view) {
+      this.app.contentRegion.show(view);
+
+      // showing a view in the contentRegion will destroy the appLayout
+      this.appLayoutShown = false;
+    },
+
     showInContentMenu: function (view) {
       var self = this;
-      
+
       // don't re-render the layout if currently visible
       if (!this.appLayoutShown) {
         this.appLayout = new AppContentLayout();
@@ -77,5 +85,5 @@ define(function (require) {
     }
   });
 
-  return AppController;  
+  return AppController;
 });

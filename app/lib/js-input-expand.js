@@ -7,19 +7,20 @@ $(function() {
     $(this).data('height', $(this).height());
   });
 
-  $('.js-input-expand').focus(function() {
-      $(this).animate({
-        height: 100
-      },
-      'slow'
-    );
-  })
+  $('.js-input-expand')
+    .focus(function() {
+        $(this).animate({
+          height: 100
+        },
+        'slow'
+      );
+    })
 
-  .blur(function() {
-      $(this).animate({
-        height: totalHeight
-      },
-      'slow'
-    );
-  });
+    .blur(function() {
+        $(this).animate({
+          height: totalHeight
+        },
+        'slow'
+      );
+    });
 });

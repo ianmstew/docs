@@ -1,8 +1,9 @@
-<div id="alert-area"></div>
+<div id="alert-area">
+</div>
 
 <div class="bar">
   <form role="form">
-    <div class="input-group">
+    <div class="input-group js-input-container">
       <textarea class="js-input-expand" rows="1" cols="100">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed leo vitae odio pharetra tristique vitae ut arcu. Sed feugiat rutrum ipsum, sit amet aliquet lacus porta ac. Fusce feugiat odio in imperdiet viverra. Pellentesque blandit ligula sit amet magna hendrerit venenatis.</textarea>
       <span class="input-group-btn">
         <button class="btn-green" type="button">Try It!</button>
@@ -19,7 +20,7 @@
 <div class="bar" id="test-form">
   <form role="form">
     <div class="input-group">
-      <input type="text" class="form-control" id="sample-uri">
+      <textarea class="form-control">Lorem ipsum</textarea>
       <span class="input-group-btn">
         <button class="btn-green" type="button" id="get-json">Try It!</button>
       </span>
@@ -31,7 +32,8 @@
   <code id='sampleOutput'>
   </code>
 </pre>
-<script type="text/javascript">
+
+<script>
   window.populateTryUri = function( service, uriClass ) {
     $.getJSON( '/sampleUri/' + service + '/' + uriClass, function( data, status ) {
       if( data.uri )
@@ -69,4 +71,31 @@
     });
 
   }
+
+  $(function() {
+
+    var totalHeight = '100%',
+    $uriField = $('.js-input-expand');
+
+    $uriField.each(function(i,el) {
+      $(this).data('height', $(this).height());
+    });
+
+    $('.js-input-expand')
+      .focus(function() {
+          $(this).animate({
+            height: 100
+          },
+          'slow'
+        );
+      })
+
+      .blur(function() {
+          $(this).animate({
+            height: totalHeight
+          },
+          'slow'
+        );
+      });
+  });
 </script>

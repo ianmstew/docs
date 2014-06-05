@@ -1,7 +1,19 @@
 // Dashboard Styling
 // --------------------------------------------------
 
+// Left Navigation + Content View
+// --------------------------------------------------
+.navbar {
+  .navbar-brand {
+    background: url('../img/engine.png') no-repeat left center;
+    background-size: 110px;
+    padding-left: 125px;
+  }
+}
+
+
 // Dashboard Wrapper: Contains sidebar navigation + dashboard content
+// --------------------------------------------------
 .dashboard-wrapper {
   // &:extend(.row all);
 
@@ -161,12 +173,12 @@
 // --------------------------------------------------
 .try-uri-intro {
   h1 {
-    padding-bottom: 1%;
+    padding-bottom: 1.5%;
     border-bottom: 1px @gray-lighter dashed;
   }
   ol {
     padding-left: 20px;
-    padding-bottom: 2%;
+    padding-bottom: 1.5%;
     list-style-type: none;
     counter-reset: li;
 
@@ -196,6 +208,7 @@
 
   .help {
     padding: 1%;
+    width: 70%;
     background-color: lighten(@brand-primary, 45%);
     border-radius: .25em;
   }
