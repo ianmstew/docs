@@ -15,9 +15,9 @@ define(function (require) {
         'region:header:showin':       'showInHeader',
         'region:footer:showin':       'showInFooter',
         'region:content:showin':      'showInContent',
-        'region:tryUri:showin':       'showInTryUri',
         'region:content-menu:showin': 'showInContentMenu',
-        'region:content-main:showin': 'showInContentMain'
+        'region:content-main:showin': 'showInContentMain',
+        'region:tryUri:showin':       'showInTryUri'
       }
     },
 
