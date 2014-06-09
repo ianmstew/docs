@@ -1,7 +1,6 @@
 @import "engine-ui-import.less";
 @import "button-groups.less";
 @import "dashboard.less";
-@import "grid.less";
 
 @footer-height: 60px;
 
@@ -21,6 +20,12 @@ body {
 .content {
   // make room for absolutely positioned stick-to-bottom footer
   padding-bottom: @footer-height;
+
+  @media screen {
+    @media (max-width: @screen-xs-min) {
+      padding-bottom: (@footer-height / 2);
+    }
+  }
 }
 
 .header {
@@ -123,15 +128,20 @@ footer {
 
   @media screen {
     @media (max-width: @screen-xs-min) {
+      padding-top: 2%;
       position:relative;
       line-height: (@footer-height / 2);
       font-size: 1em;
-      text-align: left;
+      text-align: center;
 
       a {
 
         &:first-child {
-          padding-left: 0;
+          padding: 0
+        }
+
+        &:last-child {
+          padding: 0 0 2% 0;
         }
 
         display: block;
