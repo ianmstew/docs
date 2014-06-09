@@ -2,7 +2,6 @@
 @import "button-groups.less";
 @import "dashboard.less";
 @import "grid.less";
-@import "variables.less";
 
 @footer-height: 60px;
 
@@ -109,17 +108,35 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: @footer-height;
   line-height: @footer-height;
   color: #FFF;
   text-indent: 20px;
-  background-color: #393939;
+  background-color: @gray-dark;
 
   a {
     padding: 0 0.5%;
 
     &:first-child {
       padding-left: 1%;
+    }
+  }
+
+  @media screen {
+    @media (max-width: @screen-xs-min) {
+      position:relative;
+      line-height: (@footer-height / 2);
+      font-size: 1em;
+      text-align: left;
+
+      a {
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        display: block;
+        padding: 0;
+      }
     }
   }
 }
