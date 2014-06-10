@@ -8,7 +8,7 @@ var express = require('express'),
 	TokenStore = require( './lib/passportTokenStore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook', 'twitter', 'gmail', 'imap' ]
+	services: [ 'facebook', 'twitter' ]
 });
 // Configure the login mechanisms.
 
