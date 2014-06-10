@@ -1,45 +1,29 @@
 <p>Please enter your mail server information:<br/>
-<a href="javascript:void(0);" class="modal">Why do I need to give you this?</a></p>
-<div id='messageContainer'>
+<!--<a href="javascript:void(0);" class="modal">Why do I need to give you this?</a></p> -->
+<!--<div id='messageContainer'>
 <% if (message) { %>
 <p><span class="error"><%= message %></span></p>
 <% } %>
-</div>
-<%
-    var showServerFields = true;
-    if( typeof immutableSettings == 'boolean' )
-        showServerFields = !immutableSettings;
-%>
-<form name='loginForm' action="<%= imapConfig.callbackPath %>" method="post" onsubmit="return validateLogin()">
+</div>-->
+
+<form name='loginForm' action="/auth/imap/callback" method="post" onsubmit="return validateLogin()">
 	<div>
 	<label>Username:</label>
-	<input type="text" name="username" <% if( typeof username != 'undefined' ){ %> value="<%= username %>" <% } %>/><br/>
+	<input type="text" name="username" {{ #username }}value="{{ username }}"{{ /username }} placeholder="Your email login name" /><br/>
 	</div>
 	<div>
 	<label>Password:</label>
 	<input type="password" name="password"/>
 	</div>
-<% if( showServerFields ) { %>
     <div>
     <label>Server:</label>
-    <input type="text" name="server" <% if( typeof host != 'undefined' ){ %> value="<%= host %>" <% } %>/><br/>
+    <input type="text" name="server" {{ #host }}value="{{ host }}"{{ /host }} placeholder="mail.yourserver.com"/><br/>
     </div>
     <div>
     <label>Port:</label>
-    <input type="text" name="port" <% if( typeof port != 'undefined' ){ %> value="<%= port %>" <% } %>/>
-    <input type="checkbox" name="secured" <% if( typeof secure != 'undefined' && secure == 'on' ){ %> CHECKED<% } %>/>Secured
+    <input type="text" name="port" {{ #port }}port value="{{ port }}"{{ /port }} {{ ^port }}value="993"{{ /port }} />
+    <input type="checkbox" name="secured" CHECKED />Secured
     </div>
-<% } else { %>
-    <input type="hidden" name="server" <% if( typeof host != 'undefined' ){ %> value="<%= host %>" <% } %>/>
-    <input type="hidden" name="port" <% if( typeof port != 'undefined' ){ %> value="<%= port %>" <% } %>/>
-    <input type="hidden" name="secured" value="<%= ( typeof secure != 'undefined' && secure == 'on' ) ? 'CHECKED' : '' %>"/>
-
-<% } %>
-
-<% if( typeof( captchaRequired ) !== 'undefined' && captchaRequired ) { %>
-    <p>Also, Google wants you to prove you're a human:</p>
-    <img src="<%= captchaUrl %>" />
-<% } %>
 
 	<div>
 	<input type="submit" value="Submit"/>
