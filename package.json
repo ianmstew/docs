@@ -29,6 +29,7 @@
     "engine-data-module": "git+https://github.com/curtislacy/Engine-Data-Module.git#Alternate-TokenStore",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.3",
-    "passport-twitter": "~1.0.2"
+    "passport-twitter": "~1.0.2",
+    "passport-google-oauth-offline": "0.2.x"
   }
 }
