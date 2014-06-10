@@ -5,10 +5,11 @@ var express = require('express'),
 	ImapStrategy = require( './lib/ImapStrategy' ).Strategy,
 	GoogleOAuth2Strategy = require( 'passport-google-oauth-offline' ).OAuth2Strategy,
 	EDM = require( 'engine-data-module' ),
-	TokenStore = require( './lib/passportTokenStore' );
+	TokenStore = require( './lib/passportTokenStore' ),
+	_ = require( 'underscore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook', 'twitter' ]
+	services: [ 'facebook', 'twitter', 'imap' ]
 });
 // Configure the login mechanisms.
 
@@ -121,26 +122,6 @@ app.configure(function () {
   app.use(express.static(__dirname+'/dist'));
 });
 
-passport.use( 'imap', new ImapStrategy( 
-	app,
-	{
-		'usePost': true,
-		'loginPath': '/#imap',
-		'callbackPath': '/auth/imap/callback',
-		'failureRedirectUrl': '/#imap',
-		'timeout': 15000
-	},
-	function( req, connectionData, done ) {
-		// Need to get the original user here, so we can add our new item to the session.
-		var allUserData = req.user ? req.user : {};
-		allUserData[ 'imap' ] = {
-			owner: 'imap:' + UserNameUtil.encode( connectionData.username ),
-			connectionData: connectionData
-		};
-		return done( null, allUserData );
-	}
-)); 
-
 app.get( '/auth/facebook',
 	passport.authenticate( 'facebook' ));
 app.get( 
@@ -165,6 +146,21 @@ app.get(
 	'/auth/gmail/callback',
 	passport.authenticate( 'gmail', { failureRedirect: '/auth-failure' }),
 	function( req, res ) {
+		res.redirect( '/' );
+	}
+);
+app.post( '/auth/imap/callback',
+	function( req, res ) {
+		var allUserData = req.user ? req.user : {};
+
+		var connectionData = _.extend( {}, req.body );
+		connectionData.secured = ( connectionData.secured == 'on' );
+		allUserData[ 'imap' ] = {
+			owner: 'imap:' + connectionData.username.replace( /\./g, '&#46;' ),
+			connectionData: connectionData
+		};
+
+		console.log( allUserData );
 		res.redirect( '/' );
 	}
 );
