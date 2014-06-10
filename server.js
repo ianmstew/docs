@@ -2,6 +2,7 @@ var express = require('express'),
 	passport = require( 'passport' ),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
 	TwitterStrategy = require( 'passport-twitter' ).Strategy,
+	ImapStrategy = require( './lib/ImapStrategy' ).Strategy,
 	EDM = require( 'engine-data-module' ),
 	TokenStore = require( './lib/passportTokenStore' );
 
@@ -61,7 +62,6 @@ passport.use( new TwitterStrategy(
 
 	}
 ));
- 
 var app = express();
  
 app.configure(function () {
@@ -89,6 +89,26 @@ app.configure(function () {
   } );
   app.use(express.static(__dirname+'/dist'));
 });
+
+passport.use( 'imap', new ImapStrategy( 
+	app,
+	{
+		'usePost': true,
+		'loginPath': '/#imap',
+		'callbackPath': '/auth/imap/callback',
+		'failureRedirectUrl': '/#imap',
+		'timeout': 15000
+	},
+	function( req, connectionData, done ) {
+		// Need to get the original user here, so we can add our new item to the session.
+		var allUserData = req.user ? req.user : {};
+		allUserData[ 'imap' ] = {
+			owner: 'imap:' + UserNameUtil.encode( connectionData.username ),
+			connectionData: connectionData
+		};
+		return done( null, allUserData );
+	}
+)); 
 
 app.get( '/auth/facebook',
 	passport.authenticate( 'facebook' ));
