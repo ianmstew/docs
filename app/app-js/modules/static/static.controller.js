@@ -6,6 +6,7 @@ define(function (require) {
       LegalView        = require('modules/static/legal/legal.view'),
       PrivacyView      = require('modules/static/privacy/privacy.view'),
       TosView          = require('modules/static/tos/tos.view'),
+      ImapView         = require('modules/static/imap/imap.view'),
       appChannel       = require('app.channel'),
       StaticController;
 
@@ -17,7 +18,8 @@ define(function (require) {
       'contact': 'showContact',
       'legal': 'showLegal',
       'privacy': 'showPrivacy',
-      'tos': 'showTos'
+      'tos': 'showTos',
+      'imap': 'showImap'
     },
 
     showAbout: function () {
@@ -48,6 +50,11 @@ define(function (require) {
     showTos: function () {
       var aboutView = new TosView();
       appChannel.commands.execute('region:content:showin', aboutView);
+    },
+
+    showImap: function () {
+      var imapView = new ImapView();
+      appChannel.commands.execute('region:content:showin', imapView);
     }
   });
 

@@ -8,7 +8,7 @@
   </div>
   <div id="collapseOne" class="panel-collapse collapse in">
     <div class="panel-body">
-      <ul>
+      <ul class="list-data-type">
         <li>
           <a href="tryUri/facebook/userprofile">User Profile for {userID}</a>
         </li>
@@ -48,6 +48,83 @@
         <li>
           <a href="tryUri/facebook/ownervideos">User's videos</a>
         </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion">
+      Twitter
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>
+          <a href="tryUri/twitter/userprofile">User Profile for {userID}</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/statussent">Status messages sent by {accountID}</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/following">List of users that {userID} is following.</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/pendingfollowing">List of users that {userID} has requested to follow.</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/mentions">Status messages that mention {accountID}.</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/followers">List of users that follow {userID}.</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/pendingfollowers">List of users that have requested to follow {userID}</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/directsent">Direct messages sent by {accountID}</a>
+        </li>
+        <li>
+          <a href="tryUri/twitter/directreceived">Direct messages received by {accountID}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion">
+      Gmail
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button type="button" class="btn-green">Connect</button>
+    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour" data-parent="#accordion">
+      IMAP
+    </h4>
+  </div>
+  <div id="collapseFour" class="panel-collapse collapse">
+    <div class="panel-body">
+      <ul>
+        <li>Data Type 1</li>
+        <li>Data Type 2</li>
+        <li>Data Type 3</li>
       </ul>
     </div>
   </div>
@@ -122,7 +199,7 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
               Gmail
             </a>
-            <button type="button" class="btn-green">Connect</button>
+            <button type="button" class="btn-green" onclick="window.location.assign( '/auth/gmail' );">Connect</button>
           </h4>
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
@@ -135,60 +212,27 @@
           </div>
         </div>
       </div>
->>>>>>> origin
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
-    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion">
-      Twitter
-    </h4>
-  </div>
-  <div id="collapseTwo" class="panel-collapse collapse">
-    <div class="panel-body">
-      <ul>
-        <li>Data Type 1</li>
-        <li>Data Type 2</li>
-        <li>Data Type 3</li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <button type="button" class="btn-green">Connect</button>
-    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion">
-      Gmail
-    </h4>
-  </div>
-  <div id="collapseThree" class="panel-collapse collapse">
-    <div class="panel-body">
-      <ul>
-        <li>Data Type 1</li>
-        <li>Data Type 2</li>
-        <li>Data Type 3</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <button type="button" class="btn-green">Connect</button>
-    <h4 class="panel-title" data-toggle="collapse" data-target="#collapseFour" data-parent="#accordion">
-      IMAP
-    </h4>
-  </div>
-  <div id="collapseFour" class="panel-collapse collapse">
-    <div class="panel-body">
-      <ul>
-        <li>Data Type 1</li>
-        <li>Data Type 2</li>
-        <li>Data Type 3</li>
-      </ul>
-    </div>
-  </div>
-</div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+              IMAP
+            </a>
+            <button type="button" class="btn-green" onclick="window.location.assign( '#imap' );">Connect</button>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <li>Data Type 1</li>
+              <li>Data Type 2</li>
+              <li>Data Type 3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+>>>>>>> Add-Connect-Flows
 
 <div class="panel panel-default">
   <div class="panel-heading">
