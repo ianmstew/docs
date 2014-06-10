@@ -3,6 +3,7 @@ var express = require('express'),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
 	TwitterStrategy = require( 'passport-twitter' ).Strategy,
 	ImapStrategy = require( './lib/ImapStrategy' ).Strategy,
+	GoogleOAuth2Strategy = require( 'passport-google-oauth-offline' ).OAuth2Strategy,
 	EDM = require( 'engine-data-module' ),
 	TokenStore = require( './lib/passportTokenStore' );
 
@@ -25,7 +26,7 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-passport.use( new FacebookStrategy( 
+passport.use( 'facebook', new FacebookStrategy( 
 	{
 		clientID: TokenStore.tokens.facebook.clientID,
 		clientSecret: TokenStore.tokens.facebook.clientSecret,
@@ -43,7 +44,7 @@ passport.use( new FacebookStrategy(
 		return done( null, allUserData );
 	}
 ));
-passport.use( new TwitterStrategy(
+passport.use( 'twitter', new TwitterStrategy(
 	{
 		consumerKey: TokenStore.tokens.twitter.consumerKey,
 		consumerSecret: TokenStore.tokens.twitter.consumerSecret,
@@ -62,6 +63,36 @@ passport.use( new TwitterStrategy(
 
 	}
 ));
+passport.use( 'gmail', new GoogleOAuth2Strategy(
+	{
+		'clientID': TokenStore.tokens.gmail.clientID,
+		'clientSecret': TokenStore.tokens.gmail.clientSecret,
+		"callbackURL": "http://local.apinetwork.co:3000/auth/gmail/callback",
+		"callbackPath": "/auth/gmail/callback",
+		'scope': [ 'https://www.googleapis.com/auth/userinfo.profile',
+				   'https://www.googleapis.com/auth/userinfo.email',
+				   'https://mail.google.com/' ],
+   		// This one is required by passport strategies that extend OAuth.
+		"passReqToCallback": true,			
+		'accessType': 'offline',
+		'approvalPrompt': 'force'
+	},
+	function( req, accessToken, refreshToken, profile, done ) {
+		var allUserData = req.user ? req.user : {};
+		allUserData[ 'gmail' ] = { 
+			'owner': 'gmail:' + profile.id,
+			'username': profile._json.email,
+			'xoauth2': accessToken,
+			'refreshToken': refreshToken,
+			'host': 'imap.gmail.com',
+			'port': 993,
+			'secure': true
+		};
+
+		return done( null, allUserData );
+ 	}
+));
+ 
 var app = express();
  
 app.configure(function () {
@@ -124,6 +155,15 @@ app.get( '/auth/twitter',
 app.get( 
 	'/auth/twitter/callback',
 	passport.authenticate( 'twitter', { failureRedirect: '/auth-failure' }),
+	function( req, res ) {
+		res.redirect( '/' );
+	}
+);
+app.get( '/auth/gmail',
+	passport.authenticate( 'gmail' ));
+app.get( 
+	'/auth/gmail/callback',
+	passport.authenticate( 'gmail', { failureRedirect: '/auth-failure' }),
 	function( req, res ) {
 		res.redirect( '/' );
 	}
