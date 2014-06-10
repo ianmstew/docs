@@ -195,6 +195,7 @@ app.get( '/getUri', function( req, res ) {
 require( './lib/facebookUris' )( app );
 require( './lib/twitterUris' )( app );
 require( './lib/gmailUris' )( app );
+require( './lib/imapUris' )( app );
  
 app.listen(3000);
 console.log('Listening on port 3000...');
