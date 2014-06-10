@@ -1,3 +1,6 @@
+// Node 0.10.x adds additional cert checking, which could cause problems here.
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var express = require('express'),
 	passport = require( 'passport' ),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
@@ -76,21 +79,13 @@ passport.use( 'imap', new ImapStrategy(
 		'timeout': 15000
 	},
 	function( req, connectionData, done ) {
-		console.log( 'IMAP Strategy!' );
+		// Need to get the original user here, so we can add our new item to the session.
+		var allUserData = req.user ? req.user : {};
 
 		var connectionData = _.extend( {}, req.body );
 		connectionData.secured = ( connectionData.secured == 'on' );
 		allUserData[ 'imap' ] = {
 			owner: 'imap:' + connectionData.username.replace( /\./g, '&#46;' ),
-			connectionData: connectionData
-		};
-
-		console.log( allUserData );
-
-		// Need to get the original user here, so we can add our new item to the session.
-		var allUserData = req.user ? req.user : {};
-		allUserData[ 'imap' ] = {
-			owner: 'imap:' + UserNameUtil.encode( connectionData.username ),
 			connectionData: connectionData
 		};
 		return done( null, allUserData );
