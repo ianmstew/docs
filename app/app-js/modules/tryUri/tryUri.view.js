@@ -1,15 +1,16 @@
 define(function (require) {
   var Marionette = require('marionette'),
-      showTemplate = require('hgn!modules/main/show/main.show.view'),
-      ShowView;
+      template = require('hgn!modules/tryUri/tryUri.view'),
+      TryUriView;
 
-  ShowView = Marionette.ItemView.extend({
-    template: showTemplate
-    // className: 'container-fluid'
+  TryUriView = Marionette.ItemView.extend({
+    template: template,
+    className: 'tryUri',
 
-    /*
     onShow: function () {
       _.defer(function() {
+        console.log("Hooray, this is working!");
+        
         var totalHeight = '100%',
         $uriField = $('.js-input-expand');
 
@@ -34,8 +35,8 @@ define(function (require) {
             );
           });
       });
-    }*/
+    }
   });
 
-  return ShowView;
+  return TryUriView;
 });
