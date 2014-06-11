@@ -33,7 +33,7 @@ define(function (require) {
     },
 
     showUriHelp: function( service, uriClass ) {
-      $( '.dashboard-content' ).load( '/app-js/modules/tryUri/tryUri.html',
+      $( '.dashboard-content' ).load( '/app-js/modules/tryUri/tryUri.view.html',
         function() {
           window.populateTryUri( service, uriClass );
         }

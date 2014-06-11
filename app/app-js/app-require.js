@@ -44,6 +44,7 @@ require([
   'modules/main/main.module',
   'modules/footer/footer.module',
   'modules/static/static.module',
+  'modules/tryUri/tryUri.module',
   'debug/event.debugger'
 ],
 function (Marionette, app) {
