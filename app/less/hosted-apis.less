@@ -1,6 +1,6 @@
 @import "engine-ui-import.less";
-@import "dashboard.less";
 @import "button-groups.less";
+@import "dashboard.less";
 
 @footer-height: 60px;
 
@@ -20,6 +20,12 @@ body {
 .content {
   // make room for absolutely positioned stick-to-bottom footer
   padding-bottom: @footer-height;
+
+  @media screen {
+    @media (max-width: @screen-xs-min) {
+      padding-bottom: (@footer-height / 2);
+    }
+  }
 }
 
 .header {
@@ -107,16 +113,10 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: @footer-height;
-}
-
-.footer {
-  clear: both;
-  height: 100%;
-  color: #FFF;
-  background-color: #393939;
   line-height: @footer-height;
+  color: #FFF;
   text-indent: 20px;
+  background-color: @gray-dark;
 
   a {
     padding: 0 0.5%;
@@ -125,8 +125,31 @@ footer {
       padding-left: 1%;
     }
   }
-}
 
+  @media screen {
+    @media (max-width: @screen-xs-min) {
+      padding-top: 2%;
+      position:relative;
+      line-height: (@footer-height / 2);
+      font-size: 1em;
+      text-align: center;
+
+      a {
+
+        &:first-child {
+          padding: 0
+        }
+
+        &:last-child {
+          padding: 0 0 2% 0;
+        }
+
+        display: block;
+        padding: 0;
+      }
+    }
+  }
+}
 // Bar **UI Element needs revisiting**
 // --------------------------------------------------
 .bar,

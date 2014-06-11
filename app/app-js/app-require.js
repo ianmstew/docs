@@ -41,9 +41,13 @@ require([
   'bootstrap',
   'modules/header/header.module',
   'modules/menu/menu.module',
-  'modules/main/main.module',
+  'modules/welcome/welcome.module',
   'modules/footer/footer.module',
   'modules/static/static.module',
+  'modules/tryUri/tryUri.module',
+  'modules/alert/alert.module',
+  'entities/alert/alert.module',
+  'entities/datasource/datasource.module',
   'debug/event.debugger'
 ],
 function (Marionette, app) {

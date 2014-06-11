@@ -15,6 +15,7 @@ define(function (require) {
         'region:header:showin':       'showInHeader',
         'region:footer:showin':       'showInFooter',
         'region:content:showin':      'showInContent',
+        'region:content-alert:showin': 'showInContentAlert',
         'region:content-menu:showin': 'showInContentMenu',
         'region:content-main:showin': 'showInContentMain'
       }
@@ -38,44 +39,47 @@ define(function (require) {
       this.appLayoutShown = false;
     },
 
-    showInContentMenu: function (view) {
-      var self = this;
-      
+    _showInContentRegion: function (showFn) {
       // don't re-render the layout if currently visible
       if (!this.appLayoutShown) {
         this.appLayout = new AppContentLayout();
 
         this.appLayout.on('render', function () {
-          self.appLayout.menuRegion.show(view);
+          showFn();
         });
 
         this.app.contentRegion.show(this.appLayout);
       } else {
-        this.appLayout.menuRegion.show(view);
+        showFn();
       }
 
       this.appLayoutShown = true;
     },
 
+    showInContentAlert: function (view) {
+      var self = this;
+
+      this._showInContentRegion(function () {
+        self.appLayout.alertRegion.show(view);
+      });
+    },
+
+    showInContentMenu: function (view) {
+      var self = this;
+
+      this._showInContentRegion(function () {
+        self.appLayout.menuRegion.show(view);
+      });
+    },
+
     showInContentMain: function (view) {
       var self = this;
 
-      // don't re-render the layout if currently visible
-      if (!this.appLayoutShown) {
-        this.appLayout = new AppContentLayout();
-
-        this.appLayout.on('render', function () {
-          self.appLayout.mainRegion.show(view);
-        });
-
-        this.app.contentRegion.show(this.appLayout);
-      } else {
-        this.appLayout.mainRegion.show(view);
-      }
-
-      this.appLayoutShown = true;
+      this._showInContentRegion(function () {
+        self.appLayout.mainRegion.show(view);
+      });
     }
   });
 
-  return AppController;  
+  return AppController;
 });

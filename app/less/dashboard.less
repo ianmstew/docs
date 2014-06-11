@@ -1,7 +1,19 @@
 // Dashboard Styling
 // --------------------------------------------------
 
+// Left Navigation + Content View
+// --------------------------------------------------
+.navbar {
+  .navbar-brand {
+    background: url('../img/engine.png') no-repeat left center;
+    background-size: 110px;
+    padding-left: 125px;
+  }
+}
+
+
 // Dashboard Wrapper: Contains sidebar navigation + dashboard content
+// --------------------------------------------------
 .dashboard-wrapper {
   // &:extend(.row all);
 
@@ -17,7 +29,7 @@
 }
 
 .nav-dashboard-wrapper {
-  &:extend(.col-xs-12 all, .col-md-4 all, .col-lg-4 all);
+  &:extend(.col-xs-12 all, .col-sm-6 all, .col-md-4 all, .col-lg-4 all);
 
   height: 100%;
 
@@ -51,6 +63,7 @@
         list-style-type: none;
         margin-left: 0;
         padding: 0;
+        }
 
         li {
           a {
@@ -60,9 +73,13 @@
             border-bottom: 1px @gray-lighter solid;
 
             &:hover {
+              background-color: @brand-primary;
               text-decoration: none;
-              background-color: @gray-even-lighter;
             }
+          }
+
+          .js-data-select {
+            background-color: @brand-primary;
           }
 
           &:nth-child(even) {
@@ -90,10 +107,14 @@
     margin-bottom: 0;
   }
   */
+
+.types-selected {
+  background-color: @brand-primary;
 }
 
-// Dashboard Content Subnavigation with Search (e.g. Payments - Purchase, Single, Subs, etc.)
+// Dashboard Content Subnavigation
 // -------------------------------------------------
+/*
 .nav-secondary {
   &:extend(.pull-left);
 
@@ -116,12 +137,13 @@
   margin: 2.25% auto;
   width: 200px;
 }
+*/
 
 // Dashboard Content
 // --------------------------------------------------
 
 .dashboard-content {
-  &:extend(.col-xs-12 all, .col-md-8 all, .col-lg-8 all);
+  &:extend(.col-xs-12 all, .col-sm-6 all, .col-md-8 all, .col-lg-8 all);
 
   height: 100%;
 
@@ -147,6 +169,102 @@
   }
 }
 
+// Try URI Landing Page
+// --------------------------------------------------
+.try-uri-intro {
+  h1 {
+    padding-bottom: 1.5%;
+    border-bottom: 1px @gray-lighter dashed;
+  }
+  ol {
+    padding-left: 20px;
+    padding-bottom: 1.5%;
+    list-style-type: none;
+    counter-reset: li;
+
+    li {
+      position: relative;
+      padding: 2% 1% 2% 5%;
+      font-size: 1.25em;
+
+      &:before {
+        content: counter(li);
+        counter-increment: li;
+        position: absolute;
+        left: -20px;
+        top: 65%;
+        margin-top: -1.3em;
+        width: 2em;
+        height: 2em;
+        font-size: 1.5em;
+        line-height: 2em;
+        text-align: center;
+        color: #fff;
+        background: @brand-primary;
+        border-radius: 2em;
+      }
+    }
+
+    @media screen {
+      @media (max-width: @screen-md-min) {
+        li {
+          font-size: 1.15em;
+
+          &:before {
+            top: 70%;
+            margin-top: -1.275em;
+            width: 1.5em;
+            height: 1.5em;
+            font-size: 1.25em;
+            line-height: 1.5em;
+          }
+        }
+      }
+    }
+  }
+
+  .help {
+    padding: 1%;
+    width: 70%;
+    background-color: lighten(@brand-primary, 45%);
+    border-radius: .25em;
+
+    @media screen {
+      @media (max-width: @screen-md-min) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Try URI Field
+// --------------------------------------------------
+.js-input-container {
+  position: relative;
+
+  .js-input-expand {
+    position: absolute;
+    border: 1px @gray-lighter solid;
+    line-height: 2em;
+    resize: none;
+  }
+}
+
+.noscroll {
+  overflow: hidden;
+}
+
+.hiddendiv {
+  display: none;
+  white-space: pre-wrap;
+  width: 500px;
+  min-height: 50px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  padding: 5px;
+  word-wrap: break-word;
+}
+
 // JSON Output
 // --------------------------------------------------
 .js-json {
@@ -167,11 +285,29 @@
     color: @gray-light;
     background: @gray-lighter;
   }
+}
 
-  code {
-    margin: 0;
-    white-space: pre-wrap;
-    background-color: @gray-even-lighter;
-    color: #000;
-  }
+code {
+  margin: 0;
+  padding: 1%;
+  white-space: pre-wrap;
+  background-color: @gray-even-lighter;
+  color: @gray-darker;
+}
+
+.push {
+  clear: both;
+  position: relative;
+}
+
+// Added for textarea
+.noscroll {
+  overflow: hidden;
+}
+
+.hiddendiv {
+  display: none;
+  white-space: pre-wrap;
+  min-height: 50px;
+  word-wrap: break-word;
 }
