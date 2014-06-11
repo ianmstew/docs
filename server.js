@@ -1,3 +1,6 @@
+// Node 0.10.x adds additional cert checking, which could cause problems here.
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var express = require('express'),
 	passport = require( 'passport' ),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
@@ -5,10 +8,11 @@ var express = require('express'),
 	ImapStrategy = require( './lib/ImapStrategy' ).Strategy,
 	GoogleOAuth2Strategy = require( 'passport-google-oauth-offline' ).OAuth2Strategy,
 	EDM = require( 'engine-data-module' ),
-	TokenStore = require( './lib/passportTokenStore' );
+	TokenStore = require( './lib/passportTokenStore' ),
+	_ = require( 'underscore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook', 'twitter' ]
+	services: [ 'facebook', 'twitter', 'imap' ]
 });
 // Configure the login mechanisms.
 
@@ -26,6 +30,8 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+var app = express();
+ 
 passport.use( 'facebook', new FacebookStrategy( 
 	{
 		clientID: TokenStore.tokens.facebook.clientID,
@@ -63,6 +69,28 @@ passport.use( 'twitter', new TwitterStrategy(
 
 	}
 ));
+passport.use( 'imap', new ImapStrategy( 
+	app,
+	{
+		'usePost': true,
+		'loginPath': '/#imap',
+		'callbackPath': '/auth/imap/callback',
+		'failureRedirectUrl': '/#imap',
+		'timeout': 15000
+	},
+	function( req, connectionData, done ) {
+		// Need to get the original user here, so we can add our new item to the session.
+		var allUserData = req.user ? req.user : {};
+
+		var connectionData = _.extend( {}, req.body );
+		connectionData.secured = ( connectionData.secured == 'on' );
+		allUserData[ 'imap' ] = {
+			owner: 'imap:' + connectionData.username.replace( /\./g, '&#46;' ),
+			connectionData: connectionData
+		};
+		return done( null, allUserData );
+	}
+)); 
 passport.use( 'gmail', new GoogleOAuth2Strategy(
 	{
 		'clientID': TokenStore.tokens.gmail.clientID,
@@ -93,59 +121,41 @@ passport.use( 'gmail', new GoogleOAuth2Strategy(
  	}
 ));
  
-var app = express();
- 
 app.configure(function () {
-  app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session({ secret: 'lkdfj86B1Haf4BI' }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use( function( req, res, next ) {
-  	if( req.isAuthenticated() )
-  	{
-  		req.getAuthTokens = function( service ) {
-  			if( req.user.hasOwnProperty( service ))
-  				return req.user[ service ];
-  			else
-  				return false;
-  		};
-  	}
-  	else
-  	{
-  		req.getAuthTokens = function() { return false; };
-  	}
+	app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
+	app.use(express.cookieParser());
+	app.use(express.bodyParser());
+	app.use(express.session({ secret: 'lkdfj86B1Haf4BI' }));
+
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use( function( req, res, next ) {
+		if( req.isAuthenticated() )
+		{
+			req.getAuthTokens = function( service ) {
+				if( req.user.hasOwnProperty( service ))
+					return req.user[ service ];
+				else
+					return false;
+			};
+		}
+		else
+		{
+			req.getAuthTokens = function() { return false; };
+		}
 	next();
-  } );
-  app.use(express.static(__dirname+'/dist'));
+	} );
+	app.use(express.static(__dirname+'/dist'));
+
 });
 
-passport.use( 'imap', new ImapStrategy( 
-	app,
-	{
-		'usePost': true,
-		'loginPath': '/#imap',
-		'callbackPath': '/auth/imap/callback',
-		'failureRedirectUrl': '/#imap',
-		'timeout': 15000
-	},
-	function( req, connectionData, done ) {
-		// Need to get the original user here, so we can add our new item to the session.
-		var allUserData = req.user ? req.user : {};
-		allUserData[ 'imap' ] = {
-			owner: 'imap:' + UserNameUtil.encode( connectionData.username ),
-			connectionData: connectionData
-		};
-		return done( null, allUserData );
-	}
-)); 
+
 
 app.get( '/auth/facebook',
 	passport.authenticate( 'facebook' ));
 app.get( 
 	'/auth/facebook/callback',
-	passport.authenticate( 'facebook', { failureRedirect: '/auth-failure' }),
+	passport.authenticate( 'facebook', { failureRedirect: '#auth-failure' }),
 	function( req, res ) {
 		res.redirect( '/' );
 	}
@@ -154,7 +164,7 @@ app.get( '/auth/twitter',
 	passport.authenticate( 'twitter' ));
 app.get( 
 	'/auth/twitter/callback',
-	passport.authenticate( 'twitter', { failureRedirect: '/auth-failure' }),
+	passport.authenticate( 'twitter', { failureRedirect: '#auth-failure' }),
 	function( req, res ) {
 		res.redirect( '/' );
 	}
@@ -163,8 +173,15 @@ app.get( '/auth/gmail',
 	passport.authenticate( 'gmail' ));
 app.get( 
 	'/auth/gmail/callback',
-	passport.authenticate( 'gmail', { failureRedirect: '/auth-failure' }),
+	passport.authenticate( 'gmail', { failureRedirect: '#auth-failure' }),
 	function( req, res ) {
+		res.redirect( '/' );
+	}
+);
+app.post( '/auth/imap/callback',
+	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' }),
+	function( req, res ) {
+		console.log( 'Redirect!' );
 		res.redirect( '/' );
 	}
 );
@@ -194,6 +211,8 @@ app.get( '/getUri', function( req, res ) {
 });
 require( './lib/facebookUris' )( app );
 require( './lib/twitterUris' )( app );
- 
+require( './lib/gmailUris' )( app );
+require( './lib/imapUris' )( app );
+
 app.listen(3000);
 console.log('Listening on port 3000...');
