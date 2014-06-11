@@ -1,10 +1,10 @@
 define(function (require) {
   var Marionette = require('marionette'),
-      showTemplate = require('hgn!modules/main/show/main.show.view'),
-      ShowView;
+      template = require('hgn!modules/welcome/welcome.view'),
+      StartView;
 
-  ShowView = Marionette.ItemView.extend({
-    template: showTemplate
+  StartView = Marionette.ItemView.extend({
+    template: template
     // className: 'container-fluid'
 
     /*
@@ -37,5 +37,5 @@ define(function (require) {
     }*/
   });
 
-  return ShowView;
+  return StartView;
 });

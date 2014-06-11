@@ -5,10 +5,9 @@ define(function (require) {
   AlertModel = Backbone.Model.extend({
 
   	defaults: {
+      title: 'Alert Title',
   		message: 'Alert message',
-      
-      // {danger|warn|info|success}
-  		state: 'warn'
+  		state: 'danger'  // {danger|warn|info|success}
   	}
   });
 
