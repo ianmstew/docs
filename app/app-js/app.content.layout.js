@@ -9,7 +9,8 @@ define(function (require) {
 
     regions: {
       menuRegion: '#menu-region',
-      mainRegion: '#main-region'
+      mainRegion: '#main-region',
+      alertRegion: '#alert-region'
     }
   });
 
