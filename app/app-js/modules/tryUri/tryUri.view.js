@@ -7,38 +7,49 @@ define(function (require) {
     template: template,
     className: 'tryUri',
 
-    onPopulateTryUri: function (service, uriClass) {
-      $.getJSON('/genericUri/' + service + '/' + uriClass, function (data, status) {
-        if(data.uri)
-          $('#sampleUri').text(data.uri);
+    ui: {
+      sampleUri: '.js-sample-uri',
+      sampleOutput: '.js-sample-output',
+      tryIt: '.js-try-it',
+      uriField: '.js-input-expand'
+    },
+
+    initialize: function () {
+      this.service = this.options.service;
+      this.uriClass = this.options.uriClass;
+    },
+
+    onRender: function () {
+      var self = this;
+
+      $.getJSON('/genericUri/' + this.service + '/' + this.uriClass, function (data, status) {
+        if (data.uri) {
+          self.ui.sampleUri.text(data.uri);
+        }
       }).fail(function (status) {
-        $('#sampleUri').text(status.responseText);
+        self.ui.sampleUri.text(status.responseText);
       });
 
-      $.getJSON('/genericOutput/' + service + '/' + uriClass, function (result, status) {
-        $('#sampleOutput').text(JSON.stringify(result, null, 2));
+      $.getJSON('/genericOutput/' + this.service + '/' + this.uriClass, function (result, status) {
+        self.ui.sampleOutput.text(JSON.stringify(result, null, 2));
       }).fail(function (status) {
-        $('#sampleOutput').text(JSON.stringify(status, null, 2));
+        self.ui.sampleOutput.text(JSON.stringify(status, null, 2));
       });
 
-      $('#get-json').click(function () {
+      this.ui.tryIt.click(function () {
         $.getJSON('/getUri', { 'uri': $('#sample-uri').val() }, function (data, status) {
-          $('#sampleOutput').text(JSON.stringify(data, null, 2));
+          self.ui.sampleOutput.text(JSON.stringify(data, null, 2));
         }).fail(function (status, error) {
-          $('#sampleOutput').text(status.responseText);
+          self.ui.sampleOutput.text(status.responseText);
         });
       });
     },
 
     onShow: function () {
-      var totalHeight = '100%',
-      $uriField = $('.js-input-expand');
+      var totalHeight = '100%';
 
-      $uriField.each(function () {
-        $(this).data('height', $(this).height());
-      });
-
-      $('.js-input-expand')
+      this.ui.uriField
+        .data('height', this.ui.uriField.height())
         .focus(function () {
             $(this).animate({
               height: 100

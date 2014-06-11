@@ -21,9 +21,13 @@ define(function (require) {
       var fetchingDatasource = appChannel.reqres.request('datasource:entity', service, uriClass);
 
       $.when(fetchingDatasource).always(function (datasource) {
-        var tryUriView = new TryUriView({ model: datasource });
 
-        tryUriView.triggerMethod('populateTryUri', service, uriClass);
+        var tryUriView = new TryUriView({ 
+          model: datasource,
+          service: service,
+          uriClass: uriClass
+        });
+
         appChannel.vent.trigger('menu:show');
         appChannel.commands.execute('region:content-main:showin', tryUriView);
       });
