@@ -11,7 +11,7 @@ define(function (require) {
       sampleUri: '.js-sample-uri',
       sampleOutput: '.js-sample-output',
       tryIt: '.js-try-it',
-      uriField: '.js-input-expand'
+      uriField: '.js-uri'
     },
 
     initialize: function () {
@@ -37,7 +37,7 @@ define(function (require) {
       });
 
       this.ui.tryIt.click(function () {
-        $.getJSON('/getUri', { 'uri': $('#sample-uri').val() }, function (data, status) {
+        $.getJSON('/getUri', { uri: self.ui.uriField.val() }, function (data, status) {
           self.ui.sampleOutput.text(JSON.stringify(data, null, 2));
         }).fail(function (status, error) {
           self.ui.sampleOutput.text(status.responseText);
@@ -46,7 +46,7 @@ define(function (require) {
     },
 
     onShow: function () {
-      var totalHeight = '100%';
+      var totalHeight = this.ui.uriField.parent().height() + 'px';
 
       this.ui.uriField
         .data('height', this.ui.uriField.height())
