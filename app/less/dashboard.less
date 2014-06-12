@@ -1,17 +1,6 @@
 // Dashboard Styling
 // --------------------------------------------------
 
-// Left Navigation + Content View
-// --------------------------------------------------
-.navbar {
-  .navbar-brand {
-    background: url('../img/api-network.png') no-repeat left center;
-    background-size: 170px;
-    padding-left: 185px;
-  }
-}
-
-
 // Dashboard Wrapper: Contains sidebar navigation + dashboard content
 // --------------------------------------------------
 .dashboard-wrapper {
@@ -99,6 +88,7 @@
   .panel-default {
     > .panel-heading {
       background-color: @gray-lighter;
+      cursor: pointer;
     }
   }
 
@@ -217,8 +207,8 @@
 
   .js-input-expand {
     position: absolute;
+    width: 92.6%; // Need to fix this; temporary solution
     border: 1px @gray-lighter solid;
-    line-height: 2em;
     resize: none;
   }
 }

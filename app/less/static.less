@@ -7,6 +7,19 @@
     margin-bottom: 2%;
   }
 
+  .form-contact,
+  .form-imap {
+    &:extend(.form-horizontal all);
+
+    width: 50%;
+
+    @media screen {
+      @media (max-width: @screen-md-min) {
+        width: 100%;
+      }
+    }
+  }
+
   // Help Page
   .frequently-asked-questions {
     ul {
@@ -37,15 +50,15 @@
   }
 
   // Contact Page
-  .contact-form {
-    width: 50%;
+  .form-contact {
+    margin-bottom: 2%;
 
     button {
       margin-top: 2%;
     }
   }
 
-  .contact-social {
+  .social-contact {
 
     p {
       position: relative;
@@ -64,6 +77,13 @@
       a {
         color: @gray-darker;
       }
+    }
+  }
+
+  // IMAP
+  .form-imap {
+    .control-label {
+      text-align: left;
     }
   }
 }

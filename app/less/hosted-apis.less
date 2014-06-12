@@ -21,18 +21,18 @@ body {
 .content {
   // make room for absolutely positioned stick-to-bottom footer
   padding-bottom: @footer-height;
-
-  @media screen {
-    @media (max-width: @screen-xs-min) {
-      padding-bottom: (@footer-height / 2);
-    }
-  }
 }
 
 .header {
   > nav {
     > div {
       &:extend(.container-fluid all);
+    }
+
+    .navbar-brand {
+      background: url('../img/api-network.png') no-repeat left center;
+      background-size: 40px;
+      padding-left: 55px;
     }
   }
 }
