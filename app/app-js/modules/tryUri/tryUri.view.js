@@ -45,6 +45,7 @@ define(function (require) {
       });
     },
 
+
     onShow: function () {
       var totalHeight = this.ui.uriField.parent().height() + 'px';
 
@@ -52,7 +53,7 @@ define(function (require) {
         .data('height', this.ui.uriField.height())
         .focus(function () {
             $(this).animate({
-              height: 100
+              height: $(this)[0].scrollHeight
             },
             'slow'
          );

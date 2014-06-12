@@ -1,6 +1,7 @@
 @import "engine-ui-import.less";
 @import "button-groups.less";
 @import "dashboard.less";
+@import "static.less";
 @import "try-uri.less";
 
 @footer-height: 60px;
@@ -21,18 +22,18 @@ body {
 .content {
   // make room for absolutely positioned stick-to-bottom footer
   padding-bottom: @footer-height;
-
-  @media screen {
-    @media (max-width: @screen-xs-min) {
-      padding-bottom: (@footer-height / 2);
-    }
-  }
 }
 
 .header {
   > nav {
     > div {
       &:extend(.container-fluid all);
+    }
+
+    .navbar-brand {
+      background: url('../img/api-network.png') no-repeat left center;
+      background-size: 40px;
+      padding-left: 55px;
     }
   }
 }
@@ -42,6 +43,14 @@ body {
 
   overflow:auto;
   height: 100%;
+}
+
+// NOTE: This needs to be revised in accordance with engine-ui
+@brand-apiblue: #0c66a7;
+
+.btn-green {
+  background-color: @brand-apiblue;
+  border-color: darken(@brand-apiblue, 8%);
 }
 
 // Social Network Styling
@@ -82,15 +91,6 @@ body {
 .social-linkedin {
   background-color: @brand-linkedin;
 }
-
-// Dropdown menus
-// --------------------------------------------------
-/*
-.avatar {
-  margin-top: -7px;
-}
-*/
-
 
 // Status Icon
 // --------------------------------------------------
@@ -151,6 +151,7 @@ footer {
     }
   }
 }
+
 // Bar **UI Element needs revisiting**
 // --------------------------------------------------
 .bar,

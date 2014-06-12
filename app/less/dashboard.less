@@ -1,17 +1,6 @@
 // Dashboard Styling
 // --------------------------------------------------
 
-// Left Navigation + Content View
-// --------------------------------------------------
-.navbar {
-  .navbar-brand {
-    background: url('../img/engine.png') no-repeat left center;
-    background-size: 110px;
-    padding-left: 125px;
-  }
-}
-
-
 // Dashboard Wrapper: Contains sidebar navigation + dashboard content
 // --------------------------------------------------
 .dashboard-wrapper {
@@ -73,13 +62,13 @@
             border-bottom: 1px @gray-lighter solid;
 
             &:hover {
-              background-color: @brand-primary;
+              background-color: desaturate(lighten(@brand-apiblue, 25%), 40%);
               text-decoration: none;
             }
           }
 
           .js-data-select {
-            background-color: @brand-primary;
+            background-color: desaturate(lighten(@brand-apiblue, 25%), 40%);
           }
 
           &:nth-child(even) {
@@ -99,6 +88,7 @@
   .panel-default {
     > .panel-heading {
       background-color: @gray-lighter;
+      cursor: pointer;
     }
   }
 
@@ -111,33 +101,6 @@
 .types-selected {
   background-color: @brand-primary;
 }
-
-// Dashboard Content Subnavigation
-// -------------------------------------------------
-/*
-.nav-secondary {
-  &:extend(.pull-left);
-
-  padding: 20px;
-
-  a {
-    color: @gray-darker;
-  }
-
-  form {
-    width: 150px;
-
-    button {
-      background-color: #fff;
-    }
-  }
-}
-
-.nav-secondary-form {
-  margin: 2.25% auto;
-  width: 200px;
-}
-*/
 
 // Dashboard Content
 // --------------------------------------------------
@@ -200,7 +163,7 @@
         line-height: 2em;
         text-align: center;
         color: #fff;
-        background: @brand-primary;
+        background: lighten(@gray-light, 20%);
         border-radius: 2em;
       }
     }
@@ -222,17 +185,17 @@
       }
     }
   }
+}
 
-  .help {
-    padding: 1%;
-    width: 70%;
-    background-color: lighten(@brand-primary, 45%);
-    border-radius: .25em;
+.help {
+  padding: 1%;
+  // width: 70%;
+  background-color: lighten(@brand-primary, 45%);
+  border-radius: .25em;
 
-    @media screen {
-      @media (max-width: @screen-md-min) {
-        width: 100%;
-      }
+  @media screen {
+    @media (max-width: @screen-md-min) {
+      width: 100%;
     }
   }
 }
@@ -244,25 +207,10 @@
 
   .js-input-expand {
     position: absolute;
+    width: 92.6%; // Need to fix this; temporary solution
     border: 1px @gray-lighter solid;
-    line-height: 2em;
     resize: none;
   }
-}
-
-.noscroll {
-  overflow: hidden;
-}
-
-.hiddendiv {
-  display: none;
-  white-space: pre-wrap;
-  width: 500px;
-  min-height: 50px;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  padding: 5px;
-  word-wrap: break-word;
 }
 
 // JSON Output
@@ -298,16 +246,4 @@ code {
 .push {
   clear: both;
   position: relative;
-}
-
-// Added for textarea
-.noscroll {
-  overflow: hidden;
-}
-
-.hiddendiv {
-  display: none;
-  white-space: pre-wrap;
-  min-height: 50px;
-  word-wrap: break-word;
 }
