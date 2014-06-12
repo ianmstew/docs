@@ -1,6 +1,7 @@
 @import "engine-ui-import.less";
 @import "button-groups.less";
 @import "dashboard.less";
+@import "static.less";
 
 @footer-height: 60px;
 
@@ -43,6 +44,14 @@ body {
   height: 100%;
 }
 
+// NOTE: This needs to be revised in accordance with engine-ui
+@brand-apiblue: #0c66a7;
+
+.btn-green {
+  background-color: @brand-apiblue;
+  border-color: darken(@brand-apiblue, 8%);
+}
+
 // Social Network Styling
 // --------------------------------------------------
 
@@ -81,15 +90,6 @@ body {
 .social-linkedin {
   background-color: @brand-linkedin;
 }
-
-// Dropdown menus
-// --------------------------------------------------
-/*
-.avatar {
-  margin-top: -7px;
-}
-*/
-
 
 // Status Icon
 // --------------------------------------------------
@@ -150,6 +150,7 @@ footer {
     }
   }
 }
+
 // Bar **UI Element needs revisiting**
 // --------------------------------------------------
 .bar,

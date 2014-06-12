@@ -5,7 +5,7 @@ define(function (require) {
 
   HelpView = Marionette.ItemView.extend({
     template: template,
-    className: 'header'
+    className: 'main-content'
   });
 
   return HelpView;

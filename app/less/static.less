@@ -1,0 +1,69 @@
+// Static Pages
+// --------------------------------------------------
+.main-content {
+  padding: 0 1%;
+
+  > div {
+    margin-bottom: 2%;
+  }
+
+  // Help Page
+  .frequently-asked-questions {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        padding: 1%;
+        color: lighten(@brand-apiblue, 10%);
+        font-size: 1em;
+        border-bottom: 1px @gray-even-lighter solid;
+
+        &:first-child {
+          border-top: 1px @gray-even-lighter solid;
+        }
+
+        &:nth-child(even) {
+          background-color: lighten(@gray-even-lighter, 2%);
+        }
+
+        .help-solution {
+          color: @gray-light;
+          font-size: 1em;
+          margin-top: 0.5%;
+        }
+      }
+    }
+  }
+
+  // Contact Page
+  .contact-form {
+    width: 50%;
+
+    button {
+      margin-top: 2%;
+    }
+  }
+
+  .contact-social {
+
+    p {
+      position: relative;
+      line-height: 2em;
+
+      i,
+      a {
+        vertical-align: middle;
+      }
+
+      i {
+        padding-right: .75%;
+        color: @gray-light;
+      }
+
+      a {
+        color: @gray-darker;
+      }
+    }
+  }
+}

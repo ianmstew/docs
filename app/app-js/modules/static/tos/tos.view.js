@@ -5,7 +5,7 @@ define(function (require) {
 
   TosView = Marionette.ItemView.extend({
     template: template,
-    className: 'header'
+    className: 'main-content'
   });
 
   return TosView;

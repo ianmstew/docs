@@ -112,33 +112,6 @@
   background-color: @brand-primary;
 }
 
-// Dashboard Content Subnavigation
-// -------------------------------------------------
-/*
-.nav-secondary {
-  &:extend(.pull-left);
-
-  padding: 20px;
-
-  a {
-    color: @gray-darker;
-  }
-
-  form {
-    width: 150px;
-
-    button {
-      background-color: #fff;
-    }
-  }
-}
-
-.nav-secondary-form {
-  margin: 2.25% auto;
-  width: 200px;
-}
-*/
-
 // Dashboard Content
 // --------------------------------------------------
 
@@ -200,7 +173,7 @@
         line-height: 2em;
         text-align: center;
         color: #fff;
-        background: @brand-primary;
+        background: lighten(@gray-light, 20%);
         border-radius: 2em;
       }
     }
@@ -222,17 +195,17 @@
       }
     }
   }
+}
 
-  .help {
-    padding: 1%;
-    width: 70%;
-    background-color: lighten(@brand-primary, 45%);
-    border-radius: .25em;
+.help {
+  padding: 1%;
+  // width: 70%;
+  background-color: lighten(@brand-primary, 45%);
+  border-radius: .25em;
 
-    @media screen {
-      @media (max-width: @screen-md-min) {
-        width: 100%;
-      }
+  @media screen {
+    @media (max-width: @screen-md-min) {
+      width: 100%;
     }
   }
 }
@@ -248,21 +221,6 @@
     line-height: 2em;
     resize: none;
   }
-}
-
-.noscroll {
-  overflow: hidden;
-}
-
-.hiddendiv {
-  display: none;
-  white-space: pre-wrap;
-  width: 500px;
-  min-height: 50px;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  padding: 5px;
-  word-wrap: break-word;
 }
 
 // JSON Output
@@ -298,16 +256,4 @@ code {
 .push {
   clear: both;
   position: relative;
-}
-
-// Added for textarea
-.noscroll {
-  overflow: hidden;
-}
-
-.hiddendiv {
-  display: none;
-  white-space: pre-wrap;
-  min-height: 50px;
-  word-wrap: break-word;
 }
