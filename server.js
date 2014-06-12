@@ -12,7 +12,7 @@ var express = require('express'),
 	_ = require( 'underscore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook', 'twitter', 'imap' ]
+	services: [ 'facebook', 'twitter', 'imap', 'gmail' ]
 });
 // Configure the login mechanisms.
 
