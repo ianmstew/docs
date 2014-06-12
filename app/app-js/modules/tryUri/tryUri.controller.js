@@ -2,13 +2,37 @@ define(function (require) {
   var ModuleController = require('lib/module.controller'),
       TryUriView = require('modules/tryUri/tryUri.view'),
       appChannel = require('app.channel'),
+      history = require('lib/history'),
       TryUriController;
 
   TryUriController = ModuleController.extend({
 
-    initialize: function () {
-      var tryUriView = new TryUriView();
-      appChannel.commands.execute('region:tryUri:showin', tryUriView);
+    routes: {
+      'tryUri/:service/:uriClass': 'showUriHelp'
+    },
+
+    appEvents: {
+      vent: {
+        'try-uri:help': 'showUriHelp'
+      }
+    },
+
+    showUriHelp: function (service, uriClass) {
+      var fetchingDatasource = appChannel.reqres.request('datasource:entity', service, uriClass);
+
+      $.when(fetchingDatasource).always(function (datasource) {
+
+        var tryUriView = new TryUriView({ 
+          model: datasource,
+          service: service,
+          uriClass: uriClass
+        });
+
+        appChannel.vent.trigger('menu:show');
+        appChannel.commands.execute('region:content-main:showin', tryUriView);
+      });
+
+      history.navigate('tryUri/' + service + '/' + uriClass);
     }
   });
 

@@ -15,9 +15,9 @@ define(function (require) {
         'region:header:showin':       'showInHeader',
         'region:footer:showin':       'showInFooter',
         'region:content:showin':      'showInContent',
+        'region:content-alert:showin': 'showInContentAlert',
         'region:content-menu:showin': 'showInContentMenu',
-        'region:content-main:showin': 'showInContentMain',
-        'region:tryUri:showin':       'showInTryUri'
+        'region:content-main:showin': 'showInContentMain'
       }
     },
 
@@ -39,49 +39,45 @@ define(function (require) {
       this.appLayoutShown = false;
     },
 
-    showInTryUri: function (view) {
-      this.app.contentRegion.show(view);
+    _showInContentRegion: function (showFn) {
+      // don't re-render the layout if currently visible
+      if (!this.appLayoutShown) {
+        this.appLayout = new AppContentLayout();
 
-      // showing a view in the contentRegion will destroy the appLayout
-      this.appLayoutShown = false;
+        this.appLayout.on('render', function () {
+          showFn();
+        });
+
+        this.app.contentRegion.show(this.appLayout);
+      } else {
+        showFn();
+      }
+
+      this.appLayoutShown = true;
+    },
+
+    showInContentAlert: function (view) {
+      var self = this;
+
+      this._showInContentRegion(function () {
+        self.appLayout.alertRegion.show(view);
+      });
     },
 
     showInContentMenu: function (view) {
       var self = this;
 
-      // don't re-render the layout if currently visible
-      if (!this.appLayoutShown) {
-        this.appLayout = new AppContentLayout();
-
-        this.appLayout.on('render', function () {
-          self.appLayout.menuRegion.show(view);
-        });
-
-        this.app.contentRegion.show(this.appLayout);
-      } else {
-        this.appLayout.menuRegion.show(view);
-      }
-
-      this.appLayoutShown = true;
+      this._showInContentRegion(function () {
+        self.appLayout.menuRegion.show(view);
+      });
     },
 
     showInContentMain: function (view) {
       var self = this;
 
-      // don't re-render the layout if currently visible
-      if (!this.appLayoutShown) {
-        this.appLayout = new AppContentLayout();
-
-        this.appLayout.on('render', function () {
-          self.appLayout.mainRegion.show(view);
-        });
-
-        this.app.contentRegion.show(this.appLayout);
-      } else {
-        this.appLayout.mainRegion.show(view);
-      }
-
-      this.appLayoutShown = true;
+      this._showInContentRegion(function () {
+        self.appLayout.mainRegion.show(view);
+      });
     }
   });
 
