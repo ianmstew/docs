@@ -12,7 +12,7 @@ var express = require('express'),
 	_ = require( 'underscore' );
 
 var datamodule = new EDM.DataModule( {
-	services: [ 'facebook', 'twitter', 'imap' ]
+	services: [ 'facebook', 'twitter', 'imap', 'gmail' ]
 });
 // Configure the login mechanisms.
 
@@ -82,8 +82,13 @@ passport.use( 'imap', new ImapStrategy(
 		// Need to get the original user here, so we can add our new item to the session.
 		var allUserData = req.user ? req.user : {};
 
-		var connectionData = _.extend( {}, req.body );
-		connectionData.secured = ( connectionData.secured == 'on' );
+		var connectionData = {
+			username: req.body.username,
+  			password: req.body.password,
+  			host: req.body.server,
+  			port: req.body.port,
+  			secure: ( req.body.secured == 'on' )
+		}
 		allUserData[ 'imap' ] = {
 			owner: 'imap:' + connectionData.username.replace( /\./g, '&#46;' ),
 			connectionData: connectionData
@@ -212,7 +217,7 @@ app.get( '/getUri', function( req, res ) {
 require( './lib/facebookUris' )( app );
 require( './lib/twitterUris' )( app );
 require( './lib/gmailUris' )( app );
-require( './lib/imapUris' )( app );
+require( './lib/imapUris' )( app, datamodule );
 
 app.listen(3000);
 console.log('Listening on port 3000...');
