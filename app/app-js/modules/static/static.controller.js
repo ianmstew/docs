@@ -8,6 +8,7 @@ define(function (require) {
       TosView          = require('modules/static/tos/tos.view'),
       ImapView         = require('modules/static/imap/imap.view'),
       appChannel       = require('app.channel'),
+      history          = require('lib/history'),
       StaticController;
 
   StaticController = ModuleController.extend({
@@ -22,39 +23,56 @@ define(function (require) {
       'imap': 'showImap'
     },
 
+    appEvents: {
+      'show:about': 'showAbout',
+      'show:help': 'showHelp',
+      'show:contact': 'showContact',
+      'show:legal': 'showLegal',
+      'show:privacy': 'showPrivacy',
+      'show:tos': 'showTos',
+      'show:imap': 'showImap'
+    },
+
     showAbout: function () {
       var aboutView = new AboutView();
-      appChannel.commands.execute('region:content:showin', aboutView);
+      appChannel.commands.execute('showin:content', aboutView);
+      history.navigate('about');
     },
 
     showHelp: function () {
       var helpView = new HelpView();
-      appChannel.commands.execute('region:content:showin', helpView);
+      appChannel.commands.execute('showin:content', helpView);
+      history.navigate('help');
     },
 
     showContact: function () {
       var aboutView = new ContactView();
-      appChannel.commands.execute('region:content:showin', aboutView);
+      appChannel.commands.execute('showin:content', aboutView);
+      history.navigate('contact');
     },
 
     showLegal: function () {
       var aboutView = new LegalView();
-      appChannel.commands.execute('region:content:showin', aboutView);
+      appChannel.commands.execute('showin:content', aboutView);
+      history.navigate('legal');
     },
 
     showPrivacy: function () {
       var aboutView = new PrivacyView();
-      appChannel.commands.execute('region:content:showin', aboutView);
+      appChannel.commands.execute('showin:content', aboutView);
+      history.navigate('privacy');
     },
 
     showTos: function () {
       var aboutView = new TosView();
-      appChannel.commands.execute('region:content:showin', aboutView);
+      appChannel.commands.execute('showin:content', aboutView);
+      history.navigate('tos');
     },
 
     showImap: function () {
       var imapView = new ImapView();
-      appChannel.commands.execute('region:content:showin', imapView);
+      appChannel.commands.execute('showin:content', imapView);
+      history.navigate('imap');
     }
   });
 

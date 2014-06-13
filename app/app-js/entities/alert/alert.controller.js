@@ -14,14 +14,9 @@ define(function (require) {
   AlertController = ModuleController.extend({
 
     appEvents: {
-
-      reqres: {
-        'alert:entities': 'getAlerts'
-      },
-
       commands: {
-        'alert:add': 'addAlert',
-        'alert:remove': 'removeAlert'
+        'add:alert': 'addAlert',
+        'remove:alert': 'removeAlert'
       }
     },
 
@@ -39,10 +34,6 @@ define(function (require) {
       Marionette.bindEntityEvents(this, this.alerts, this.alertEvents);
     },
 
-    getAlerts: function () {
-      return this.alerts.models;
-    },
-
     addAlert: function (alert) {
       this.alerts.add(new AlertModel(alert));
     },
@@ -52,15 +43,15 @@ define(function (require) {
     },
 
     alertAdded: function (model, collection, options) {
-      appChannel.vent.trigger('alert:add', model);
+      appChannel.vent.trigger('add:alert', model);
     },
 
     alertRemoved: function (model, collection, options) {
-      appChannel.vent.trigger('alert:remove', model);
+      appChannel.vent.trigger('remove:alert', model);
     },
 
     alertsReset: function (collection, options) {
-      appChannel.vent.trigger('alert:reset', collection.models);
+      appChannel.vent.trigger('reset:alerts', collection.models);
     },
 
     alertChanged: function (model, options) {

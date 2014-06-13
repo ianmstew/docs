@@ -45,7 +45,6 @@ define(function (require) {
       });
     },
 
-
     onShow: function () {
       var totalHeight = this.ui.uriField.parent().height() + 'px';
 

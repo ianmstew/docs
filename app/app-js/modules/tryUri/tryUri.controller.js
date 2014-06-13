@@ -8,17 +8,17 @@ define(function (require) {
   TryUriController = ModuleController.extend({
 
     routes: {
-      'tryUri/:service/:uriClass': 'showUriHelp'
+      'tryUri/:service/:uriClass': 'showTriUri'
     },
 
     appEvents: {
       vent: {
-        'try-uri:help': 'showUriHelp'
+        'show:try-uri': 'showTriUri'
       }
     },
 
-    showUriHelp: function (service, uriClass) {
-      var fetchingDatasource = appChannel.reqres.request('datasource:entity', service, uriClass);
+    showTriUri: function (service, uriClass) {
+      var fetchingDatasource = appChannel.reqres.request('fetch:datasource', service, uriClass);
 
       $.when(fetchingDatasource).always(function (datasource) {
 
@@ -28,8 +28,8 @@ define(function (require) {
           uriClass: uriClass
         });
 
-        appChannel.vent.trigger('menu:show');
-        appChannel.commands.execute('region:content-main:showin', tryUriView);
+        appChannel.vent.trigger('show:menu');
+        appChannel.commands.execute('showin:main', tryUriView);
       });
 
       history.navigate('tryUri/' + service + '/' + uriClass);

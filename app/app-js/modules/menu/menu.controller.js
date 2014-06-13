@@ -8,13 +8,13 @@ define(function (require) {
 
     appEvents: {
       vent: {
-        'menu:show': 'showMenu'
+        'show:menu': 'showMenu'
       }
     },
 
     showMenu: function () {
       var menuView = new MenuView();
-      appChannel.commands.execute('region:content-menu:showin', menuView);
+      appChannel.commands.execute('showin:menu', menuView);
     }
   });
 

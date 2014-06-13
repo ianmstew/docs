@@ -9,11 +9,11 @@ define(function (require) {
     appEvents: {
 
       reqres: {
-        'datasource:entity': 'getDatasource'
+        'fetch:datasource': 'fetchDatasource'
       }
     },
 
-    getDatasource: function (service, uriClass) {
+    fetchDatasource: function (service, uriClass) {
       var datasource = new DatasourceModel(),
           defer = $.Deferred(),
           promise = defer.promise();
@@ -30,7 +30,7 @@ define(function (require) {
             state: 'danger'
           };
 
-          appChannel.commands.execute('alert:add', alert);
+          appChannel.commands.execute('add:alert', alert);
           defer.reject(datasource);
         },
 
