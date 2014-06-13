@@ -1,7 +1,7 @@
 <div id="alert-area">
 </div>
 
-<h1>User Profile</h1>
+<h1>{{name}}</h1>
 <h3>URI Format:</h3>
 <p>
   <code class="js-sample-uri"></code>
@@ -9,10 +9,10 @@
 
 <div class="bar">
   <form role="form">
-    <div class="input-group js-input-container">
-      <textarea id="sample-uri" class="form-control js-input-expand" rows="1" cols="100">{{uri}}</textarea>
-      <span class="input-group-btn">
-        <button class="btn-green js-try-it" type="button">Try It!</button>
+    <div class="tryuri-field js-input-container">
+      <textarea class="tryuri-input js-uri" rows="1" cols="100">{{uri}}</textarea>
+      <span class="tryuri-button">
+        <button class="js-try-it" type="button">Try It!</button>
       </span>
     </div><!-- /input-group -->
   </form>

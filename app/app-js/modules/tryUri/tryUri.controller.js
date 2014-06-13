@@ -1,6 +1,8 @@
 define(function (require) {
   var ModuleController = require('lib/module.controller'),
       TryUriView = require('modules/tryUri/tryUri.view'),
+      UriModel = require('entities/tryUri/uri.model'),
+      apis = require('entities/apis/apis'),
       appChannel = require('app.channel'),
       history = require('lib/history'),
       TryUriController;
@@ -8,31 +10,55 @@ define(function (require) {
   TryUriController = ModuleController.extend({
 
     routes: {
-      'tryUri/:service/:uriClass': 'showUriHelp'
+      'tryUri/:service/:uriClass': 'showTriUri'
     },
 
     appEvents: {
       vent: {
-        'try-uri:help': 'showUriHelp'
+        'show:try-uri': 'showTriUri'
       }
     },
 
-    showUriHelp: function (service, uriClass) {
-      var fetchingDatasource = appChannel.reqres.request('datasource:entity', service, uriClass);
+    moduleEvents: {
+      vent: {
+        'try:uri': 'tryUri'
+      }
+    },
 
-      $.when(fetchingDatasource).always(function (datasource) {
+    uri: null,
+    lastService: null,
 
-        var tryUriView = new TryUriView({ 
-          model: datasource,
-          service: service,
-          uriClass: uriClass
-        });
+    showTriUri: function (service, uriClass) {
+      var apiName = apis[service][uriClass] || uriClass;
 
-        appChannel.vent.trigger('menu:show');
-        appChannel.commands.execute('region:content-main:showin', tryUriView);
+      // E.g., don't show a Twitter alert on a Facebook page
+      if (this.lastService !== service) {
+        appChannel.commands.execute('clear:alerts');
+      }
+
+      this.uri = new UriModel({
+        name: apiName,
+        service: service,
+        uriClass: uriClass
       });
 
+      this.tryUriView = new TryUriView({ 
+        model: this.uri
+      });
+
+      appChannel.vent.trigger('show:menu', service, uriClass);
+      appChannel.commands.execute('showin:main', this.tryUriView);
+
+      this.uri.fetchSampleUri();
+      this.uri.fetchGenericUri();
+      this.uri.fetchGenericOutput();
+  
+      this.lastService = service;
       history.navigate('tryUri/' + service + '/' + uriClass);
+    },
+
+    tryUri: function (uri) {
+      this.uri.fetchUri({ uri: uri });
     }
   });
 

@@ -12,12 +12,12 @@ define(function (require) {
     appEvents: {
 
       commands: {
-        'region:header:showin':       'showInHeader',
-        'region:footer:showin':       'showInFooter',
-        'region:content:showin':      'showInContent',
-        'region:content-alert:showin': 'showInContentAlert',
-        'region:content-menu:showin': 'showInContentMenu',
-        'region:content-main:showin': 'showInContentMain'
+        'showin:header':  'showInHeader',
+        'showin:footer':  'showInFooter',
+        'showin:content': 'showInContent',
+        'showin:alert':   'showInAlert',
+        'showin:menu':    'showInMenu',
+        'showin:main':    'showInMain'
       }
     },
 
@@ -56,7 +56,7 @@ define(function (require) {
       this.appLayoutShown = true;
     },
 
-    showInContentAlert: function (view) {
+    showInAlert: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {
@@ -64,7 +64,7 @@ define(function (require) {
       });
     },
 
-    showInContentMenu: function (view) {
+    showInMenu: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {
@@ -72,7 +72,7 @@ define(function (require) {
       });
     },
 
-    showInContentMain: function (view) {
+    showInMain: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {

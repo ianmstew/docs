@@ -15,7 +15,7 @@ define(function (require) {
     closeClicked: function () {
       var self = this;
       _.delay(function () {
-        alertChannel.vent.trigger('alert:close', self.model);
+        alertChannel.vent.trigger('close:alert', self.model);
       }, 1000);
     }
   });

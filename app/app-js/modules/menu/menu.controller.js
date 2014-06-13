@@ -8,13 +8,25 @@ define(function (require) {
 
     appEvents: {
       vent: {
-        'menu:show': 'showMenu'
+        'show:menu': 'showMenu'
       }
     },
 
-    showMenu: function () {
-      var menuView = new MenuView();
-      appChannel.commands.execute('region:content-menu:showin', menuView);
+    menuView: null,
+
+    showMenu: function (service, uriClass) {
+      if (!this.menuView || this.menuView.isClosed) {
+        this.menuView = new MenuView();
+        appChannel.commands.execute('showin:menu', this.menuView);
+      }
+
+      if (service) {
+        this.menuView.triggerMethod('openService', service);
+      }
+
+      if (uriClass) {
+        this.menuView.triggerMethod('selectUriClass', service, uriClass);
+      }
     }
   });
 

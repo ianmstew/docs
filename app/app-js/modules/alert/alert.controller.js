@@ -14,15 +14,15 @@ define(function (require) {
 
     appEvents: {
       vent: {
-        'alert:add': 'addAlert',
-        'alert:remove': 'removeAlert',
-        'alert:reset': 'resetAlerts'
+        'add:alert': 'addAlert',
+        'remove:alert': 'removeAlert',
+        'reset:alerts': 'resetAlerts'
       }
     },
 
     moduleEvents: {
       vent: {
-        'alert:close': 'alertClose'
+        'close:alert': 'alertClose'
       }
     },
 
@@ -38,7 +38,7 @@ define(function (require) {
         this.alertsView = new AlertsView({
           collection: this.alertCollection
         });
-        appChannel.commands.execute('region:content-alert:showin', this.alertsView);
+        appChannel.commands.execute('showin:alert', this.alertsView);
       }
     },
 

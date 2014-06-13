@@ -47,7 +47,6 @@ require([
   'modules/tryUri/tryUri.module',
   'modules/alert/alert.module',
   'entities/alert/alert.module',
-  'entities/datasource/datasource.module',
   'debug/event.debugger'
 ],
 function (Marionette, app) {
