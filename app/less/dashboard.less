@@ -62,13 +62,13 @@
             border-bottom: 1px @gray-lighter solid;
 
             &:hover {
-              background-color: desaturate(lighten(@brand-apiblue, 25%), 40%);
+              background-color: @brand-apibluelight;
               text-decoration: none;
             }
           }
 
           .js-data-select {
-            background-color: desaturate(lighten(@brand-apiblue, 25%), 40%);
+            background-color: @brand-apibluelight;
           }
 
           &:nth-child(even) {
@@ -99,7 +99,7 @@
   */
 
 .types-selected {
-  background-color: @brand-primary;
+  background-color: @brand-apibluelight;
 }
 
 // Dashboard Content
@@ -197,19 +197,6 @@
     @media (max-width: @screen-md-min) {
       width: 100%;
     }
-  }
-}
-
-// Try URI Field
-// --------------------------------------------------
-.js-input-container {
-  position: relative;
-
-  .js-input-expand {
-    position: absolute;
-    width: 92.6%; // Need to fix this; temporary solution
-    border: 1px @gray-lighter solid;
-    resize: none;
   }
 }
 

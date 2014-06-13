@@ -4,7 +4,10 @@
 @import "static.less";
 @import "try-uri.less";
 
-@footer-height: 60px;
+@footer-height:      60px;
+@brand-apiblue:      #0c66a7;
+@brand-apibluelight: desaturate(lighten(@brand-apiblue, 20%), 40%);
+@brand-primary:      @brand-apiblue;
 
 // Main Styles
 // --------------------------------------------------
@@ -12,6 +15,10 @@
 body {
   width: 100%;
   padding: 0;
+}
+
+a:link {
+  color: @brand-apibluelight;
 }
 
 .sticky-footer-wrap {
@@ -46,8 +53,6 @@ body {
 }
 
 // NOTE: This needs to be revised in accordance with engine-ui
-@brand-apiblue: #0c66a7;
-
 .btn-green {
   background-color: @brand-apiblue;
   border-color: darken(@brand-apiblue, 8%);
