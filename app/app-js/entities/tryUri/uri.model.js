@@ -63,20 +63,7 @@ define(function (require) {
     },
 
     fetchSampleUri: function () {
-      var self = this;
-
-      this.get('sampleUri').fetch({
-
-        error: function () {
-          var alert = {
-            title: 'You haven\'t authenticated with the ' + self.service + ' API.',
-            message: 'Connect with a data source on the left to begin',
-            state: 'danger'
-          };
-
-          appChannel.commands.execute('add:alert', alert);
-        }
-      });
+      this.get('sampleUri').fetch();
     },
 
     fetchGenericOutput: function () {

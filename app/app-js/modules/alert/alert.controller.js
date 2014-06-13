@@ -22,7 +22,7 @@ define(function (require) {
 
     moduleEvents: {
       vent: {
-        'close:alert': 'alertClose'
+        'close:alert': 'removeAlert'
       }
     },
 
@@ -40,10 +40,6 @@ define(function (require) {
         });
         appChannel.commands.execute('showin:alert', this.alertsView);
       }
-    },
-
-    alertClose: function (model) {
-      this.alertCollection.remove(model);
     },
 
     addAlert: function (model) {

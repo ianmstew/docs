@@ -2,7 +2,7 @@ define(function (require) {
   var ModuleController = require('lib/module.controller'),
       TryUriView = require('modules/tryUri/tryUri.view'),
       UriModel = require('entities/tryUri/uri.model'),
-      apis = require('entities/apis/apis'),
+      services = require('entities/services/services'),
       appChannel = require('app.channel'),
       history = require('lib/history'),
       TryUriController;
@@ -29,7 +29,9 @@ define(function (require) {
     lastService: null,
 
     showTriUri: function (service, uriClass) {
-      var apiName = apis[service][uriClass] || uriClass;
+      var serviceName = services.lookupServiceName(service),
+          endpointName = services.lookupEndpointName(service, uriClass),
+          apiName = (serviceName || service) + ' ' + (endpointName || uriClass);
 
       // E.g., don't show a Twitter alert on a Facebook page
       if (this.lastService !== service) {

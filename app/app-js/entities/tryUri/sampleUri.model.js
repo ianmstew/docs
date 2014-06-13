@@ -1,5 +1,7 @@
 define(function (require) {
   var Backbone = require('backbone'),
+      services = require('entities/services/services'),
+      appChannel = require('app.channel'),
       SampleUriModel;
 
   SampleUriModel = Backbone.Model.extend({
@@ -15,9 +17,25 @@ define(function (require) {
     },
 
     fetch: function (options) {
+      var serviceName = services.lookupServiceName(this.service);
+
       options = options || {};
-      options.url = this.urlRoot + '/' + this.service + '/' + this.uriClass;
       
+      _.extend(options, {
+
+        url: this.urlRoot + '/' + this.service + '/' + this.uriClass,
+
+        error: function () {
+          var alert = {
+            title: 'You haven\'t authenticated with the ' + serviceName + ' API.',
+            message: 'Connect with a data source on the left to begin',
+            state: 'danger'
+          };
+
+          appChannel.commands.execute('add:alert', alert);
+        }
+      });
+
       return Backbone.Model.prototype.fetch.call(this, options);
     }
   });
