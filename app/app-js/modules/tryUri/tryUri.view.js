@@ -47,23 +47,23 @@ define(function (require) {
     },
 
     onShow: function () {
-      var totalHeight = this.ui.uriField.parent().height() + 'px';
+      var totalHeight = this.ui.uriField.parent().height();
 
       this.ui.uriField
         .data('height', this.ui.uriField.height())
         .focus(function () {
+          var scrollHeight = $(this)[0].scrollHeight;
+
+          if (scrollHeight > totalHeight) {
             $(this).animate({
-              height: $(this)[0].scrollHeight
-            },
-            'slow'
-         );
+              height: scrollHeight
+            }, 'slow');
+          }
         })
         .blur(function () {
-            $(this).animate({
-              height: totalHeight
-            },
-            'slow'
-         );
+          $(this).animate({
+            height: totalHeight
+          }, 'slow');
         });
     }
   });
