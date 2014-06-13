@@ -1,6 +1,7 @@
 define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/tryUri/tryUri.view'),
+      moduleChannel = require('modules/tryUri/tryUri.channel'),
       TryUriView;
 
   TryUriView = Marionette.ItemView.extend({
@@ -14,35 +15,35 @@ define(function (require) {
       uriField: '.js-uri'
     },
 
-    initialize: function () {
-      this.service = this.options.service;
-      this.uriClass = this.options.uriClass;
+    modelEvents: {
+      'change:getUri': 'getUriChanged',
+      'change:genericOutput': 'genericOutputChanged',
+      'change:sampleUri': 'sampleUriChanged',
+      'change:genericUri': 'genericUriChanged'
     },
 
-    onRender: function () {
-      var self = this;
+    events: {
+      'click @ui.tryIt': 'tryItClicked'
+    },
 
-      $.getJSON('/genericUri/' + this.service + '/' + this.uriClass, function (data, status) {
-        if (data.uri) {
-          self.ui.sampleUri.text(data.uri);
-        }
-      }).fail(function (status) {
-        self.ui.sampleUri.text(status.responseText);
-      });
+    tryItClicked: function () {
+      moduleChannel.vent.trigger('try:uri', this.ui.uriField.val());
+    },
 
-      $.getJSON('/genericOutput/' + this.service + '/' + this.uriClass, function (result, status) {
-        self.ui.sampleOutput.text(JSON.stringify(result, null, 2));
-      }).fail(function (status) {
-        self.ui.sampleOutput.text(JSON.stringify(status, null, 2));
-      });
+    sampleUriChanged: function () {
+      this.ui.uriField.val(this.model.get('sampleUri').get('uri'));
+    },
 
-      this.ui.tryIt.click(function () {
-        $.getJSON('/getUri', { uri: self.ui.uriField.val() }, function (data, status) {
-          self.ui.sampleOutput.text(JSON.stringify(data, null, 2));
-        }).fail(function (status, error) {
-          self.ui.sampleOutput.text(status.responseText);
-        });
-      });
+    genericUriChanged: function () {
+      this.ui.sampleUri.text(this.model.get('genericUri').get('uri'));
+    },
+
+    getUriChanged: function () {
+      this.ui.sampleOutput.text(this.model.get('getUri').get('output'));
+    },
+
+    genericOutputChanged: function () {
+      this.ui.sampleOutput.text(this.model.get('genericOutput').get('output'));
     },
 
     onShow: function () {
