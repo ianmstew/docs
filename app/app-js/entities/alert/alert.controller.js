@@ -16,7 +16,8 @@ define(function (require) {
     appEvents: {
       commands: {
         'add:alert': 'addAlert',
-        'remove:alert': 'removeAlert'
+        'remove:alert': 'removeAlert',
+        'clear:alerts': 'clearAlerts'
       }
     },
 
@@ -40,6 +41,10 @@ define(function (require) {
 
     removeAlert: function (alert) {
       this.alerts.remove(alert);
+    },
+
+    clearAlerts: function (alert) {
+      this.alerts.reset();
     },
 
     alertAdded: function (model, collection, options) {

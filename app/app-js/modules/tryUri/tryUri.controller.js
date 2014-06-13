@@ -26,10 +26,15 @@ define(function (require) {
     },
 
     uri: null,
+    lastService: null,
 
     showTriUri: function (service, uriClass) {
-      var tryUriView,
-          apiName = apis[service][uriClass] || uriClass;
+      var apiName = apis[service][uriClass] || uriClass;
+
+      // E.g., don't show a Twitter alert on a Facebook page
+      if (this.lastService !== service) {
+        appChannel.commands.execute('clear:alerts');
+      }
 
       this.uri = new UriModel({
         name: apiName,
@@ -37,17 +42,18 @@ define(function (require) {
         uriClass: uriClass
       });
 
-      tryUriView = new TryUriView({ 
+      this.tryUriView = new TryUriView({ 
         model: this.uri
       });
 
       appChannel.vent.trigger('show:menu', service, uriClass);
-      appChannel.commands.execute('showin:main', tryUriView);
+      appChannel.commands.execute('showin:main', this.tryUriView);
 
       this.uri.fetchSampleUri();
       this.uri.fetchGenericUri();
       this.uri.fetchGenericOutput();
   
+      this.lastService = service;
       history.navigate('tryUri/' + service + '/' + uriClass);
     },
 
