@@ -12,9 +12,21 @@ define(function (require) {
       }
     },
 
-    showMenu: function () {
-      var menuView = new MenuView();
-      appChannel.commands.execute('showin:menu', menuView);
+    menuView: null,
+
+    showMenu: function (service, uriClass) {
+      if (!this.menuView || this.menuView.isClosed) {
+        this.menuView = new MenuView();
+        appChannel.commands.execute('showin:menu', this.menuView);
+      }
+
+      if (service) {
+        this.menuView.triggerMethod('openService', service);
+      }
+
+      if (uriClass) {
+        this.menuView.triggerMethod('selectUriClass', service, uriClass);
+      }
     }
   });
 
