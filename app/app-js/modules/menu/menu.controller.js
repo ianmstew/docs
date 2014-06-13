@@ -20,13 +20,13 @@ define(function (require) {
         appChannel.commands.execute('showin:menu', this.menuView);
       }
 
-      if (service) {
-        this.menuView.triggerMethod('openService', service);
-      }
+      // if (service) {
+      //   this.menuView.triggerMethod('openService', service);
+      // }
 
-      if (uriClass) {
-        this.menuView.triggerMethod('selectUriClass', service, uriClass);
-      }
+      // if (uriClass) {
+      //   this.menuView.triggerMethod('selectUriClass', service, uriClass);
+      // }
     }
   });
 
