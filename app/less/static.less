@@ -1,0 +1,89 @@
+// Static Pages
+// --------------------------------------------------
+.main-content {
+  padding: 0 1%;
+
+  > div {
+    margin-bottom: 2%;
+  }
+
+  .form-contact,
+  .form-imap {
+    &:extend(.form-horizontal all);
+
+    width: 50%;
+
+    @media screen {
+      @media (max-width: @screen-md-min) {
+        width: 100%;
+      }
+    }
+  }
+
+  // Help Page
+  .frequently-asked-questions {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        padding: 1%;
+        color: lighten(@brand-apiblue, 10%);
+        font-size: 1em;
+        border-bottom: 1px @gray-even-lighter solid;
+
+        &:first-child {
+          border-top: 1px @gray-even-lighter solid;
+        }
+
+        &:nth-child(even) {
+          background-color: lighten(@gray-even-lighter, 2%);
+        }
+
+        .help-solution {
+          color: @gray-light;
+          font-size: 1em;
+          margin-top: 0.5%;
+        }
+      }
+    }
+  }
+
+  // Contact Page
+  .form-contact {
+    margin-bottom: 2%;
+
+    button {
+      margin-top: 2%;
+    }
+  }
+
+  .social-contact {
+
+    p {
+      position: relative;
+      line-height: 2em;
+
+      i,
+      a {
+        vertical-align: middle;
+      }
+
+      i {
+        padding-right: .75%;
+        color: @gray-light;
+      }
+
+      a {
+        color: @gray-darker;
+      }
+    }
+  }
+
+  // IMAP
+  .form-imap {
+    .control-label {
+      text-align: left;
+    }
+  }
+}
