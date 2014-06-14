@@ -1,6 +1,8 @@
 define(function (require) {
   var MenuView = require('modules/menu/menu.view'),
       ModuleController = require('lib/module.controller'),
+      ServiceCollection = require('entities/service/service.collection'),
+      services = require('entities/service/services'),
       appChannel = require('app.channel'),
       MenuController;
 
@@ -16,7 +18,10 @@ define(function (require) {
 
     showMenu: function (service, uriClass) {
       if (!this.menuView || this.menuView.isClosed) {
-        this.menuView = new MenuView();
+        this.services = new ServiceCollection(services);
+        this.menuView = new MenuView({
+          collection: this.services
+        });
         appChannel.commands.execute('showin:menu', this.menuView);
       }
 

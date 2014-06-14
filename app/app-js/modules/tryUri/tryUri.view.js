@@ -16,10 +16,10 @@ define(function (require) {
     },
 
     modelEvents: {
-      'change:getUri': 'getUriChanged',
-      'change:genericOutput': 'genericOutputChanged',
-      'change:sampleUri': 'sampleUriChanged',
-      'change:genericUri': 'genericUriChanged'
+      'change:tryUri:output': 'tryUriChanged',
+      'change:genericOutput:output': 'genericOutputChanged',
+      'change:sampleUri:uri': 'sampleUriChanged',
+      'change:genericUri:uri': 'genericUriChanged'
     },
 
     events: {
@@ -30,20 +30,20 @@ define(function (require) {
       moduleChannel.vent.trigger('try:uri', this.ui.uriField.val());
     },
 
-    sampleUriChanged: function () {
-      this.ui.uriField.val(this.model.get('sampleUri').get('uri'));
+    sampleUriChanged: function (model, value) {
+      this.ui.uriField.val(value);
     },
 
-    genericUriChanged: function () {
-      this.ui.sampleUri.text(this.model.get('genericUri').get('uri'));
+    genericUriChanged: function (model, value) {
+      this.ui.sampleUri.text(value);
     },
 
-    getUriChanged: function () {
-      this.ui.sampleOutput.text(this.model.get('getUri').get('output'));
+    tryUriChanged: function (model, value) {
+      this.ui.sampleOutput.text(value);
     },
 
-    genericOutputChanged: function () {
-      this.ui.sampleOutput.text(this.model.get('genericOutput').get('output'));
+    genericOutputChanged: function (model, value) {
+      this.ui.sampleOutput.text(value);
     },
 
     onShow: function () {

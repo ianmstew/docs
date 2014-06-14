@@ -1,8 +1,8 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      GetUriModel;
+      TryUriModel;
 
-  GetUriModel = Backbone.Model.extend({
+  TryUriModel = Backbone.Model.extend({
 
     urlRoot: '/getUri',
 
@@ -17,5 +17,5 @@ define(function (require) {
     }
   });
 
-  return GetUriModel;
+  return TryUriModel;
 });

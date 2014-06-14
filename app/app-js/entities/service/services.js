@@ -3,145 +3,148 @@ define(function (require) {
 
   services = [{
     name: 'Facebook',
-    service: 'facebook',
+    key: 'facebook',
     endpoints: [{
       name: 'User Profile for {userID}',
-      uriClass: 'userprofile'
+      key: 'userprofile'
     }, {
       name: 'User\'s friends list',
-      uriClass: 'ownerfriends'
+      key: 'ownerfriends'
     }, {
       name: 'User\'s news feed',
-      uriClass: 'ownernews'
+      key: 'ownernews'
     }, {
       name: 'User\'s status feed',
-      uriClass: 'ownerstatus'
+      key: 'ownerstatus'
     }, {
       name: 'User\'s created events',
-      uriClass: 'ownerevents'
+      key: 'ownerevents'
     }, {
       name: 'User\'s group details',
-      uriClass: 'ownergroups'
+      key: 'ownergroups'
     }, {
       name: 'User\'s likes',
-      uriClass: 'ownerlikes'
+      key: 'ownerlikes'
     }, {
       name: 'Links shared by user',
-      uriClass: 'ownerlinks'
+      key: 'ownerlinks'
     }, {
       name: 'User\'s photos',
-      uriClass: 'ownerphotos'
+      key: 'ownerphotos'
     }, {
       name: 'Posts shared by user',
-      uriClass: 'ownerposts'
+      key: 'ownerposts'
     }, {
       name: 'Albums shared by user',
-      uriClass: 'owneralbums'
+      key: 'owneralbums'
     }, {
       name: 'User\'s notes',
-      uriClass: 'ownernotes'
+      key: 'ownernotes'
     }, {
       name: 'User\'s videos',
-      uriClass: 'ownervideos'
+      key: 'ownervideos'
     }]
   }, {
     name: 'Twitter',
-    service: 'twitter',
+    key: 'twitter',
     endpoints: [{
       name: 'User Profile for {userID}',
-      uriClass: 'userprofile'
+      key: 'userprofile'
     }, {
       name: 'Status messages sent by {accountID}',
-      uriClass: 'statussent'
+      key: 'statussent'
     }, {
       name: 'List of users that {userID} is following.',
-      uriClass: 'following'
+      key: 'following'
     }, {
       name: 'List of users that {userID} has requested to follow.',
-      uriClass: 'pendingfollowing'
+      key: 'pendingfollowing'
     }, {
       name: 'Status messages that mention {accountID}.',
-      uriClass: 'mentions'
+      key: 'mentions'
     }, {
       name: 'List of users that follow {userID}.',
-      uriClass: 'followers'
+      key: 'followers'
     }, {
       name: 'List of users that have requested to follow {userID}',
-      uriClass: 'pendingfollowers'
+      key: 'pendingfollowers'
     }, {
       name: 'Direct messages sent by {accountID}',
-      uriClass: 'directsent'
+      key: 'directsent'
     }, {
       name: 'Direct messages received by {accountID}',
-      uriClass: 'directreceived'
+      key: 'directreceived'
     }]
   }, {
     name: 'Gmail',
-    service: 'gmail',
+    key: 'gmail',
     endpoints: [{
       name: 'User Profile for {userID}',
-      uriClass: 'userprofile'
+      key: 'userprofile'
     }, {
       name: 'List of mailboxes in ownerID\'s account.',
-      uriClass: 'mailboxes'
+      key: 'mailboxes'
     }, {
       name: 'List of messages in mailbox named {mailboxName}, by URI',
-      uriClass: 'boxindex'
+      key: 'boxindex'
     }, {
       name: 'Email message by gmail message ID',
-      uriClass: 'messageGmailId'
+      key: 'messageGmailId'
     }, {
     'messageHeaderId': 
         'Email message in given mailbox according to its "message-id" SMTP header',
       name: 'Email message in given mailbox with server-assigned UID {msgID}',
-      uriClass: 'messageServerId'
+      key: 'messageServerId'
     }, {
       name: 'Email message in given mailbox according to its sequence number',
-      uriClass: 'messageSequenceNumber'
+      key: 'messageSequenceNumber'
     }]
   }, {
     name: 'IMAP',
-    service: 'imap',
+    key: 'imap',
     endpoints: [{
       name: 'User Profile for {userID}',
-      uriClass: 'userprofile'
+      key: 'userprofile'
     }, {
       name: 'List of mailboxes in ownerID\'s account.',
-      uriClass: 'mailboxes'
+      key: 'mailboxes'
     }, {
       name: 'List of messages in mailbox named {mailboxName}, by URI',
-      uriClass: 'boxindex'
+      key: 'boxindex'
     }, {
     'messageHeaderId':
         'Email message in given mailbox according to its "message-id" SMTP header',
       name: 'Email message in given mailbox with server-assigned UID {msgID}',
-      uriClass: 'messageServerId'
+      key: 'messageServerId'
     }, {
       name: 'Email message in given mailbox according to its sequence number',
-      uriClass: 'messageSequenceNumber'
+      key: 'messageSequenceNumber'
     }]
   }, {
     name: 'App.net',
-    service: 'appnet',
+    key: 'appnet',
     endpoints: [{
       name: 'Data Type 1',
-      uriClass: 'datatype1'
+      key: 'datatype1'
     }, {
       name: 'Data Type 2',
-      uriClass: 'datatype2'
+      key: 'datatype2'
     }, {
       name: 'Data Type 3',
-      uriClass: 'datatype3'
+      key: 'datatype3'
     }]
   }];
 
+  services.lookupServiceName = function (serviceKey) {
+    var service = _.where(this, { key: serviceKey });
+    return service.length && service[0].name;
+  };
+
+  services.lookupEndpointName = function (serviceKey, endpointKey) {
+    var service = _.where(this, { key: serviceKey }),
+        endpoint = service.length && _.where(service[0].endpoints, { key: endpointKey });
+    return endpoint.length && endpoint[0].name;
+  };
+
   return services;
 });
-
-// lookupServiceName: function (service) {
-//   return this[service] && this[service].name;
-// },
-
-// lookupEndpointName: function (service, uriClass) {
-//   return this[service] && this[service].endpoints[uriClass];
-// }

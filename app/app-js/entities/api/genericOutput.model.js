@@ -7,24 +7,20 @@ define(function (require) {
     urlRoot: '/genericOutput',
 
     defaults: {
-      output: null
-    },
-
-    initialize: function (options) {
-      _.extend(this, _.pick(options, ['service', 'uriClass']));
+      output: null,
+      serviceKey: null,
+      endpointKey: null
     },
 
     fetch: function (options) {
       options = options || {};
-      options.url = this.urlRoot + '/' + this.service + '/' + this.uriClass;
+      options.url = this.urlRoot + '/' + this.get('serviceKey') + '/' + this.get('endpointKey');
       
-      return Backbone.Model.prototype.fetch.call(this, options);
+      return GenericOutputModel.__super__.fetch.call(this, options);
     },
 
     parse: function (response) {
       return {
-        service: this.get('service'),
-        uriClass: this.get('uriClass'),
         output: JSON.stringify(response, null, 2)
       };
     }

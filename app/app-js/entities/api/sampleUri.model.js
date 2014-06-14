@@ -1,6 +1,6 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      services = require('entities/services/services'),
+      services = require('entities/service/services'),
       appChannel = require('app.channel'),
       SampleUriModel;
 
@@ -9,21 +9,18 @@ define(function (require) {
     urlRoot: '/sampleUri',
 
     defaults: {
-      uri: null
-    },
-
-    initialize: function (options) {
-      _.extend(this, _.pick(options, ['service', 'uriClass']));
+      uri: null,
+      serviceKey: null,
+      endpointKey: null
     },
 
     fetch: function (options) {
-      var serviceName = services.lookupServiceName(this.service);
+      var serviceName = services.lookupServiceName(this.get('serviceKey'));
 
       options = options || {};
       
       _.extend(options, {
-
-        url: this.urlRoot + '/' + this.service + '/' + this.uriClass,
+        url: this.urlRoot + '/' + this.get('serviceKey') + '/' + this.get('endpointKey'),
 
         error: function () {
           var alert = {
@@ -36,7 +33,7 @@ define(function (require) {
         }
       });
 
-      return Backbone.Model.prototype.fetch.call(this, options);
+      return SampleUriModel.__super__.fetch.call(this, options);
     }
   });
 

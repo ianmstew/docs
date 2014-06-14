@@ -6,6 +6,7 @@ define(function (require) {
       alertEntities;
 
   AlertModule = Module.extend({
+    
     moduleControllerClass: AlertController
   });
 

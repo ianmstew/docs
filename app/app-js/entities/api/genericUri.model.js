@@ -7,18 +7,16 @@ define(function (require) {
     urlRoot: '/genericUri',
 
     defaults: {
-      uri: null
-    },
-
-    initialize: function (options) {
-      _.extend(this, _.pick(options, ['service', 'uriClass']));
+      uri: null,
+      serviceKey: null,
+      endpointKey: null
     },
 
     fetch: function (options) {
       options = options || {};
-      options.url = this.urlRoot + '/' + this.service + '/' + this.uriClass;
+      options.url = this.urlRoot + '/' + this.get('serviceKey') + '/' + this.get('endpointKey');
       
-      return Backbone.Model.prototype.fetch.call(this, options);
+      return GenericUriModel.__super__.fetch.call(this, options);
     }
   });
 

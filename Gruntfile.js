@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   /* jshint camelcase:false */
 
   grunt.initConfig({
@@ -95,15 +95,15 @@ module.exports = function(grunt) {
         jshintrc: true
       },
 
-      app: ['Gruntfile.js', '<%- app.app_js %>/**/*.js']
+      app: ['Gruntfile.js', '<%- path.app_js %>/**/*.js']
     },
 
     jscs: {
       options: {
-        config: '<%- app.app_js %>/.jscsrc'
+        config: '<%- path.app_js %>/.jscsrc'
       },
 
-      app: ['Gruntfile.js', '<%- app.app_js %>/**/*.js']
+      app: ['Gruntfile.js', '<%- path.app_js %>/**/*.js']
     },
 
     watch: {

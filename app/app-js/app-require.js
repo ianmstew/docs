@@ -12,7 +12,10 @@ require.config({
     'parsley':                 '../vendor/parsleyjs/parsley',
     'hogan':                   '../vendor/requirejs-hogan-plugin/hogan',
     'hgn':                     '../vendor/requirejs-hogan-plugin/hgn',
-    'text':                    '../vendor/requirejs-hogan-plugin/text'
+    'text':                    '../vendor/requirejs-hogan-plugin/text',
+    
+    // change to logger-prod for production (disables logging)
+    'lib/logger':              'lib/logger-dev'
   },
 
   shim: {

@@ -21,7 +21,7 @@
   "disallowEmptyBlocks": true,
   "requireSpacesInsideObjectBrackets": "allButNested",
   "requireCommaBeforeLineBreak": true,
-  "requireOperatorBeforeLineBreak": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=", "&&", "||"],
+  "requireOperatorBeforeLineBreak": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
   "requireSpaceAfterBinaryOperators": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=", "&&", "||"],
   "requireSpaceAfterBinaryOperators": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=", "&&", "||"],
   "disallowRightStickedOperators": [":", ","],
