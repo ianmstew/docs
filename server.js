@@ -114,12 +114,14 @@ passport.use( 'gmail', new GoogleOAuth2Strategy(
 		var allUserData = req.user ? req.user : {};
 		allUserData[ 'gmail' ] = { 
 			'owner': 'gmail:' + profile.id,
-			'username': profile._json.email,
-			'xoauth2': accessToken,
-			'refreshToken': refreshToken,
-			'host': 'imap.gmail.com',
-			'port': 993,
-			'secure': true
+			'connectionData': {
+				'username': profile._json.email,
+				'accessToken': accessToken,
+				'refreshToken': refreshToken,
+				'host': 'imap.gmail.com',
+				'port': 993,
+				'secure': true				
+			}
 		};
 
 		return done( null, allUserData );
@@ -186,7 +188,6 @@ app.get(
 app.post( '/auth/imap/callback',
 	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' }),
 	function( req, res ) {
-		console.log( 'Redirect!' );
 		res.redirect( '/' );
 	}
 );
