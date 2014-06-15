@@ -6,7 +6,8 @@ define(function (require) {
   MenuView = Marionette.CollectionView.extend({
     
     itemView: MenuPanelView,
-    id: 'servicesMenu'
+    id: 'servicesMenu',
+    className: 'panel-group'
   });
 
   return MenuView;

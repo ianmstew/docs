@@ -1,10 +1,10 @@
 <div class="panel-heading">
-  <button type="button" class="btn-green" onclick="window.location.assign( '/auth/facebook' );">Connect</button>
-  <h4 class="panel-title" data-toggle="collapse" href="#facebookDataTypes" data-parent="#servicesMenu">
-    {{name}}
+  <button type="button" class="btn-green" onclick="window.location.assign( '/auth/{{serviceKey}}' );">Connect</button>
+  <h4 class="panel-title" data-toggle="collapse" href="#{{serviceKey}}DataTypes" data-parent="#servicesMenu">
+    {{serviceName}}
   </h4>
 </div>
-<div id="facebookDataTypes" class="panel-collapse collapse">
+<div id="{{serviceKey}}DataTypes" class="panel-collapse collapse">
   <div class="panel-body">
     <ul class="js-menuItem-region">
     </ul>

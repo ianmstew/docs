@@ -2,149 +2,167 @@ define(function (require) {
   var services;
 
   services = [{
-    name: 'Facebook',
-    key: 'facebook',
-    endpoints: [{
-      name: 'User Profile for {userID}',
-      key: 'userprofile'
+    'serviceName': 'Facebook',
+    'serviceKey': 'facebook',
+    'endpoints': [{
+      'endpointName': 'User Profile for {userID}',
+      'endpointKey': 'userprofile'
     }, {
-      name: 'User\'s friends list',
-      key: 'ownerfriends'
+      'endpointName': 'User\'s friends list',
+      'endpointKey': 'ownerfriends'
     }, {
-      name: 'User\'s news feed',
-      key: 'ownernews'
+      'endpointName': 'User\'s news feed',
+      'endpointKey': 'ownernews'
     }, {
-      name: 'User\'s status feed',
-      key: 'ownerstatus'
+      'endpointName': 'User\'s status feed',
+      'endpointKey': 'ownerstatus'
     }, {
-      name: 'User\'s created events',
-      key: 'ownerevents'
+      'endpointName': 'User\'s created events',
+      'endpointKey': 'ownerevents'
     }, {
-      name: 'User\'s group details',
-      key: 'ownergroups'
+      'endpointName': 'User\'s group details',
+      'endpointKey': 'ownergroups'
     }, {
-      name: 'User\'s likes',
-      key: 'ownerlikes'
+      'endpointName': 'User\'s likes',
+      'endpointKey': 'ownerlikes'
     }, {
-      name: 'Links shared by user',
-      key: 'ownerlinks'
+      'endpointName': 'Links shared by user',
+      'endpointKey': 'ownerlinks'
     }, {
-      name: 'User\'s photos',
-      key: 'ownerphotos'
+      'endpointName': 'User\'s photos',
+      'endpointKey': 'ownerphotos'
     }, {
-      name: 'Posts shared by user',
-      key: 'ownerposts'
+      'endpointName': 'Posts shared by user',
+      'endpointKey': 'ownerposts'
     }, {
-      name: 'Albums shared by user',
-      key: 'owneralbums'
+      'endpointName': 'Albums shared by user',
+      'endpointKey': 'owneralbums'
     }, {
-      name: 'User\'s notes',
-      key: 'ownernotes'
+      'endpointName': 'User\'s notes',
+      'endpointKey': 'ownernotes'
     }, {
-      name: 'User\'s videos',
-      key: 'ownervideos'
+      'endpointName': 'User\'s videos',
+      'endpointKey': 'ownervideos'
     }]
   }, {
-    name: 'Twitter',
-    key: 'twitter',
-    endpoints: [{
-      name: 'User Profile for {userID}',
-      key: 'userprofile'
+    'serviceName': 'Twitter',
+    'serviceKey': 'twitter',
+    'endpoints': [{
+      'endpointName': 'User Profile for {userID}',
+      'endpointKey': 'userprofile'
     }, {
-      name: 'Status messages sent by {accountID}',
-      key: 'statussent'
+      'endpointName': 'Status messages sent by {accountID}',
+      'endpointKey': 'statussent'
     }, {
-      name: 'List of users that {userID} is following.',
-      key: 'following'
+      'endpointName': 'List of users that {userID} is following.',
+      'endpointKey': 'following'
     }, {
-      name: 'List of users that {userID} has requested to follow.',
-      key: 'pendingfollowing'
+      'endpointName': 'List of users that {userID} has requested to follow.',
+      'endpointKey': 'pendingfollowing'
     }, {
-      name: 'Status messages that mention {accountID}.',
-      key: 'mentions'
+      'endpointName': 'Status messages that mention {accountID}.',
+      'endpointKey': 'mentions'
     }, {
-      name: 'List of users that follow {userID}.',
-      key: 'followers'
+      'endpointName': 'List of users that follow {userID}.',
+      'endpointKey': 'followers'
     }, {
-      name: 'List of users that have requested to follow {userID}',
-      key: 'pendingfollowers'
+      'endpointName': 'List of users that have requested to follow {userID}',
+      'endpointKey': 'pendingfollowers'
     }, {
-      name: 'Direct messages sent by {accountID}',
-      key: 'directsent'
+      'endpointName': 'Direct messages sent by {accountID}',
+      'endpointKey': 'directsent'
     }, {
-      name: 'Direct messages received by {accountID}',
-      key: 'directreceived'
+      'endpointName': 'Direct messages received by {accountID}',
+      'endpointKey': 'directreceived'
     }]
   }, {
-    name: 'Gmail',
-    key: 'gmail',
-    endpoints: [{
-      name: 'User Profile for {userID}',
-      key: 'userprofile'
+    'serviceName': 'Gmail',
+    'serviceKey': 'gmail',
+    'endpoints': [{
+      'endpointName': 'User Profile for {userID}',
+      'endpointKey': 'userprofile'
     }, {
-      name: 'List of mailboxes in ownerID\'s account.',
-      key: 'mailboxes'
+      'endpointName': 'List of mailboxes in ownerID\'s account.',
+      'endpointKey': 'mailboxes'
     }, {
-      name: 'List of messages in mailbox named {mailboxName}, by URI',
-      key: 'boxindex'
+      'endpointName': 'List of messages in mailbox named {mailboxName}, by URI',
+      'endpointKey': 'boxindex'
     }, {
-      name: 'Email message by gmail message ID',
-      key: 'messageGmailId'
+      'endpointName': 'Email message by gmail message ID',
+      'endpointKey': 'messageGmailId'
     }, {
-    'messageHeaderId': 
+      'messageHeaderId': 
         'Email message in given mailbox according to its "message-id" SMTP header',
-      name: 'Email message in given mailbox with server-assigned UID {msgID}',
-      key: 'messageServerId'
+      'endpointName': 'Email message in given mailbox with server-assigned UID {msgID}',
+      'endpointKey': 'messageServerId'
     }, {
-      name: 'Email message in given mailbox according to its sequence number',
-      key: 'messageSequenceNumber'
+      'endpointName': 'Email message in given mailbox according to its sequence number',
+      'endpointKey': 'messageSequenceNumber'
     }]
   }, {
-    name: 'IMAP',
-    key: 'imap',
-    endpoints: [{
-      name: 'User Profile for {userID}',
-      key: 'userprofile'
+    'serviceName': 'IMAP',
+    'serviceKey': 'imap',
+    'endpoints': [{
+      'endpointName': 'User Profile for {userID}',
+      'endpointKey': 'userprofile'
     }, {
-      name: 'List of mailboxes in ownerID\'s account.',
-      key: 'mailboxes'
+      'endpointName': 'List of mailboxes in ownerID\'s account.',
+      'endpointKey': 'mailboxes'
     }, {
-      name: 'List of messages in mailbox named {mailboxName}, by URI',
-      key: 'boxindex'
+      'endpointName': 'List of messages in mailbox named {mailboxName}, by URI',
+      'endpointKey': 'boxindex'
     }, {
-    'messageHeaderId':
+      'messageHeaderId':
         'Email message in given mailbox according to its "message-id" SMTP header',
-      name: 'Email message in given mailbox with server-assigned UID {msgID}',
-      key: 'messageServerId'
+      'endpointName': 'Email message in given mailbox with server-assigned UID {msgID}',
+      'endpointKey': 'messageServerId'
     }, {
-      name: 'Email message in given mailbox according to its sequence number',
-      key: 'messageSequenceNumber'
+      'endpointName': 'Email message in given mailbox according to its sequence number',
+      'endpointKey': 'messageSequenceNumber'
     }]
   }, {
-    name: 'App.net',
-    key: 'appnet',
-    endpoints: [{
-      name: 'Data Type 1',
-      key: 'datatype1'
+    'serviceName': 'App.net',
+    'serviceKey': 'appnet',
+    'endpoints': [{
+      'endpointName': 'Data Type 1',
+      'endpointKey': 'datatype1'
     }, {
-      name: 'Data Type 2',
-      key: 'datatype2'
+      'endpointName': 'Data Type 2',
+      'endpointKey': 'datatype2'
     }, {
-      name: 'Data Type 3',
-      key: 'datatype3'
+      'endpointName': 'Data Type 3',
+      'endpointKey': 'datatype3'
     }]
   }];
 
   services.lookupServiceName = function (serviceKey) {
-    var service = _.where(this, { key: serviceKey });
-    return service.length && service[0].name;
+    var service = _.where(this, { serviceKey: serviceKey });
+    return service.length && service[0].serviceName;
   };
 
   services.lookupEndpointName = function (serviceKey, endpointKey) {
-    var service = _.where(this, { key: serviceKey }),
-        endpoint = service.length && _.where(service[0].endpoints, { key: endpointKey });
-    return endpoint.length && endpoint[0].name;
+    var service = _.where(this, { serviceKey: serviceKey }),
+        endpoint = service.length && _.where(service[0].endpoints, { endpointKey: endpointKey });
+    return endpoint.length && endpoint[0].endpointName;
   };
 
+  services.clone = function () {
+    var _services = _.clone(this);
+
+    _.each(_services, function (service, idx) {
+      var _service = _.clone(service),
+          _endpoints = _.clone(_service.endpoints);
+
+      _.each(_endpoints, function (endpoint, idx) {
+        var _endpoint = _.clone(endpoint);
+        _endpoints[idx] = _endpoint;
+      });
+      
+      _service.endpoints = _endpoints;
+      _services[idx] = _service;
+    });
+    return _services;
+  };
+  
   return services;
 });

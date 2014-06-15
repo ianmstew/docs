@@ -1,14 +1,14 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      AlertModel;
+      EndpointModel;
 
-  AlertModel = Backbone.Model.extend({
+  EndpointModel = Backbone.Model.extend({
 
     defaults: {
-      name: null,
-      uriClass: null
+      endpointName: null,
+      endpointKey: null
     }
   });
 
-  return AlertModel;
+  return EndpointModel;
 });

@@ -1,29 +1,22 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      HasNested = require('lib/HasNested.model.mixin'),
       EndpointCollection = require('entities/service/endpoint.collection'),
       ServiceModel;
 
   ServiceModel = Backbone.Model.extend({
 
     defaults: {
-      name: null,
-      service: null,
+      serviceName: null,
+      serviceKey: null,
       endpoints: null
     },
 
-    constructor: function () {
-      new HasNested(this);
-
-      ServiceModel.__super__.constructor.apply(this, arguments);
-    },
-
-    parse: function (response) {
-      return {
-        name: response.name,
-        key: response.key,
-        endpoints: new EndpointCollection(response.endpoints)
-      };
+    constructor: function (attrs, options) {
+      attrs = attrs || {};
+      if (attrs.endpoints) {
+        attrs.endpoints = new EndpointCollection(attrs.endpoints);
+      }
+      ServiceModel.__super__.constructor.call(this, attrs, options);
     }
   });
 
