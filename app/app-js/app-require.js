@@ -49,6 +49,8 @@ require([
   'modules/static/static.module',
   'modules/tryUri/tryUri.module',
   'modules/alert/alert.module',
+  'entities/api/api.module',
+  'entities/service/service.module',
   'entities/alert/alert.module',
   'debug/event.debugger'
 ],

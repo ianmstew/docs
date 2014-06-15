@@ -11,12 +11,27 @@ define(function (require) {
     itemViewContainer: '.js-menuItem-region',
     className: 'panel panel-default',
 
-    constructor: function (options) {
+    ui: {
+      servicePanel: '.js-service-panel'
+    },
+
+    initialize: function (options) {
       this.collection = options.model.get('endpoints');
       this.itemViewOptions = {
         serviceKey: options.model.get('serviceKey')
       };
-      MenuPanelView.__super__.constructor.apply(this, arguments);
+    },
+
+    onShowService: function () {
+      this.ui.servicePanel
+        .addClass('in')
+        .css('height', 'auto');
+    },
+
+    onSelectEndpoint: function (endpointKey) {
+      var endpointModel = this.collection.where({ endpointKey: endpointKey })[0],
+          endpointView = this.children.findByModel(endpointModel);
+      endpointView.triggerMethod('select');
     }
   });
 

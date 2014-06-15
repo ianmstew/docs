@@ -12,10 +12,12 @@ define(function (require) {
       sampleUri: '.js-sample-uri',
       sampleOutput: '.js-sample-output',
       tryIt: '.js-try-it',
-      uriField: '.js-uri'
+      uriField: '.js-uri',
+      apiName: '.js-api-name'
     },
 
     modelEvents: {
+      'change:apiName': 'apiNameChanged',
       'change:tryUri:output': 'tryUriChanged',
       'change:genericOutput:output': 'genericOutputChanged',
       'change:sampleUri:uri': 'sampleUriChanged',
@@ -28,6 +30,10 @@ define(function (require) {
 
     tryItClicked: function () {
       moduleChannel.vent.trigger('try:uri', this.ui.uriField.val());
+    },
+
+    apiNameChanged: function (model, value) {
+      this.ui.apiName.text(value);
     },
 
     sampleUriChanged: function (model, value) {

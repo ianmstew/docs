@@ -1,8 +1,6 @@
 define(function (require) {
   var ModuleController = require('lib/module.controller'),
       TryUriView = require('modules/tryUri/tryUri.view'),
-      ApiModel = require('entities/api/api.model'),
-      services = require('entities/service/services'),
       appChannel = require('app.channel'),
       history = require('lib/history'),
       TryUriController;
@@ -10,12 +8,12 @@ define(function (require) {
   TryUriController = ModuleController.extend({
 
     routes: {
-      'tryUri/:service/:uriClass': 'showTriUri'
+      'tryUri/:service/:uriClass': 'showTryUri'
     },
 
     appEvents: {
       vent: {
-        'show:try-uri': 'showTriUri'
+        'show:try-uri': 'showTryUri'
       }
     },
 
@@ -27,29 +25,28 @@ define(function (require) {
 
     api: null,
     lastService: null,
+    tryUriView: null,
 
-    showTriUri: function (serviceKey, endpointKey) {
-      var serviceName = services.lookupServiceName(serviceKey),
-          endpointName = services.lookupEndpointName(serviceKey, endpointKey),
-          apiName = serviceName + ' ' + endpointName;
+    showTryUri: function (serviceKey, endpointKey) {
+      appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
 
       // E.g., don't show a Twitter alert on a Facebook page
       if (this.lastService !== serviceKey) {
         appChannel.commands.execute('clear:alerts');
       }
 
-      this.api = new ApiModel({
-        name: apiName,
-        serviceKey: serviceKey,
-        endpointKey: endpointKey
-      });
-
-      this.tryUriView = new TryUriView({ 
-        model: this.api
-      });
-
-      appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
-      appChannel.commands.execute('showin:main', this.tryUriView);
+      if (!this.tryUriView || this.tryUriView.isClosed) {
+        this.api = appChannel.reqres.request('get:api', serviceKey, endpointKey);
+        this.tryUriView = new TryUriView({ 
+          model: this.api
+        });
+        appChannel.commands.execute('showin:main', this.tryUriView);
+      } else {
+        this.api.set({
+          serviceKey: serviceKey,
+          endpointKey: endpointKey
+        });
+      }
 
       this.api.fetchSampleUri();
       this.api.fetchGenericUri();

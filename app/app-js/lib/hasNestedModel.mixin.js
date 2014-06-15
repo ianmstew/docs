@@ -2,6 +2,8 @@ define(function (require) {
   var Backbone = require('backbone');
 
   function HasNested(model) {
+    model.__originalGet = model.get;
+    model.__originalSet = model.set;
     model.get = this.get;
     model.set = this.set;
   }
@@ -59,8 +61,8 @@ define(function (require) {
         }
       });
 
-      // Continue with Backbone default set behavior
-      Backbone.Model.prototype.set.apply(this, arguments);
+      // Continue with original set behavior
+      return this.__originalSet.apply(this, arguments);
     },
 
     /*
@@ -93,8 +95,8 @@ define(function (require) {
         return model.get(modelAttribute);
       } else {
 
-        // Perform normal Backbone.Model.get
-        return Backbone.Model.prototype.get.apply(this, arguments);
+        // Perform originally-defined get
+        return this.__originalGet.apply(this, arguments);
       }
     }
   });

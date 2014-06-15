@@ -4,13 +4,14 @@ define(function (require) {
       GenericUriModel = require('entities/api/genericUri.model'),
       SampleUriModel = require('entities/api/sampleUri.model'),
       GetUriModel = require('entities/api/tryUri.model'),
-      HasNested = require('lib/HasNested.model.mixin'),
+      HasNestedModel = require('lib/HasNestedModel.mixin'),
+      services = require('entities/service/services'),
       ApiModel;
 
   ApiModel = Backbone.Model.extend({
 
     defaults: {
-      name: null,
+      apiName: null,
       serviceKey: null,
       endpointKey: null,
       genericOutput: null,
@@ -29,16 +30,46 @@ define(function (require) {
         tryUri: new GetUriModel()
       });
 
-      new HasNested(this);
+      new HasNestedModel(this);
 
       ApiModel.__super__.constructor.call(this, attrs, options);
     },
 
-    clearAll: function (options) {
-      this.get('genericOutput').clear(options);
-      this.get('genericUri').clear(options);
-      this.get('sampleUri').clear(options);
-      this.get('tryUri').clear(options);
+    initialize: function () {
+      var self = this;
+
+      this.on('change', function () {
+        var serviceKey,
+            endpointKey;
+            
+        if (self.hasChanged('serviceKey') || self.hasChanged('endpointKey')) {
+          serviceKey = self.get('serviceKey');
+          endpointKey = self.get('endpointKey');
+
+          _.invoke([
+            self.get('genericOutput'),
+            self.get('genericUri'),
+            self.get('sampleUri')
+          ], 'set', { serviceKey: serviceKey, endpointKey: endpointKey });
+
+          self.trigger('change:apiName', self, self.get('apiName'));
+        }
+      });
+    },
+
+    get: function (key) {
+      var serviceName,
+          endpointName,
+          apiName;
+
+      if (key === 'apiName') {
+        serviceName = services.lookupServiceName(this.get('serviceKey'));
+        endpointName = services.lookupEndpointName(this.get('serviceKey'), this.get('endpointKey'));
+        apiName = serviceName + ' ' + endpointName;
+        return apiName;
+      } else {
+        return ApiModel.__super__.get.apply(this, arguments);
+      }
     },
 
     fetchSampleUri: function () {

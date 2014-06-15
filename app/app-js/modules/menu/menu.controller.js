@@ -3,6 +3,7 @@ define(function (require) {
       ModuleController = require('lib/module.controller'),
       ServiceCollection = require('entities/service/service.collection'),
       appChannel = require('app.channel'),
+      moduleChannel = require('modules/menu/menu.channel'),
       MenuController;
 
   MenuController = ModuleController.extend({
@@ -15,21 +16,24 @@ define(function (require) {
 
     menuView: null,
 
-    showMenu: function (service, uriClass) {
+    showMenu: function (serviceKey, endpointKey) {
+
       if (!this.menuView || this.menuView.isClosed) {
+        var services = appChannel.reqres.request('get:services');
+        
         this.menuView = new MenuView({
-          collection: new ServiceCollection()
+          collection: new ServiceCollection(services)
         });
         appChannel.commands.execute('showin:menu', this.menuView);
       }
 
-      // if (service) {
-      //   this.menuView.triggerMethod('openService', service);
-      // }
+      if (serviceKey) {
+        moduleChannel.vent.trigger('show:service', serviceKey);
+      }
 
-      // if (uriClass) {
-      //   this.menuView.triggerMethod('selectUriClass', service, uriClass);
-      // }
+      if (endpointKey) {
+        moduleChannel.vent.trigger('select:endpoint', serviceKey, endpointKey);
+      }
     }
   });
 

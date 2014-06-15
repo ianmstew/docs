@@ -8,6 +8,10 @@ define(function (require) {
     template: template,
     tagName: 'li',
 
+    ui: {
+      link: 'a'
+    },
+
     initialize: function () {
       this.serviceKey = this.options.serviceKey;
     },
@@ -16,6 +20,10 @@ define(function (require) {
       var data = this.model.toJSON();
       data.serviceKey = this.serviceKey;
       return data;
+    },
+
+    onSelect: function () {
+      this.ui.link.addClass('types-selected');
     }
   });
 
