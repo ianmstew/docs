@@ -24,16 +24,10 @@ define(function (require) {
     },
 
     api: null,
-    lastService: null,
     tryUriView: null,
 
     showTryUri: function (serviceKey, endpointKey) {
       appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
-
-      // E.g., don't show a Twitter alert on a Facebook page
-      if (this.lastService !== serviceKey) {
-        appChannel.commands.execute('clear:alerts');
-      }
 
       if (!this.tryUriView || this.tryUriView.isClosed) {
         this.api = appChannel.reqres.request('get:api', serviceKey, endpointKey);
@@ -42,6 +36,7 @@ define(function (require) {
         });
         appChannel.commands.execute('showin:main', this.tryUriView);
       } else {
+        this.api.clear();
         this.api.set({
           serviceKey: serviceKey,
           endpointKey: endpointKey
@@ -52,7 +47,6 @@ define(function (require) {
       this.api.fetchGenericUri();
       this.api.fetchGenericOutput();
   
-      this.lastService = serviceKey;
       history.navigate('tryUri/' + serviceKey + '/' + endpointKey);
     },
 

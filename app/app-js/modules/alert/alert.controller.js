@@ -22,7 +22,7 @@ define(function (require) {
 
     moduleEvents: {
       vent: {
-        'close:alert': 'removeAlert'
+        'close:alert': 'closeAlert'
       }
     },
 
@@ -43,9 +43,7 @@ define(function (require) {
     },
 
     addAlert: function (model) {
-      // Using "reset" here causes existing alerts to be wiped with each new alert.
-      // Change this to "add" to allow multiple alerts.
-      this.alertCollection.reset([model]);
+      this.alertCollection.add(model);
       this.showAlerts();
     },
 
@@ -57,6 +55,10 @@ define(function (require) {
     resetAlerts: function (models) {
       this.alertCollection.reset(models);
       this.showAlerts();
+    },
+
+    closeAlert: function (model) {
+      appChannel.commands.execute('remove:alert', model);
     }
   });
 

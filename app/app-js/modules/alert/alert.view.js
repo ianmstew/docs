@@ -1,7 +1,7 @@
 define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/alert/alert.view'),
-      alertChannel = require('modules/alert/alert.channel'),
+      moduleChannel = require('modules/alert/alert.channel'),
       AlertView;
 
   AlertView = Marionette.ItemView.extend({
@@ -13,11 +13,7 @@ define(function (require) {
     },
 
     closeClicked: function () {
-      var self = this;
-
-      _.delay(function () {
-        alertChannel.vent.trigger('close:alert', self.model);
-      }, 1000);
+      moduleChannel.vent.trigger('close:alert', this.model);
     },
 
     onShow: function () {
@@ -26,6 +22,15 @@ define(function (require) {
       _.delay(function () {
         self.$el.addClass('in');
       }, 100);
+    },
+
+    remove: function () {
+      var self = this,
+          args = arguments;
+
+      _.delay(function () {
+        AlertView.__super__.remove.apply(self, args);
+      }, 500);
     }
   });
 

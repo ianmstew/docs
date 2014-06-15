@@ -72,6 +72,20 @@ define(function (require) {
       }
     },
 
+    clear: function () {
+      this.set({
+        apiName: null,
+        serviceKey: null,
+        endpointKey: null
+      });
+      _.invoke([
+        this.get('genericOutput'),
+        this.get('genericUri'),
+        this.get('sampleUri'),
+        this.get('tryUri')
+      ], 'clear');
+    },
+
     fetchSampleUri: function () {
       this.get('sampleUri').fetch();
     },
