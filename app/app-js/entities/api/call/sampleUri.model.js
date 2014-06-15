@@ -1,6 +1,5 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      services = require('entities/service/services'),
       appChannel = require('app.channel'),
       SampleUriModel;
 
@@ -15,7 +14,7 @@ define(function (require) {
     },
 
     fetch: function (options) {
-      var serviceName = services.lookupServiceName(this.get('serviceKey'));
+      var serviceName = appChannel.reqres.request('lookup:serviceName', this.get('serviceKey'));
 
       options = options || {};
       

@@ -150,13 +150,25 @@ app.configure(function () {
 		{
 			req.getAuthTokens = function() { return false; };
 		}
+		console.log('>>>', req.isAuthenticated(), req.user);
 	next();
 	} );
 	app.use(express.static(__dirname+'/dist'));
 
 });
 
-
+// Return list of service keys for open connections
+app.get('/auth/connections', function (req, res) {
+	if (!req.isAuthenticated()) {
+		res.json({
+			connections: []
+		});
+	} else {
+		res.json({
+			connections: Object.keys(req.user)
+		});
+	}
+});
 
 app.get( '/auth/facebook',
 	passport.authenticate( 'facebook' ));

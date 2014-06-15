@@ -42,23 +42,26 @@ require([
   'marionette',
   'app',
   'bootstrap',
-  'modules/header/header.module',
-  'modules/menu/menu.module',
-  'modules/welcome/welcome.module',
-  'modules/footer/footer.module',
-  'modules/static/static.module',
-  'modules/tryUri/tryUri.module',
-  'modules/alert/alert.module',
   'entities/api/api.module',
   'entities/service/service.module',
   'entities/alert/alert.module',
   'debug/event.debugger'
 ],
 function (Marionette, app) {
-  // Override templating method to use hgn templates
-  Marionette.Renderer.render = function (template, data) {
-    return template(data);
-  };
+  require([
+    'modules/header/header.module',
+    'modules/menu/menu.module',
+    'modules/welcome/welcome.module',
+    'modules/footer/footer.module',
+    'modules/static/static.module',
+    'modules/tryUri/tryUri.module',
+    'modules/alert/alert.module',
+  ], function () {
+    // Override templating method to use hgn templates
+    Marionette.Renderer.render = function (template, data) {
+      return template(data);
+    };
 
-  app.start();
+    app.start();
+  });
 });

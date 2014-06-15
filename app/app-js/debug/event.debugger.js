@@ -19,9 +19,10 @@ define(function (require) {
     channel.reqres.request = _.wrap(
       channel.reqres.request,
       function (fn) {
-        var originalArgs = Array.prototype.slice.call(arguments, 1);
-        logger.debug(channelName + ' request', originalArgs);
-        return fn.apply(channel.reqres, originalArgs);
+        var originalArgs = Array.prototype.slice.call(arguments, 1),
+            originalReturn = fn.apply(channel.reqres, originalArgs);
+        logger.debug(channelName + ' request', originalArgs, 'Return:', originalReturn);
+        return originalReturn;
       });
 
     channel.commands.execute = _.wrap(

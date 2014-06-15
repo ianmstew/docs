@@ -1,6 +1,6 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      EndpointCollection = require('entities/service/endpoint.collection'),
+      EndpointCollection = require('entities/service/endpoint/endpoint.collection'),
       ServiceModel;
 
   ServiceModel = Backbone.Model.extend({
@@ -8,7 +8,8 @@ define(function (require) {
     defaults: {
       serviceName: null,
       serviceKey: null,
-      endpoints: null
+      endpoints: null,
+      connected: false  // set externally by collection
     },
 
     constructor: function (attrs, options) {

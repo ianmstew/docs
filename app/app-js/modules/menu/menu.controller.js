@@ -1,7 +1,6 @@
 define(function (require) {
   var MenuView = require('modules/menu/menu.view'),
       ModuleController = require('lib/module.controller'),
-      ServiceCollection = require('entities/service/service.collection'),
       appChannel = require('app.channel'),
       moduleChannel = require('modules/menu/menu.channel'),
       MenuController;
@@ -11,19 +10,25 @@ define(function (require) {
     appEvents: {
       vent: {
         'show:menu': 'showMenu'
+      },
+      reqres: {
+        'get:services': 'getServices'
       }
     },
 
     menuView: null,
+    services: null,
+
+    initialize: function () {
+      this.services = appChannel.reqres.request('get:services');
+    },
 
     showMenu: function (serviceKey, endpointKey) {
-
-      if (!this.menuView || this.menuView.isClosed) {
-        var services = appChannel.reqres.request('get:services');
-        
+      if (!this.menuView || this.menuView.isClosed) {        
         this.menuView = new MenuView({
-          collection: new ServiceCollection(services)
+          collection: this.services
         });
+        this.services.fetchAuthorized();
         appChannel.commands.execute('showin:menu', this.menuView);
       }
 

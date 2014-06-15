@@ -1,11 +1,11 @@
 define(function (require) {
   var Backbone = require('backbone'),
-      GenericOutputModel = require('entities/api/genericOutput.model'),
-      GenericUriModel = require('entities/api/genericUri.model'),
-      SampleUriModel = require('entities/api/sampleUri.model'),
-      GetUriModel = require('entities/api/tryUri.model'),
+      GenericOutputModel = require('entities/api/call/genericOutput.model'),
+      GenericUriModel = require('entities/api/call/genericUri.model'),
+      SampleUriModel = require('entities/api/call/sampleUri.model'),
+      GetUriModel = require('entities/api/call/tryUri.model'),
       HasNestedModel = require('lib/HasNestedModel.mixin'),
-      services = require('entities/service/services'),
+      appChannel = require('app.channel'),
       ApiModel;
 
   ApiModel = Backbone.Model.extend({
@@ -63,8 +63,9 @@ define(function (require) {
           apiName;
 
       if (key === 'apiName') {
-        serviceName = services.lookupServiceName(this.get('serviceKey'));
-        endpointName = services.lookupEndpointName(this.get('serviceKey'), this.get('endpointKey'));
+        serviceName = appChannel.reqres.request('lookup:serviceName', this.get('serviceKey'));
+        endpointName = appChannel.reqres.request('lookup:endpointName',
+            this.get('serviceKey'), this.get('endpointKey'));
         apiName = serviceName + ' ' + endpointName;
         return apiName;
       } else {

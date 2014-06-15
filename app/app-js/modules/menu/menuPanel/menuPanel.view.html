@@ -1,5 +1,10 @@
 <div class="panel-heading">
-  <button type="button" class="btn-green" onclick="window.location.assign( '/auth/{{serviceKey}}' );">Connect</button>
+  {{^connected}}
+    <button type="button" class="js-connect panel-connect btn-green">Connect</button>
+  {{/connected}}
+  {{#connected}}
+    <button type="button" class="js-connect panel-connect btn-red">Disconnect</button>
+  {{/connected}}
   <h4 class="panel-title" data-toggle="collapse" href="#{{serviceKey}}DataTypes" data-parent="#servicesMenu">
     {{serviceName}}
   </h4>

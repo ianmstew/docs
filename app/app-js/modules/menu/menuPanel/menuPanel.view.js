@@ -12,7 +12,16 @@ define(function (require) {
     className: 'panel panel-default',
 
     ui: {
-      servicePanel: '.js-service-panel'
+      servicePanel: '.js-service-panel',
+      connectButton: '.js-connect'
+    },
+
+    events: {
+      'click @ui.connectButton': 'connectClicked'
+    },
+
+    modelEvents: {
+      'change:connected': 'connectedChanged'
     },
 
     initialize: function (options) {
@@ -20,6 +29,27 @@ define(function (require) {
       this.itemViewOptions = {
         serviceKey: options.model.get('serviceKey')
       };
+    },
+
+    connectedChanged: function (mode, connected) {
+      this.ui.connectButton
+        .removeClass('btn-green')
+        .removeClass('btn-red');
+      if (connected) {
+        this.ui.connectButton.addClass('btn-red');
+        this.ui.connectButton.text('Disconnect');
+      } else {
+        this.addClass('btn-green');
+        this.ui.connectButton.text('Connect');
+      }
+    },
+
+    connectClicked: function () {
+      if (this.model.get('connected')) {
+        window.location.assign('/disconnect/' + this.model.get('serviceKey'));
+      } else {
+        window.location.assign('/auth/' + this.model.get('serviceKey'));
+      }
     },
 
     onShowService: function () {
