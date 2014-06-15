@@ -37,6 +37,9 @@ define(function (require) {
       Marionette.bindEntityEvents(this, this.alerts, this.alertEvents);
     },
 
+    /*
+     * Add alerts while maintaining uniqueness (using hash function).
+     */
     addAlert: function (options) {
       var alert = new AlertModel(options),
           hash = alert.hash();
@@ -54,6 +57,7 @@ define(function (require) {
     },
 
     clearAlerts: function (alert) {
+      this.alertRegistry = {};
       this.alerts.reset();
     },
 
