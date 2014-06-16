@@ -4,7 +4,7 @@ define(function (require) {
       GenericUriModel = require('entities/api/call/genericUri.model'),
       SampleUriModel = require('entities/api/call/sampleUri.model'),
       GetUriModel = require('entities/api/call/tryUri.model'),
-      HasNestedModel = require('lib/HasNestedModel.mixin'),
+      HasNestedModel = require('lib/hasNestedModel.mixin'),
       appChannel = require('app.channel'),
       ApiModel;
 
