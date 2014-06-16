@@ -150,8 +150,7 @@ app.configure(function () {
 		{
 			req.getAuthTokens = function() { return false; };
 		}
-		console.log('>>>', req.isAuthenticated(), req.user);
-	next();
+		next();
 	} );
 	app.use(express.static(__dirname+'/dist'));
 
