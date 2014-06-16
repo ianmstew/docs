@@ -12,14 +12,16 @@ define(function (require) {
       sampleUri: '.js-sample-uri',
       sampleOutput: '.js-sample-output',
       tryIt: '.js-try-it',
-      uriField: '.js-uri'
+      uriField: '.js-uri',
+      apiName: '.js-api-name'
     },
 
     modelEvents: {
-      'change:getUri': 'getUriChanged',
-      'change:genericOutput': 'genericOutputChanged',
-      'change:sampleUri': 'sampleUriChanged',
-      'change:genericUri': 'genericUriChanged'
+      'change:apiName': 'apiNameChanged',
+      'change:tryUri:output': 'tryUriChanged',
+      'change:genericOutput:output': 'genericOutputChanged',
+      'change:sampleUri:uri': 'sampleUriChanged',
+      'change:genericUri:uri': 'genericUriChanged'
     },
 
     events: {
@@ -30,40 +32,44 @@ define(function (require) {
       moduleChannel.vent.trigger('try:uri', this.ui.uriField.val());
     },
 
-    sampleUriChanged: function () {
-      this.ui.uriField.val(this.model.get('sampleUri').get('uri'));
+    apiNameChanged: function (model, value) {
+      this.ui.apiName.text(value);
     },
 
-    genericUriChanged: function () {
-      this.ui.sampleUri.text(this.model.get('genericUri').get('uri'));
+    sampleUriChanged: function (model, value) {
+      this.ui.uriField.val(value);
     },
 
-    getUriChanged: function () {
-      this.ui.sampleOutput.text(this.model.get('getUri').get('output'));
+    genericUriChanged: function (model, value) {
+      this.ui.sampleUri.text(value);
     },
 
-    genericOutputChanged: function () {
-      this.ui.sampleOutput.text(this.model.get('genericOutput').get('output'));
+    tryUriChanged: function (model, value) {
+      this.ui.sampleOutput.text(value);
+    },
+
+    genericOutputChanged: function (model, value) {
+      this.ui.sampleOutput.text(value);
     },
 
     onShow: function () {
-      var totalHeight = this.ui.uriField.parent().height() + 'px';
+      var totalHeight = this.ui.uriField.parent().height();
 
       this.ui.uriField
         .data('height', this.ui.uriField.height())
         .focus(function () {
+          var scrollHeight = $(this)[0].scrollHeight;
+
+          if (scrollHeight > totalHeight) {
             $(this).animate({
-              height: $(this)[0].scrollHeight
-            },
-            'slow'
-         );
+              height: scrollHeight
+            }, 'slow');
+          }
         })
         .blur(function () {
-            $(this).animate({
-              height: totalHeight
-            },
-            'slow'
-         );
+          $(this).animate({
+            height: totalHeight
+          }, 'slow');
         });
     }
   });

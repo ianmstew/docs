@@ -1,0 +1,17 @@
+<div class="panel-heading">
+  {{^connected}}
+    <button type="button" class="js-connect panel-connect btn-green">Connect</button>
+  {{/connected}}
+  {{#connected}}
+    <button type="button" class="js-connect panel-connect btn-red">Disconnect</button>
+  {{/connected}}
+  <h4 class="panel-title" data-toggle="collapse" href="#{{serviceKey}}DataTypes" data-parent="#servicesMenu">
+    {{serviceName}}
+  </h4>
+</div>
+<div id="{{serviceKey}}DataTypes" class="js-service-panel panel-collapse collapse">
+  <div class="panel-body">
+    <ul class="js-menuItem-region">
+    </ul>
+  </div>
+</div>

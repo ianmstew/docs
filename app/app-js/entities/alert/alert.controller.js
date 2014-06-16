@@ -29,21 +29,35 @@ define(function (require) {
     },
 
     alerts: null,
+    alertRegistry: null,
 
     initialize: function () {
+      this.alertRegistry = {};
       this.alerts = new AlertCollection();
       Marionette.bindEntityEvents(this, this.alerts, this.alertEvents);
     },
 
-    addAlert: function (alert) {
-      this.alerts.add(new AlertModel(alert));
+    /*
+     * Add alerts while maintaining uniqueness (using hash function).
+     */
+    addAlert: function (options) {
+      var alert = new AlertModel(options),
+          hash = alert.hash();
+      if (!this.alertRegistry[hash]) {
+        this.alerts.add(alert);
+        this.alertRegistry[hash] = true;
+        console.log('>>> add', this.alerts.models);
+      }
     },
 
     removeAlert: function (alert) {
       this.alerts.remove(alert);
+      this.alertRegistry[alert.hash()] = false;
+      console.log('>>> rem', this.alerts.models);
     },
 
     clearAlerts: function (alert) {
+      this.alertRegistry = {};
       this.alerts.reset();
     },
 

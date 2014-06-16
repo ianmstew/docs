@@ -44,7 +44,7 @@ define(function (require) {
       if (!this.appLayoutShown) {
         this.appLayout = new AppContentLayout();
 
-        this.appLayout.on('render', function () {
+        this.listenTo(this.appLayout, 'render', function () {
           showFn();
         });
 
