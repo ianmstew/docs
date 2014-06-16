@@ -7,11 +7,11 @@ var express = require('express'),
 	TwitterStrategy = require( 'passport-twitter' ).Strategy,
 	ImapStrategy = require( './lib/ImapStrategy' ).Strategy,
 	GoogleOAuth2Strategy = require( 'passport-google-oauth-offline' ).OAuth2Strategy,
-	EDM = require( 'engine-data-module' ),
+	PDM = require( 'personal-data-module' ),
 	TokenStore = require( './lib/passportTokenStore' ),
 	_ = require( 'underscore' );
 
-var datamodule = new EDM.DataModule( {
+var datamodule = new PDM.DataModule( {
 	services: [ 'facebook', 'twitter', 'imap', 'gmail' ]
 });
 // Configure the login mechanisms.
