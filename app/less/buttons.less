@@ -1,0 +1,26 @@
+//
+// Buttons
+// --------------------------------------------------
+
+// Modifications to button danger
+@btn-danger-color:  @brand-danger;
+@btn-danger-bg:     #fff;
+@btn-danger-border: @brand-danger;
+
+// NOTE: This needs to be revised in accordance with engine-ui
+.btn-green {
+  background-color: @brand-apiblue;
+  border-color: darken(@brand-apiblue, 2%);
+
+  &:hover {
+    background-color: darken(@link-color, 10%);
+    border-color: darken(@link-color, 15%);
+  }
+}
+
+.btn-red {
+  &:hover {
+    color: #fff;
+    background-color: desaturate(lighten(@brand-danger, 10%), 15%);
+  }
+}

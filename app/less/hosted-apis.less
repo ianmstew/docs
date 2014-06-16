@@ -1,12 +1,14 @@
 @import "engine-ui-import.less";
 @import "button-groups.less";
+@import "buttons.less";
 @import "dashboard.less";
+@import "mixins.less";
 @import "static.less";
 @import "try-uri.less";
 
 @footer-height:      60px;
-@brand-apiblue:      #0c66a7;
-@brand-apibluelight: desaturate(lighten(@brand-apiblue, 20%), 40%);
+@brand-apiblue:      #007bb6;
+@brand-apibluelight: desaturate(lighten(@brand-apiblue, 20%), 45%);
 @brand-primary:      @brand-apiblue;
 
 // Main Styles
@@ -50,12 +52,6 @@ a:link {
 
   overflow:auto;
   height: 100%;
-}
-
-// NOTE: This needs to be revised in accordance with engine-ui
-.btn-green {
-  background-color: @brand-apiblue;
-  border-color: darken(@brand-apiblue, 8%);
 }
 
 // Social Network Styling
