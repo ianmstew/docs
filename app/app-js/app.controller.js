@@ -1,6 +1,7 @@
 define(function (require) {
   var AppContentLayout = require('app.content.layout'),
       ModuleController = require('lib/module.controller'),
+      history = require('lib/history'),
       AppController;
 
   AppController = ModuleController.extend({

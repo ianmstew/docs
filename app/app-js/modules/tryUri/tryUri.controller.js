@@ -66,15 +66,24 @@ define(function (require) {
     },
 
     updateAuthorized: function () {
-      if (_.indexOf(this.authorizedServices, this.currentService) >= 0) {
-        this.tryUriView.triggerMethod('setAuthorized', true);
-      } else {
-        this.tryUriView.triggerMethod('setAuthorized', false);
+      if (this.tryUriView && !this.tryUriView.isClosed) {
+        if (_.indexOf(this.authorizedServices, this.currentService) >= 0) {
+          this.tryUriView.triggerMethod('setAuthorized', true);
+        } else {
+          this.tryUriView.triggerMethod('setAuthorized', false);
+        }
       }
     },
 
     tryUri: function (uri) {
-      this.api.fetchTryUri({ uri: uri });
+      appChannel.vent.trigger('loading');
+
+      this.api.fetchTryUri({
+        uri: uri,
+        complete: function () {
+          appChannel.vent.trigger('loaded');
+        }
+     });
     }
   });
 
