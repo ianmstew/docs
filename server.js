@@ -47,6 +47,7 @@ passport.use( 'facebook', new FacebookStrategy(
 			owner: 'facebook:' + profile.id,
 			accessToken: accessToken
 		};
+		console.trace( '** Facebook strategy!' );
 		return done( null, allUserData );
 	}
 ));
@@ -156,7 +157,6 @@ app.configure(function () {
 		if( req.query[ 'auth-return' ])
 		{
 			req.session[ 'auth-return' ] = req.query[ 'auth-return' ];
-			console.log( '** DONE?: Store ' + req.query[ 'auth-return' ] + ' in the session.' );
 		}
 		next();
 	});
@@ -183,17 +183,47 @@ app.get( '/auth/imap',
 	}
 );
 
-app.get( '/auth/:service/callback',
+app.get( '/auth/facebook/callback',
+	passport.authenticate( 'facebook', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
-		( passport.authenticate( req.params.service, 
-			{ failureRedirect: '#auth-failure' },
-			function() {
-				if( req.session[ 'auth-return' ] )
-					res.redirect( req.session[ 'auth-return' ]);
-				else
-					res.redirect( '/' );
-			}
-		))( req, res );
+		console.log( 'About to do redirect!' );
+		if( req.session[ 'auth-return' ] )
+			res.redirect( req.session[ 'auth-return' ]);
+		else
+			res.redirect( '/' );
+	}
+);
+
+app.get( '/auth/twitter/callback',
+	passport.authenticate( 'twitter', { failureRedirect: '#auth-failure' } ),
+	function( req, res ) {
+		console.log( 'About to do redirect!' );
+		if( req.session[ 'auth-return' ] )
+			res.redirect( req.session[ 'auth-return' ]);
+		else
+			res.redirect( '/' );
+	}
+);
+
+app.get( '/auth/imap/callback',
+	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' } ),
+	function( req, res ) {
+		console.log( 'About to do redirect!' );
+		if( req.session[ 'auth-return' ] )
+			res.redirect( req.session[ 'auth-return' ]);
+		else
+			res.redirect( '/' );
+	}
+);
+
+app.get( '/auth/gmail/callback',
+	passport.authenticate( 'gmail', { failureRedirect: '#auth-failure' } ),
+	function( req, res ) {
+		console.log( 'About to do redirect!' );
+		if( req.session[ 'auth-return' ] )
+			res.redirect( req.session[ 'auth-return' ]);
+		else
+			res.redirect( '/' );
 	}
 );
 
