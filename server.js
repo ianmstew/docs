@@ -186,7 +186,6 @@ app.get( '/auth/imap',
 app.get( '/auth/facebook/callback',
 	passport.authenticate( 'facebook', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
-		console.log( 'About to do redirect!' );
 		if( req.session[ 'auth-return' ] )
 			res.redirect( req.session[ 'auth-return' ]);
 		else
@@ -197,7 +196,6 @@ app.get( '/auth/facebook/callback',
 app.get( '/auth/twitter/callback',
 	passport.authenticate( 'twitter', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
-		console.log( 'About to do redirect!' );
 		if( req.session[ 'auth-return' ] )
 			res.redirect( req.session[ 'auth-return' ]);
 		else
@@ -208,7 +206,6 @@ app.get( '/auth/twitter/callback',
 app.get( '/auth/imap/callback',
 	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
-		console.log( 'About to do redirect!' );
 		if( req.session[ 'auth-return' ] )
 			res.redirect( req.session[ 'auth-return' ]);
 		else
@@ -219,7 +216,6 @@ app.get( '/auth/imap/callback',
 app.get( '/auth/gmail/callback',
 	passport.authenticate( 'gmail', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
-		console.log( 'About to do redirect!' );
 		if( req.session[ 'auth-return' ] )
 			res.redirect( req.session[ 'auth-return' ]);
 		else
