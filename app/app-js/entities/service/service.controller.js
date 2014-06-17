@@ -30,7 +30,8 @@ define(function (require) {
     },
 
     connectService: function (serviceKey) {
-      window.location.assign('/auth/' + serviceKey);
+      window.location.assign('/auth/' + serviceKey + '?auth-return=' +
+          encodeURIComponent(window.location.pathname + window.location.hash));
     },
 
     disconnectService: function (serviceKey) {
