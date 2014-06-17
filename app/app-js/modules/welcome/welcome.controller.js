@@ -20,7 +20,7 @@ define(function (require) {
     showWelcome: function () {
       var startView = new StartView();
       appChannel.vent.trigger('show:menu');
-      appChannel.commands.execute('showin:main', startView);
+      appChannel.commands.execute('showin:mainRegion', startView);
       history.navigate('');
     }
   });

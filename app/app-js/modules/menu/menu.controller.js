@@ -12,7 +12,7 @@ define(function (require) {
         'show:menu': 'showMenu'
       },
       reqres: {
-        'get:services': 'getServices'
+        'get:serviceCollection': 'getServices'
       }
     },
 
@@ -20,7 +20,7 @@ define(function (require) {
     services: null,
 
     initialize: function () {
-      this.services = appChannel.reqres.request('get:services');
+      this.services = appChannel.reqres.request('get:serviceCollection');
     },
 
     showMenu: function (serviceKey, endpointKey) {
@@ -29,7 +29,7 @@ define(function (require) {
           collection: this.services
         });
         this.services.fetchAuthorized();
-        appChannel.commands.execute('showin:menu', this.menuView);
+        appChannel.commands.execute('showin:menuRegion', this.menuView);
       }
 
       if (serviceKey) {

@@ -38,11 +38,11 @@ define(function (require) {
 
     sampleUriChanged: function (model, value) {
       if (value) {
-        this.ui.tryIt.prop('disabled', false);
         this.ui.uriField.prop('disabled', false);
+        this.ui.tryIt.prop('disabled', false);
       } else {
-        this.ui.tryIt.prop('disabled', true);
         this.ui.uriField.prop('disabled', true);
+        this.ui.tryIt.prop('disabled', true);
       }
       this.ui.uriField.val(value);
     },

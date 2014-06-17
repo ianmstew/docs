@@ -8,7 +8,7 @@ define(function (require) {
 
     initialize: function () {
       var footerView = new FooterView();
-      appChannel.commands.execute('showin:footer', footerView);
+      appChannel.commands.execute('showin:footerRegion', footerView);
     }
   });
 

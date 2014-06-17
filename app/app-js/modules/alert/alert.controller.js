@@ -38,7 +38,7 @@ define(function (require) {
         this.alertsView = new AlertsView({
           collection: this.alertCollection
         });
-        appChannel.commands.execute('showin:alert', this.alertsView);
+        appChannel.commands.execute('showin:alertRegion', this.alertsView);
       }
     },
 
