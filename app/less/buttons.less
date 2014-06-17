@@ -2,11 +2,6 @@
 // Buttons
 // --------------------------------------------------
 
-// Modifications to button danger
-@btn-danger-color:  @brand-danger;
-@btn-danger-bg:     #fff;
-@btn-danger-border: @brand-danger;
-
 // NOTE: This needs to be revised in accordance with engine-ui
 .btn-green {
   // Using bootstrap mixin to bring in other styles, like "disabled"
@@ -14,8 +9,5 @@
 }
 
 .btn-red {
-  &:hover {
-    color: #fff;
-    background-color: desaturate(lighten(@brand-danger, 10%), 15%);
-  }
+  .button-variant(@brand-danger, #fff, @brand-danger);
 }
