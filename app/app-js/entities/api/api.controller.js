@@ -7,11 +7,11 @@ define(function (require) {
 
     appEvents: {
       reqres: {
-        'get:api': 'getApi'
+        'get:apiModel': 'getApiModel'
       }
     },
 
-    getApi: function (serviceKey, endpointKey) {
+    getApiModel: function (serviceKey, endpointKey) {
       return new ApiModel({
         serviceKey: serviceKey,
         endpointKey: endpointKey

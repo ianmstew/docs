@@ -9,14 +9,8 @@
 
 // NOTE: This needs to be revised in accordance with engine-ui
 .btn-green {
-  background-color: @brand-apiblue;
-  border-color: darken(@brand-apiblue, 2%);
-
-  &:hover,
-  &:focus {
-    background-color: darken(@link-color, 10%);
-    border-color: darken(@link-color, 15%);
-  }
+  // Using bootstrap mixin to bring in other styles, like "disabled"
+  .button-variant(#fff, @brand-apiblue, darken(@brand-apiblue, 2%));
 }
 
 .btn-red {

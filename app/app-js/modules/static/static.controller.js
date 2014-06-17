@@ -35,43 +35,43 @@ define(function (require) {
 
     showAbout: function () {
       var aboutView = new AboutView();
-      appChannel.commands.execute('showin:content', aboutView);
+      appChannel.commands.execute('showin:contentRegion', aboutView);
       history.navigate('about');
     },
 
     showHelp: function () {
       var helpView = new HelpView();
-      appChannel.commands.execute('showin:content', helpView);
+      appChannel.commands.execute('showin:contentRegion', helpView);
       history.navigate('help');
     },
 
     showContact: function () {
       var aboutView = new ContactView();
-      appChannel.commands.execute('showin:content', aboutView);
+      appChannel.commands.execute('showin:contentRegion', aboutView);
       history.navigate('contact');
     },
 
     showLegal: function () {
       var aboutView = new LegalView();
-      appChannel.commands.execute('showin:content', aboutView);
+      appChannel.commands.execute('showin:contentRegion', aboutView);
       history.navigate('legal');
     },
 
     showPrivacy: function () {
       var aboutView = new PrivacyView();
-      appChannel.commands.execute('showin:content', aboutView);
+      appChannel.commands.execute('showin:contentRegion', aboutView);
       history.navigate('privacy');
     },
 
     showTos: function () {
       var aboutView = new TosView();
-      appChannel.commands.execute('showin:content', aboutView);
+      appChannel.commands.execute('showin:contentRegion', aboutView);
       history.navigate('tos');
     },
 
     showImap: function () {
       var imapView = new ImapView();
-      appChannel.commands.execute('showin:content', imapView);
+      appChannel.commands.execute('showin:contentRegion', imapView);
       history.navigate('imap');
     }
   });

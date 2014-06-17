@@ -46,14 +46,12 @@ define(function (require) {
       if (!this.alertRegistry[hash]) {
         this.alerts.add(alert);
         this.alertRegistry[hash] = true;
-        console.log('>>> add', this.alerts.models);
       }
     },
 
     removeAlert: function (alert) {
       this.alerts.remove(alert);
       this.alertRegistry[alert.hash()] = false;
-      console.log('>>> rem', this.alerts.models);
     },
 
     clearAlerts: function (alert) {

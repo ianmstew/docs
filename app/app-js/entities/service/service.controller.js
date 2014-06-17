@@ -8,13 +8,13 @@ define(function (require) {
 
     appEvents: {
       reqres: {
-        'get:services': 'getServices',
+        'get:serviceCollection': 'getServiceCollection',
         'lookup:serviceName': 'lookupServiceName',
         'lookup:endpointName': 'lookupEndpointName'
       }
     },
 
-    getServices: function () {
+    getServiceCollection: function () {
       return new ServiceCollection(services.clone());
     },
 

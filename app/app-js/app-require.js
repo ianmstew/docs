@@ -41,6 +41,7 @@ require.config({
 require([
   'marionette',
   'app',
+  'backbone.computedfields',
   'bootstrap',
   'entities/api/api.module',
   'entities/service/service.module',
@@ -56,6 +57,7 @@ function (Marionette, app) {
     'modules/static/static.module',
     'modules/tryUri/tryUri.module',
     'modules/alert/alert.module',
+    'modules/loading/loading.module',
   ], function () {
     // Override templating method to use hgn templates
     Marionette.Renderer.render = function (template, data) {

@@ -6,13 +6,13 @@
 <div class="bar">
   <form role="form">
     <div class="tryuri-field js-input-container">
-      <textarea class="tryuri-input js-uri" rows="1" cols="100">{{uri}}</textarea>
+      <textarea class="tryuri-input js-uri" rows="1" cols="100" {{^uri}}disabled{{/uri}}>{{uri}}</textarea>
       <span class="tryuri-button">
-        <button class="js-try-it" type="button">Try It!</button>
+        <button class="js-try-it" type="button" {{^uri}}disabled{{/uri}}>Try It!</button>
       </span>
-    </div><!-- /input-group -->
+    </div>
   </form>
-</div><!-- /.bar -->
+</div>
 
 <h3>Sample Output:</h3>
 <pre>

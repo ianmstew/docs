@@ -4,7 +4,7 @@ define(function (require) {
       GenericUriModel = require('entities/api/call/genericUri.model'),
       SampleUriModel = require('entities/api/call/sampleUri.model'),
       GetUriModel = require('entities/api/call/tryUri.model'),
-      HasNestedModel = require('lib/HasNestedModel.mixin'),
+      HasNestedModel = require('lib/hasNestedModel.mixin'),
       appChannel = require('app.channel'),
       ApiModel;
 
@@ -20,9 +20,24 @@ define(function (require) {
       tryUri: null
     },
 
+    computed: {
+      apiName: {
+        depends: ['serviceKey', 'endpointKey'],
+        get: function () {
+          var serviceName = appChannel.reqres.request(
+                  'lookup:serviceName', this.get('serviceKey')),
+              endpointName = appChannel.reqres.request(
+                  'lookup:endpointName', this.get('serviceKey'), this.get('endpointKey')),
+              apiName = serviceName + ' ' + endpointName;
+          return apiName;
+        }
+      }
+    },
+
     constructor: function (attrs, options) {
       var apiAttributes = _.pick(attrs, ['serviceKey', 'endpointKey']);
 
+      // Initialize submodels
       _.extend(attrs, {
         genericOutput: new GenericOutputModel(apiAttributes),
         genericUri: new GenericUriModel(apiAttributes),
@@ -30,6 +45,7 @@ define(function (require) {
         tryUri: new GetUriModel()
       });
 
+      // Attach nested model functionality
       new HasNestedModel(this);
 
       ApiModel.__super__.constructor.call(this, attrs, options);
@@ -38,10 +54,14 @@ define(function (require) {
     initialize: function () {
       var self = this;
 
+      // Attach computed fields functionality
+      new Backbone.ComputedFields(this);
+
       this.on('change', function () {
         var serviceKey,
             endpointKey;
-            
+        
+        // When serviceKey or endpointKey are changed, pass them down to submodels
         if (self.hasChanged('serviceKey') || self.hasChanged('endpointKey')) {
           serviceKey = self.get('serviceKey');
           endpointKey = self.get('endpointKey');
@@ -51,26 +71,8 @@ define(function (require) {
             self.get('genericUri'),
             self.get('sampleUri')
           ], 'set', { serviceKey: serviceKey, endpointKey: endpointKey });
-
-          self.trigger('change:apiName', self, self.get('apiName'));
         }
       });
-    },
-
-    get: function (key) {
-      var serviceName,
-          endpointName,
-          apiName;
-
-      if (key === 'apiName') {
-        serviceName = appChannel.reqres.request('lookup:serviceName', this.get('serviceKey'));
-        endpointName = appChannel.reqres.request('lookup:endpointName',
-            this.get('serviceKey'), this.get('endpointKey'));
-        apiName = serviceName + ' ' + endpointName;
-        return apiName;
-      } else {
-        return ApiModel.__super__.get.apply(this, arguments);
-      }
     },
 
     clear: function () {
@@ -101,6 +103,10 @@ define(function (require) {
 
     fetchTryUri: function (options) {
       this.get('tryUri').fetch({ data: $.param(options) });
+    },
+
+    toJSON: function () {
+      return _.clone(this.attributes);
     }
   });
 

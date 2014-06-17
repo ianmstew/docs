@@ -30,11 +30,11 @@ define(function (require) {
       appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
 
       if (!this.tryUriView || this.tryUriView.isClosed) {
-        this.api = appChannel.reqres.request('get:api', serviceKey, endpointKey);
+        this.api = appChannel.reqres.request('get:apiModel', serviceKey, endpointKey);
         this.tryUriView = new TryUriView({ 
           model: this.api
         });
-        appChannel.commands.execute('showin:main', this.tryUriView);
+        appChannel.commands.execute('showin:mainRegion', this.tryUriView);
       } else {
         this.api.clear();
         this.api.set({

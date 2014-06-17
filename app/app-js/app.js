@@ -7,7 +7,8 @@ define(function (require) {
   app.addRegions({
     headerRegion: '#header-region',
     contentRegion: '#content-region',
-    footerRegion: '#footer-region'
+    footerRegion: '#footer-region',
+    loadingRegion: '#loading-region'
   });
 
   app.on('initialize:after', function () {
