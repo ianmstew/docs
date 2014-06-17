@@ -152,6 +152,14 @@ app.configure(function () {
 		}
 		next();
 	} );
+	app.use( function( req, res, next ) {
+		if( req.query[ 'auth-return' ])
+		{
+			req.session[ 'auth-return' ] = req.query[ 'auth-return' ];
+			console.log( '** DONE?: Store ' + req.query[ 'auth-return' ] + ' in the session.' );
+		}
+		next();
+	});
 	app.use(express.static(__dirname+'/dist'));
 
 });
@@ -169,43 +177,29 @@ app.get('/auth/connections', function (req, res) {
 	}
 });
 
-app.get( '/auth/facebook',
-	passport.authenticate( 'facebook' ));
-app.get( 
-	'/auth/facebook/callback',
-	passport.authenticate( 'facebook', { failureRedirect: '#auth-failure' }),
-	function( req, res ) {
-		res.redirect( '/' );
-	}
-);
-app.get( '/auth/twitter',
-	passport.authenticate( 'twitter' ));
-app.get( 
-	'/auth/twitter/callback',
-	passport.authenticate( 'twitter', { failureRedirect: '#auth-failure' }),
-	function( req, res ) {
-		res.redirect( '/' );
-	}
-);
-app.get( '/auth/gmail',
-	passport.authenticate( 'gmail' ));
-app.get( 
-	'/auth/gmail/callback',
-	passport.authenticate( 'gmail', { failureRedirect: '#auth-failure' }),
-	function( req, res ) {
-		res.redirect( '/' );
-	}
-);
-app.post( '/auth/imap/callback',
-	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' }),
-	function( req, res ) {
-		res.redirect( '/' );
-	}
-);
-
 app.get( '/auth/imap',
 	function( req, res ) {
 		res.redirect( '/#imap' );
+	}
+);
+
+app.get( '/auth/:service/callback',
+	function( req, res ) {
+		( passport.authenticate( req.params.service, 
+			{ failureRedirect: '#auth-failure' },
+			function() {
+				if( req.session[ 'auth-return' ] )
+					res.redirect( req.session[ 'auth-return' ]);
+				else
+					res.redirect( '/' );
+			}
+		))( req, res );
+	}
+);
+
+app.get( '/auth/:service',
+	function( req, res ) {
+		( passport.authenticate( req.params.service ))( req, res );
 	}
 );
 

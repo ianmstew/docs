@@ -48,7 +48,7 @@ define(function (require) {
       if (this.model.get('connected')) {
         window.location.assign('/disconnect/' + this.model.get('serviceKey'));
       } else {
-        window.location.assign('/auth/' + this.model.get('serviceKey'));
+        window.location.assign('/auth/' + this.model.get('serviceKey') + '?auth-return=%2F%23tryUri%2Ffacebook%2Fuserprofile');
       }
     },
 
