@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   static_ = app.module('static', StaticModule);
-  static_.start();
 
   return static_;
 });

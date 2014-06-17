@@ -1,7 +1,7 @@
 define(function (require) {
   var Backbone = require('backbone'),
       ServiceModel = require('entities/service/service.model'),
-      AuthorizedServicesModel = require('entities/service/authorized/authorizedServices.model'),
+      appChannel = require('app.channel'),
       ServiceCollection;
 
   ServiceCollection = Backbone.Collection.extend({
@@ -9,15 +9,13 @@ define(function (require) {
     model: ServiceModel,
 
     initialize: function () {
-      this.authorizedServices = new AuthorizedServicesModel();
       
-      this.listenTo(this.authorizedServices, 'change', function () {
-        var connections = this.authorizedServices.get('connections');
-        if (connections.length > 0) {
+      this.listenTo(appChannel.vent, 'change:authorizedServices', function (services) {
+        if (services.length > 0) {
           _.each(this.models, function (model) {
             var connected = false;
-            _.each(connections, function (connection) {
-              if (model.get('serviceKey') === connection) {
+            _.each(services, function (service) {
+              if (model.get('serviceKey') === service) {
                 connected = true;
               }
             });
@@ -28,7 +26,7 @@ define(function (require) {
     },
 
     fetchAuthorized: function () {
-      this.authorizedServices.fetch();
+      appChannel.commands.execute('poll:authorizedServices');
     }
   });
 

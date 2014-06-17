@@ -13,20 +13,25 @@ define(function (require) {
 
     appEvents: {
       vent: {
-        'show:try-uri': 'showTryUri'
+        'show:try-uri': 'showTryUri',
+        'change:authorizedServices': 'authorizedServicesChanged'
       }
     },
 
     moduleEvents: {
       vent: {
-        'try:uri': 'tryUri'
+        'try:uri': 'tryUri',
+        'connect': 'connect'
       }
     },
 
     api: null,
     tryUriView: null,
+    currentService: null,
+    authorizedServices: null,
 
     showTryUri: function (serviceKey, endpointKey) {
+      this.currentService = serviceKey;
       appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
 
       if (!this.tryUriView || this.tryUriView.isClosed) {
@@ -47,7 +52,25 @@ define(function (require) {
       this.api.fetchGenericUri();
       this.api.fetchGenericOutput();
   
+      this.updateAuthorized();
       history.navigate('tryUri/' + serviceKey + '/' + endpointKey);
+    },
+
+    connect: function () {
+      appChannel.commands.execute('connect:service', this.currentService);
+    },
+
+    authorizedServicesChanged: function (services) {
+      this.authorizedServices = services;
+      this.updateAuthorized();
+    },
+
+    updateAuthorized: function () {
+      if (_.indexOf(this.authorizedServices, this.currentService) >= 0) {
+        this.tryUriView.triggerMethod('setAuthorized', true);
+      } else {
+        this.tryUriView.triggerMethod('setAuthorized', false);
+      }
     },
 
     tryUri: function (uri) {

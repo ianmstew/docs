@@ -2,6 +2,7 @@ define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/menu/menuPanel/menuPanel.view'),
       MenuItemView = require('modules/menu/menuItem/menuItem.view'),
+      appChannel = require('app.channel'),
       MenuPanelView;
 
   MenuPanelView = Marionette.CompositeView.extend({
@@ -46,9 +47,9 @@ define(function (require) {
 
     connectClicked: function () {
       if (this.model.get('connected')) {
-        window.location.assign('/disconnect/' + this.model.get('serviceKey'));
+        appChannel.commands.execute('disconnect:service', this.model.get('serviceKey'));
       } else {
-        window.location.assign('/auth/' + this.model.get('serviceKey'));
+        appChannel.commands.execute('connect:service', this.model.get('serviceKey'));
       }
     },
 

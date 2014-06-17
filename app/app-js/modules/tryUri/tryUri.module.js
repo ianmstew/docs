@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   tryUri = app.module('tryUri', TryUriModule);
-  tryUri.start();
 
   return tryUri;
 });

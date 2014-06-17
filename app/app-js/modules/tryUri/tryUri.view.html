@@ -2,13 +2,13 @@
 </div>
 
 <h1 class="js-api-name">{{apiName}}</h1>
-<h3>URI Format: <code class="js-sample-uri"></code></h3>
+<h3>URI Format: <code class="js-generic-uri tryuri-generic-uri">{{genericUri.uri}}</code></h3>
 <div class="bar">
   <form role="form">
     <div class="tryuri-field js-input-container">
-      <textarea class="tryuri-input js-uri" rows="1" cols="100" {{^uri}}disabled{{/uri}}>{{uri}}</textarea>
+      <textarea class="tryuri-input js-uri" rows="1" cols="100">{{sampleUri.uri}}</textarea>
       <span class="tryuri-button">
-        <button class="js-try-it" type="button" {{^uri}}disabled{{/uri}}>Try It!</button>
+        <button class="js-try-it" type="button">Try It!</button>
       </span>
     </div>
   </form>
@@ -16,6 +16,5 @@
 
 <h3>Sample Output:</h3>
 <pre>
-  <code class="js-sample-output">
-  </code>
+  <code class="js-output tryuri-output">{{tryUri.output}}{{^tryUri.output}}{{genericOutput.output}}{{/tryUri.output}}</code>
 </pre>
