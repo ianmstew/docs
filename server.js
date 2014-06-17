@@ -203,6 +203,12 @@ app.post( '/auth/imap/callback',
 	}
 );
 
+app.get( '/auth/imap',
+	function( req, res ) {
+		res.redirect( '/#imap' );
+	}
+);
+
 app.get( '/disconnect/:service', function( req, res ) {
 	var toRemove = req.getAuthTokens( req.params.service );
 	if( toRemove )
