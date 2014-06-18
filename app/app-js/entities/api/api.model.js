@@ -4,7 +4,7 @@ define(function (require) {
       GenericUriModel = require('entities/api/call/genericUri.model'),
       SampleUriModel = require('entities/api/call/sampleUri.model'),
       GetUriModel = require('entities/api/call/tryUri.model'),
-      HasNestedModel = require('lib/hasNestedModel.mixin'),
+      HasNestedModel = require('lib/hasNestedModel'),
       appChannel = require('app.channel'),
       ApiModel;
 
@@ -34,43 +34,46 @@ define(function (require) {
       }
     },
 
-    constructor: function (attrs, options) {
-      var apiAttributes = _.pick(attrs, ['serviceKey', 'endpointKey']);
+    constructor: function () {
+      // Attach nested model functionality
+      new HasNestedModel(this);
+
+      // Attach computed field functionality
+      new Backbone.ComputedFields(this);
+
+      ApiModel.__super__.constructor.apply(this, arguments);
+    },
+
+    initialize: function () {
+      var self = this,
+          apiAttributes = {
+            serviceKey: this.get('serviceKey'),
+            endpointKey: this.get('endpointKey')
+          };
 
       // Initialize submodels
-      _.extend(attrs, {
+      this.set({
         genericOutput: new GenericOutputModel(apiAttributes),
         genericUri: new GenericUriModel(apiAttributes),
         sampleUri: new SampleUriModel(apiAttributes),
         tryUri: new GetUriModel()
       });
 
-      // Attach nested model functionality
-      new HasNestedModel(this);
-
-      ApiModel.__super__.constructor.call(this, attrs, options);
-    },
-
-    initialize: function () {
-      var self = this;
-
-      // Attach computed fields functionality
-      new Backbone.ComputedFields(this);
-
       this.on('change', function () {
-        var serviceKey,
-            endpointKey;
-        
+        var apiAttributes;
+
         // When serviceKey or endpointKey are changed, pass them down to submodels
         if (self.hasChanged('serviceKey') || self.hasChanged('endpointKey')) {
-          serviceKey = self.get('serviceKey');
-          endpointKey = self.get('endpointKey');
+          apiAttributes = {
+            serviceKey: self.get('serviceKey'),
+            endpointKey: self.get('endpointKey')
+          };
 
           _.invoke([
             self.get('genericOutput'),
             self.get('genericUri'),
             self.get('sampleUri')
-          ], 'set', { serviceKey: serviceKey, endpointKey: endpointKey });
+          ], 'set', apiAttributes);
         }
       });
     },

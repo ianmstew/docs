@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   header = app.module('header', HeaderModule);
-  header.start();
 
   return header;
 });

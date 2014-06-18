@@ -10,12 +10,14 @@ require.config({
     'marionette':              '../vendor/marionette/backbone.marionette',
     'bootstrap':               '../vendor/bootstrap/bootstrap',
     'parsley':                 '../vendor/parsleyjs/parsley',
+    'spinner':                 '../vendor/spin.js/spin',
     'hogan':                   '../vendor/requirejs-hogan-plugin/hogan',
     'hgn':                     '../vendor/requirejs-hogan-plugin/hgn',
     'text':                    '../vendor/requirejs-hogan-plugin/text',
     
-    // change to logger-prod for production (disables logging)
-    'lib/logger':              'lib/logger-dev'
+    // change to -prod for production
+    'lib/logger':              'lib/logger-dev',
+    'lib/eventDebugger':       'lib/eventDebugger-dev'
   },
 
   shim: {
@@ -38,32 +40,4 @@ require.config({
   }
 });
 
-require([
-  'marionette',
-  'app',
-  'backbone.computedfields',
-  'bootstrap',
-  'entities/api/api.module',
-  'entities/service/service.module',
-  'entities/alert/alert.module',
-  'debug/event.debugger'
-],
-function (Marionette, app) {
-  require([
-    'modules/header/header.module',
-    'modules/menu/menu.module',
-    'modules/welcome/welcome.module',
-    'modules/footer/footer.module',
-    'modules/static/static.module',
-    'modules/tryUri/tryUri.module',
-    'modules/alert/alert.module',
-    'modules/loading/loading.module',
-  ], function () {
-    // Override templating method to use hgn templates
-    Marionette.Renderer.render = function (template, data) {
-      return template(data);
-    };
-
-    app.start();
-  });
-});
+require(['app-start']);

@@ -28,7 +28,7 @@ define(function (require) {
         this.menuView = new MenuView({
           collection: this.services
         });
-        this.services.fetchAuthorized();
+        appChannel.commands.execute('poll:authorizedServices');
         appChannel.commands.execute('showin:menuRegion', this.menuView);
       }
 

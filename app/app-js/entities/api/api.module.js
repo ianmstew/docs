@@ -11,7 +11,6 @@ define(function (require) {
   });
 
   apiEntities = app.module('apiEntities', AlertModule);
-  apiEntities.start();
 
   return apiEntities;
 });

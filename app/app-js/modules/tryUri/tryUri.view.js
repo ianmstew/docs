@@ -9,10 +9,10 @@ define(function (require) {
     className: 'tryUri',
 
     ui: {
-      sampleUri: '.js-sample-uri',
-      sampleOutput: '.js-sample-output',
+      genericUri: '.js-generic-uri',
+      uri: '.js-uri',
+      output: '.js-output',
       tryIt: '.js-try-it',
-      uriField: '.js-uri',
       apiName: '.js-api-name'
     },
 
@@ -28,8 +28,25 @@ define(function (require) {
       'click @ui.tryIt': 'tryItClicked'
     },
 
+    authorized: false,
+
     tryItClicked: function () {
-      moduleChannel.vent.trigger('try:uri', this.ui.uriField.val());
+      if (this.authorized) {
+        moduleChannel.vent.trigger('try:uri', this.ui.uri.val());
+      } else {
+        moduleChannel.vent.trigger('connect');
+      }
+    },
+
+    onSetAuthorized: function (authorized) {
+      if (authorized) {
+        this.ui.uri.prop('disabled', false);
+        this.ui.tryIt.text('Try It!');
+      } else {
+        this.ui.uri.prop('disabled', true);
+        this.ui.tryIt.text('Connect to try this live');
+      }
+      this.authorized = authorized;
     },
 
     apiNameChanged: function (model, value) {
@@ -37,33 +54,26 @@ define(function (require) {
     },
 
     sampleUriChanged: function (model, value) {
-      if (value) {
-        this.ui.uriField.prop('disabled', false);
-        this.ui.tryIt.prop('disabled', false);
-      } else {
-        this.ui.uriField.prop('disabled', true);
-        this.ui.tryIt.prop('disabled', true);
-      }
-      this.ui.uriField.val(value);
+      this.ui.uri.val(value);
     },
 
     genericUriChanged: function (model, value) {
-      this.ui.sampleUri.text(value);
+      this.ui.genericUri.text(value);
     },
 
     tryUriChanged: function (model, value) {
-      this.ui.sampleOutput.text(value);
+      this.ui.output.text(value);
     },
 
     genericOutputChanged: function (model, value) {
-      this.ui.sampleOutput.text(value);
+      this.ui.output.text(value);
     },
 
     onShow: function () {
-      var totalHeight = this.ui.uriField.parent().height();
+      var totalHeight = this.ui.uri.parent().height();
 
-      this.ui.uriField
-        .data('height', this.ui.uriField.height())
+      this.ui.uri
+        .data('height', this.ui.uri.height())
         .focus(function () {
           var scrollHeight = $(this)[0].scrollHeight;
 

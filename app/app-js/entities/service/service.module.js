@@ -11,7 +11,6 @@ define(function (require) {
   });
 
   serviceEntities = app.module('serviceEntities', ServiceModule);
-  serviceEntities.start();
 
   return serviceEntities;
 });

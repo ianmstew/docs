@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   loading = app.module('loading', LoadingModule);
-  loading.start();
 
   return loading;
 });

@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   alert = app.module('alert', AlertModule);
-  alert.start();
 
   return alert;
 });
