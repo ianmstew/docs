@@ -3,37 +3,48 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
 
+    pkg: grunt.file.readJSON('package.json'),
+
     path: {
       // Source folders
       app: 'app',
-      app_js: 'app/app-js',
-      less: 'app/less',
+      app_appjs: 'app/app-js',
+      app_style: 'app/less',
+      app_vendor: 'app/vendor',
 
       // Intermediate folders (transient)
       temp: 'temp',
+      bower: 'bower_components',
 
       // Output folders (transient)
       dist: 'dist',
+      dist_appjs: 'dist/app-js',
       dist_style: 'dist/style',
       dist_vendor: 'dist/vendor'
     },
 
     clean: {
-      dist: ['<%- path.dist %>', '<%- path.temp %>']
+      all: [
+        '<%- path.app_vendor %>',
+        '<%- path.dist %>',
+        '<%- path.temp %>',
+        '<%- path.bower %>'
+      ]
     },
 
     less: {
       options: {
         paths: [
-          '<%- path.dist_vendor %>',
+          '<%- path.app_vendor %>',
           '<%- path.temp %>'
-        ]
+        ],
+        cleancss: false
       },
 
       precompile: {
         files: {
           '<%- path.temp %>/engine-ui-grid-precompile.less':
-              '<%- path.less %>/engine-ui-grid.less'
+              '<%- path.app_style %>/engine-ui-grid.less'
         }
       },
 
@@ -45,7 +56,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%- path.dist_style %>/hosted-apis.css':
-              '<%- path.less %>/hosted-apis.less'
+              '<%- path.app_style %>/hosted-apis.less'
         }
       }
     },
@@ -53,11 +64,37 @@ module.exports = function (grunt) {
     bower: {
       install: {
         options: {
-          targetDir: '<%- path.dist_vendor %>',
-          verbose: true,
+          targetDir: '<%- path.app_vendor %>',
           layout: 'byComponent',
           bowerOptions: {
             production: true
+          }
+        }
+      }
+    },
+
+    copy: {
+      prod: {
+        expand: true,
+        cwd: '<%- path.app %>',
+        src: [
+          'img/**/*',
+          '**/font/**/*'
+        ],
+        dest: '<%- path.dist %>'
+      },
+
+      prod_versioned: {
+        expand: true,
+        cwd: '<%- path.app %>',
+        src: ['index.html'],
+        dest: '<%- path.dist %>',
+        options: {
+          process: function (content) {
+            return content
+              .replace(/\{version\}/g, grunt.config.data.pkg.version)
+              .replace('src="vendor/requirejs/require.js" data-main="app-js/app-require.js"',
+                       'src="app.js?v=' + grunt.config.data.pkg.version + '"');
           }
         }
       }
@@ -70,13 +107,13 @@ module.exports = function (grunt) {
         failOnError: true
       },
 
-      sync_app: {
+      sync_dev: {
         command: [
           'cwd=$(pwd)',
           'cd <%- path.app %>',
           'rsync . $cwd/<%- path.dist %> ' +
               '--update --delete --verbose --recursive ' +
-              '--exclude less --exclude style --exclude vendor' 
+              '--exclude ./less --exclude ./style' 
         ].join('&&') 
       },
 
@@ -90,20 +127,40 @@ module.exports = function (grunt) {
       }
     },
 
+    requirejs: {
+      prod: {
+        options: {
+          baseUrl: '<%- path.app_appjs %>',
+          out: '<%- path.dist %>/app.js',
+          mainConfigFile: '<%- path.app_appjs %>/app-require.js',
+          name: '../vendor/almond/almond',
+          include: ['app-start'],
+          stubModules: ['text', 'hgn'],
+          optimize: 'uglify2',
+          preserveLicenseComments: false,
+          insertRequire: ['app-start'],
+          paths: {
+            'lib/logger':        'lib/logger-prod',
+            'lib/eventDebugger': 'lib/eventDebugger-prod'
+          }
+        }
+      }
+    },
+
     jshint: {
       options: {
         jshintrc: true
       },
 
-      app: ['Gruntfile.js', '<%- path.app_js %>/**/*.js']
+      app: ['Gruntfile.js', '<%- path.app_appjs %>/**/*.js']
     },
 
     jscs: {
       options: {
-        config: '<%- path.app_js %>/.jscsrc'
+        config: '<%- path.app_appjs %>/.jscsrc'
       },
 
-      app: ['Gruntfile.js', '<%- path.app_js %>/**/*.js']
+      app: ['Gruntfile.js', '<%- path.app_appjs %>/**/*.js']
     },
 
     watch: {
@@ -114,14 +171,14 @@ module.exports = function (grunt) {
       app: {
         files: [
           '<%- path.app %>/**/*',
-          '!<%- path.less %>/**/*'
+          '!<%- path.app_style %>/**/*'
         ],
-        tasks: ['shell:sync_app']
+        tasks: ['shell:sync_dev']
       },
 
       less: {
         files: [
-          '<%- path.less %>/**/*',
+          '<%- path.app_style %>/**/*',
           '<%- path.dist_vendor %>/engine-ui/less/**/*'
         ],
         tasks: ['less:app']
@@ -146,12 +203,26 @@ module.exports = function (grunt) {
   // bring in all grunt plugins from package.json
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('dist-dev', [
-    'shell:sync_app',
+  grunt.registerTask('set-prod', function () {
+    grunt.config.data.less.options.cleancss = true;
+    grunt.config.data.less.app.options.sourceMap = false;
+  });
+
+  grunt.registerTask('build-dev', [
     'bower',
+    'shell:sync_dev',
     'less',
     'shell:sourcemap_links'
   ]);
 
-  grunt.registerTask('default', ['dist-dev']);
+  grunt.registerTask('build-prod', [
+    'set-prod',
+    'clean',
+    'bower',
+    'copy',
+    'less',
+    'requirejs'
+  ]);
+
+  grunt.registerTask('default', ['build-dev']);
 };

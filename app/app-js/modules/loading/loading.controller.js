@@ -15,16 +15,13 @@ define(function (require) {
       }
     },
 
-    initialize: function () {
-      console.log('HERE!');
-      // this.loadingView = new LoadingView();
-      // appChannel.commands.execute('showin:loadingRegion', this.loadingView);
-    },
-
     loadingData: function (modalData) {
+      this.loadingView = new LoadingView();
+      appChannel.commands.execute('showin:loadingRegion', this.loadingView);
     },
 
     loadedData: function () {
+      appChannel.commands.execute('close:loadingRegion', this.loadingView);
     }
   });
 
