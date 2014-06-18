@@ -7,7 +7,7 @@
 @import "static.less";
 @import "try-uri.less";
 
-@footer-height:      60px;
+@footer-height:      121px;
 @brand-apiblue:      #007bb6;
 @brand-apibluelight: desaturate(lighten(@brand-apiblue, 20%), 45%);
 @brand-primary:      @brand-apiblue;
@@ -124,38 +124,68 @@ footer {
   width: 100%;
   line-height: @footer-height;
   color: #FFF;
-  text-indent: 20px;
+  text-align: center;
   background-color: @gray-dark;
 
-  a {
-    padding: 0 0.5%;
+  h4 {
+    margin-top: 1%;
+    margin-bottom: 0;
+  }
 
-    &:first-child {
-      padding-left: 1%;
+  .contact-links {
+    margin: 1% auto 1.5% auto;
+    padding: 0;
+    width: 10%;
+    height: 2em;
+
+    @media (min-width: @screen-xs-min) and (max-width: @screen-md-min) {
+      width: 20%;
+    }
+
+    @media (max-width: @screen-xs-min) {
+      width: 50%;
+    }
+
+    a {
+      float: left;
+      width: 33.3%;
+      line-height: 1;
+      height: 2em;
+      text-align: center;
+
+      i {
+        color: @brand-apibluelight;
+      }
+
+      /* padding: 0 0.5%; &:first-child { padding-left: 1%; } */
+    }
+
+    .angellist {
+      background: url('../img/angellist-apiblue.png') no-repeat center center;
+      background-size: 15px;
     }
   }
 
-  @media screen {
-    @media (max-width: @screen-xs-min) {
-      padding-top: 2%;
-      position:relative;
-      line-height: (@footer-height / 2);
-      font-size: 1em;
-      text-align: center;
+  @media (max-width: @screen-xs-min) {
+    padding-top: 2%;
+    padding-bottom: 1%;
+    position:relative;
+    line-height: (@footer-height / 2);
+    font-size: 1em;
+    text-align: center;
 
-      a {
+    a {
 
-        &:first-child {
-          padding: 0
-        }
-
-        &:last-child {
-          padding: 0 0 2% 0;
-        }
-
-        display: block;
-        padding: 0;
+      &:first-child {
+        padding: 0
       }
+
+      &:last-child {
+        padding: 0 0 2% 0;
+      }
+
+      display: block;
+      padding: 0;
     }
   }
 }

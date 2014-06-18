@@ -127,27 +127,35 @@
   }
 
   // Welcome Page
-  .btn-register-app {
-    &:extend(.btn-lg all);
+  .register-app {
+    border-bottom: 0;
 
-    width: 25%;
-    text-align: center;
+    button {
+      &:extend(.btn-lg all);
 
-    &:before {
-      content: "Register Your App!";
-    }
-
-    &:hover {
-      &:extend(.btn-green all, .btn-lg);
-
-      .transition(background .25s ease-in-out, border .25s ease-in-out;);
+      width: 204px;
+      text-align: center;
 
       &:before {
-        content: "Coming Soon!";
+        content: "Register Your App!";
+      }
+
+      &:hover {
+        &:extend(.btn-green all, .btn-lg);
+
+        .transition(background .25s ease-in-out, border .25s ease-in-out;);
+
+        &:before {
+          content: "Coming Soon!";
+        }
+      }
+
+      color: @gray-light;
+
+      @media (max-width: @screen-xs-min) {
+        margin: 1% auto;
       }
     }
-
-    color: @gray-light;
   }
 }
 
