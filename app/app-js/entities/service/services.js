@@ -120,19 +120,6 @@ define(function (require) {
       'endpointName': 'Email message in given mailbox according to its sequence number',
       'endpointKey': 'messageSequenceNumber'
     }]
-  }, {
-    'serviceName': 'App.net',
-    'serviceKey': 'appnet',
-    'endpoints': [{
-      'endpointName': 'Data Type 1',
-      'endpointKey': 'datatype1'
-    }, {
-      'endpointName': 'Data Type 2',
-      'endpointKey': 'datatype2'
-    }, {
-      'endpointName': 'Data Type 3',
-      'endpointKey': 'datatype3'
-    }]
   }];
 
   services.lookupServiceName = function (serviceKey) {
