@@ -2,5 +2,6 @@ node_modules
 bower_components
 dist
 temp
+vendor
 .DS_Store
 *.log

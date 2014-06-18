@@ -1,6 +1,11 @@
 // Node 0.10.x adds additional cert checking, which could cause problems here.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
+// Catch any and all exceptions.
+process.on( 'uncaughtException' ,function(err) {
+    console.log( "Uncaught error", err );
+});
+
 var express = require('express'),
 	passport = require( 'passport' ),
 	FacebookStrategy = require( 'passport-facebook' ).Strategy,
@@ -131,6 +136,7 @@ passport.use( 'gmail', new GoogleOAuth2Strategy(
  
 app.configure(function () {
 	app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
+	app.use(express.compress());
 	app.use(express.cookieParser());
 	app.use(express.bodyParser());
 	app.use(express.session({ secret: 'lkdfj86B1Haf4BI' }));
@@ -203,7 +209,7 @@ app.get( '/auth/twitter/callback',
 	}
 );
 
-app.get( '/auth/imap/callback',
+app.post( '/auth/imap/callback',
 	passport.authenticate( 'imap', { failureRedirect: '#auth-failure' } ),
 	function( req, res ) {
 		if( req.session[ 'auth-return' ] )
