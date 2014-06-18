@@ -50,11 +50,14 @@ define(function (require) {
     },
 
     removeAlert: function (alert) {
-      this.alerts.remove(alert);
-      this.alertRegistry[alert.hash()] = false;
+      var alert = this.alertRegistry[alert.hash()];
+      if (alert) {
+        this.alerts.remove(alert);
+        delete this.alertRegistry[alert.hash()];
+      }
     },
 
-    clearAlerts: function (alert) {
+    clearAlerts: function () {
       this.alertRegistry = {};
       this.alerts.reset();
     },

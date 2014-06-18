@@ -14,23 +14,14 @@ define(function (require) {
     },
 
     fetch: function (options) {
-      var serviceName = appChannel.reqres.request('lookup:serviceName', this.get('serviceKey'));
+      var self = this;
+          serviceName = appChannel.reqres.request('lookup:serviceName', this.get('serviceKey'));
 
       options = options || {};
-      
-      _.extend(options, {
-        url: this.urlRoot + '/' + this.get('serviceKey') + '/' + this.get('endpointKey'),
-
-        error: function () {
-          var alert = {
-            title: 'You haven\'t authenticated with the ' + serviceName + ' API.',
-            message: 'Connect with a data source on the left to begin',
-            state: 'danger'
-          };
-
-          appChannel.commands.execute('add:alert', alert);
-        }
-      });
+      options.url = this.urlRoot + '/' + this.get('serviceKey') + '/' + this.get('endpointKey');
+      options.error = function () {
+        self.set('uri', null);
+      };
 
       return SampleUriModel.__super__.fetch.call(this, options);
     }

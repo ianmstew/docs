@@ -29,6 +29,10 @@ module.exports = function (grunt) {
         '<%- path.dist %>',
         '<%- path.temp %>',
         '<%- path.bower %>'
+      ],
+
+      dist: [
+        '<%- path.dist %>'
       ]
     },
 
@@ -113,8 +117,8 @@ module.exports = function (grunt) {
           'cd <%- path.app %>',
           'rsync . $cwd/<%- path.dist %> ' +
               '--update --delete --verbose --recursive ' +
-              '--exclude ./less --exclude ./style' 
-        ].join('&&') 
+              '--exclude less --exclude style' 
+        ].join('&&')
       },
 
       sourcemap_links: {
@@ -209,6 +213,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build-dev', [
+    'clean:dist',
     'bower',
     'shell:sync_dev',
     'less',
@@ -217,7 +222,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-prod', [
     'set-prod',
-    'clean',
+    'clean:all',
     'bower',
     'copy',
     'less',

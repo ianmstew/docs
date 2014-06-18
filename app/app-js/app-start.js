@@ -7,9 +7,9 @@ define(function (require) {
   var Marionette = require('marionette'),
       app = require('app'),
 
-      api = require('entities/api/api.module'),
-      service = require('entities/service/service.module'),
-      alert = require('entities/alert/alert.module'),
+      apiEntity = require('entities/api/api.module'),
+      serviceEntity = require('entities/service/service.module'),
+      alertEntity = require('entities/alert/alert.module'),
 
       header = require('modules/header/header.module'),
       menu = require('modules/menu/menu.module'),
@@ -26,9 +26,9 @@ define(function (require) {
   };
 
   // start entity modules
-  api.start();
-  service.start();
-  alert.start();
+  apiEntity.start();
+  serviceEntity.start();
+  alertEntity.start();
 
   // start rendering modules
   header.start();

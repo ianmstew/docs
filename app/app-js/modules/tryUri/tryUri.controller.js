@@ -31,6 +31,8 @@ define(function (require) {
     authorizedServices: null,
 
     showTryUri: function (serviceKey, endpointKey) {
+      var endpointDisabled;
+
       this.currentService = serviceKey;
       appChannel.vent.trigger('show:menu', serviceKey, endpointKey);
 
@@ -47,6 +49,9 @@ define(function (require) {
           endpointKey: endpointKey
         });
       }
+
+      endpointDisabled = appChannel.reqres.request('is:endpointDisabled', serviceKey, endpointKey);
+      this.tryUriView.triggerMethod('endpointDisabled', endpointDisabled);
 
       this.api.fetchSampleUri();
       this.api.fetchGenericUri();

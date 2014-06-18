@@ -6,7 +6,8 @@ define(function (require) {
 
     defaults: {
       endpointName: null,
-      endpointKey: null
+      endpointKey: null,
+      disabledMessage: null
     }
   });
 
