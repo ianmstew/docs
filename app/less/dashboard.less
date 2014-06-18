@@ -125,6 +125,30 @@
    {
     &:extend(.table all, .table-striped all);
   }
+
+  // Welcome Page
+  .btn-register-app {
+    &:extend(.btn-lg all);
+
+    width: 25%;
+    text-align: center;
+
+    &:before {
+      content: "Register Your App!";
+    }
+
+    &:hover {
+      &:extend(.btn-green all, .btn-lg);
+
+      .transition(background .25s ease-in-out, border .25s ease-in-out;);
+
+      &:before {
+        content: "Coming Soon!";
+      }
+    }
+
+    color: @gray-light;
+  }
 }
 
 // Try URI Landing Page
@@ -180,9 +204,20 @@
       }
     }
   }
+
+  .import-data-modules {
+    p {
+      margin: 0 0 2% 0;
+    }
+    code {
+      margin: 1% 0;
+      display: block;
+    }
+  }
 }
 
 .help {
+  margin: 0 0 1% 0;
   padding: 1%;
   // width: 70%;
   background-color: desaturate(lighten(@brand-primary, 55%), 40%);
