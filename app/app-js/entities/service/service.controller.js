@@ -13,7 +13,8 @@ define(function (require) {
       reqres: {
         'get:serviceCollection': 'getServiceCollection',
         'lookup:serviceName': 'lookupServiceName',
-        'lookup:endpointName': 'lookupEndpointName'
+        'lookup:endpointName': 'lookupEndpointName',
+        'is:endpointDisabled': 'isEndpointDisabled'
       },
 
       commands: {
@@ -56,6 +57,10 @@ define(function (require) {
 
     lookupEndpointName: function (serviceKey, endpointKey) {
       return services.lookupEndpointName(serviceKey, endpointKey);
+    },
+
+    isEndpointDisabled: function (serviceKey, endpointKey) {
+      return services.isEndpointDisabled(serviceKey, endpointKey);
     }
   });
 

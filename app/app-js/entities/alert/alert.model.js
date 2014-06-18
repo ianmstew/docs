@@ -7,7 +7,9 @@ define(function (require) {
   	defaults: {
       title: 'Alert Title',
   		message: 'Alert message',
-  		state: 'danger'  // {danger|warn|info|success}
+  		state: 'danger',  // {danger|warn|info|success}
+      uniqueGroup: null,
+      uniqueValue: null
   	},
 
     hash: function () {

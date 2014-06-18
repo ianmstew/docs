@@ -24,6 +24,9 @@ define(function (require) {
     },
 
     showMenu: function (serviceKey, endpointKey) {
+      // Clear all alerts before each selection
+      appChannel.commands.execute('clear:alerts');
+
       if (!this.menuView || this.menuView.isClosed) {        
         this.menuView = new MenuView({
           collection: this.services
@@ -37,7 +40,7 @@ define(function (require) {
       }
 
       if (endpointKey) {
-        moduleChannel.vent.trigger('select:endpoint', serviceKey, endpointKey);
+        moduleChannel.vent.trigger('select:endpoint', serviceKey, endpointKey);  
       }
     }
   });

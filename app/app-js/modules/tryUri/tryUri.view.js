@@ -1,7 +1,6 @@
 define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/tryUri/tryUri.view'),
-      moduleChannel = require('modules/tryUri/tryUri.channel'),
       TryUriView;
 
   TryUriView = Marionette.ItemView.extend({
@@ -29,6 +28,7 @@ define(function (require) {
     },
 
     authorized: false,
+    disabled: false,
 
     tryItClicked: function () {
       if (this.authorized) {
@@ -38,15 +38,40 @@ define(function (require) {
       }
     },
 
-    onSetAuthorized: function (authorized) {
-      if (authorized) {
+    _getTryItText: function () {
+      if (this.disabled) {
+        return 'Temporarily Unavailable';
+      } else if (this.authorized) {
+        return 'Try It!';
+      } else {
+        return 'Connect to try this live';
+      }
+    },
+
+    onEndpointDisabled: function (disabled) {
+      this.disabled = disabled;
+
+      if (disabled) {
+        this.ui.uri.prop('disabled', true);
+        this.ui.tryIt.prop('disabled', true);
+      } else {
         this.ui.uri.prop('disabled', false);
-        this.ui.tryIt.text('Try It!');
+        this.ui.tryIt.prop('disabled', false);
+      }
+
+      this.ui.tryIt.text(this._getTryItText());
+    },
+
+    onSetAuthorized: function (authorized) {
+      this.authorized = authorized;
+
+      if (authorized) {
+        if (!this.disabled) this.ui.uri.prop('disabled', false);
       } else {
         this.ui.uri.prop('disabled', true);
-        this.ui.tryIt.text('Connect to try this live');
       }
-      this.authorized = authorized;
+
+      this.ui.tryIt.text(this._getTryItText());
     },
 
     apiNameChanged: function (model, value) {
