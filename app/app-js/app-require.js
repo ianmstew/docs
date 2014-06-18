@@ -10,6 +10,7 @@ require.config({
     'marionette':              '../vendor/marionette/backbone.marionette',
     'bootstrap':               '../vendor/bootstrap/bootstrap',
     'parsley':                 '../vendor/parsleyjs/parsley',
+    'spinner':                 '../vendor/spin.js/spin',
     'hogan':                   '../vendor/requirejs-hogan-plugin/hogan',
     'hgn':                     '../vendor/requirejs-hogan-plugin/hgn',
     'text':                    '../vendor/requirejs-hogan-plugin/text',

@@ -76,12 +76,12 @@ define(function (require) {
     },
 
     tryUri: function (uri) {
-      appChannel.vent.trigger('loading');
+      appChannel.vent.trigger('loading:data');
 
       this.api.fetchTryUri({
         uri: uri,
         complete: function () {
-          appChannel.vent.trigger('loaded');
+          appChannel.vent.trigger('loaded:data');
         }
      });
     }
