@@ -1,6 +1,7 @@
 define(function (require) {
   var AppContentLayout = require('app.content.layout'),
       ModuleController = require('lib/module.controller'),
+      history = require('lib/history'),
       AppController;
 
   AppController = ModuleController.extend({
@@ -10,29 +11,38 @@ define(function (require) {
     },
 
     appEvents: {
-
       commands: {
-        'showin:header':  'showInHeader',
-        'showin:footer':  'showInFooter',
-        'showin:content': 'showInContent',
-        'showin:alert':   'showInAlert',
-        'showin:menu':    'showInMenu',
-        'showin:main':    'showInMain'
+        'showin:headerRegion':  'showInHeaderRegion',
+        'showin:footerRegion':  'showInFooterRegion',
+        'showin:contentRegion': 'showInContentRegion',
+        'showin:alertRegion':   'showInAlertRegion',
+        'showin:menuRegion':    'showInMenuRegion',
+        'showin:mainRegion':    'showInMainRegion',
+        'showin:loadingRegion': 'showInLoadingRegion',
+        'close:loadingRegion':  'closeLoadingRegion'
       }
     },
 
     appLayout: null,
     appLayoutShown: false,
 
-    showInHeader: function (view) {
+    showInLoadingRegion: function (view) {
+      this.app.loadingRegion.show(view);
+    },
+
+    closeLoadingRegion: function () {
+      this.app.loadingRegion.close();
+    },
+
+    showInHeaderRegion: function (view) {
       this.app.headerRegion.show(view);
     },
 
-    showInFooter: function (view) {
+    showInFooterRegion: function (view) {
       this.app.footerRegion.show(view);
     },
 
-    showInContent: function (view) {
+    showInContentRegion: function (view) {
       this.app.contentRegion.show(view);
 
       // showing a view in the contentRegion will destroy the appLayout
@@ -56,7 +66,7 @@ define(function (require) {
       this.appLayoutShown = true;
     },
 
-    showInAlert: function (view) {
+    showInAlertRegion: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {
@@ -64,7 +74,7 @@ define(function (require) {
       });
     },
 
-    showInMenu: function (view) {
+    showInMenuRegion: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {
@@ -72,7 +82,7 @@ define(function (require) {
       });
     },
 
-    showInMain: function (view) {
+    showInMainRegion: function (view) {
       var self = this;
 
       this._showInContentRegion(function () {

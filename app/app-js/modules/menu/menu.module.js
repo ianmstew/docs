@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   menu = app.module('menu', MenuModule);
-  menu.start();
 
   return menu;
 });

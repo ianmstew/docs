@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   footer = app.module('footer', FooterModule);
-  footer.start();
 
   return footer;
 });

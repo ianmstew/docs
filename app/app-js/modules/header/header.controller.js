@@ -8,7 +8,7 @@ define(function (require) {
 
     initialize: function () {
       var headerView = new HeaderView();
-      appChannel.commands.execute('showin:header', headerView);
+      appChannel.commands.execute('showin:headerRegion', headerView);
     }
   });
 

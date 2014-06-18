@@ -2,6 +2,7 @@ define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/menu/menuPanel/menuPanel.view'),
       MenuItemView = require('modules/menu/menuItem/menuItem.view'),
+      appChannel = require('app.channel'),
       MenuPanelView;
 
   MenuPanelView = Marionette.CompositeView.extend({
@@ -20,35 +21,47 @@ define(function (require) {
       'click @ui.connectButton': 'connectClicked'
     },
 
-    modelEvents: {
-      'change:connected': 'connectedChanged'
-    },
+    authorized: false,
 
     initialize: function (options) {
+      var self = this;
+
       this.collection = options.model.get('endpoints');
       this.itemViewOptions = {
         serviceKey: options.model.get('serviceKey')
       };
+
+      this.listenTo(appChannel.vent, 'change:authorizedServices', function (services) {
+        var authorized = false;
+        if (_.indexOf(services, this.model.get('serviceKey')) >= 0) {
+          self.triggerMethod('authorized', true);
+        } else {
+          self.triggerMethod('authorized', false);
+        }
+      });
     },
 
-    connectedChanged: function (mode, connected) {
+    onAuthorized: function (authorized) {
+      this.authorized = authorized;
       this.ui.connectButton
         .removeClass('btn-green')
         .removeClass('btn-red');
-      if (connected) {
+
+      if (authorized) {
         this.ui.connectButton.addClass('btn-red');
         this.ui.connectButton.text('Disconnect');
       } else {
-        this.addClass('btn-green');
+        this.ui.connectButton.addClass('btn-green');
         this.ui.connectButton.text('Connect');
       }
+      this.ui.connectButton.show();
     },
 
     connectClicked: function () {
-      if (this.model.get('connected')) {
-        window.location.assign('/disconnect/' + this.model.get('serviceKey'));
+      if (this.authorized) {
+        appChannel.commands.execute('disconnect:service', this.model.get('serviceKey'));
       } else {
-        window.location.assign('/auth/' + this.model.get('serviceKey') + '?auth-return=' + encodeURIComponent( window.location.pathname + window.location.hash ));
+        appChannel.commands.execute('connect:service', this.model.get('serviceKey'));
       }
     },
 

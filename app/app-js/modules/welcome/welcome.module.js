@@ -10,7 +10,6 @@ define(function (require) {
   });
 
   welcome = app.module('welcome', WelcomeModule);
-  welcome.start();
 
   return welcome;
 });

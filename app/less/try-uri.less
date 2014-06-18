@@ -1,7 +1,7 @@
 // Try URI
 // --------------------------------------------------
 
-.js-sample-uri {
+.tryuri-generic-uri {
   font-size: @font-size-base;
 }
 
@@ -11,21 +11,16 @@
   }
 }
 
-.js-input-container {
+.tryuri-field {
   &:extend(.input-group all);
 
-  .js-uri {
+  .tryuri-input {
     &:extend(.form-control all);
 
     width: 100%;
     line-height: 1.6em;
     border: 1px @gray-lighter solid;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    -webkit-border-top-right-radius: 0px;
-    -webkit-border-bottom-right-radius: 0px;
-    -moz-border-radius-topright: 0px;
-    -moz-border-radius-bottomright: 0px;
+    .border-right-radius(0);
     resize: none;
     overflow-y: hidden;
   }
@@ -34,15 +29,10 @@
     &:extend(.input-group-btn all);
 
     vertical-align: top;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    -webkit-border-top-left-radius: 0px;
-    -webkit-border-bottom-left-radius: 0px;
-    -moz-border-radius-topleft: 0px;
-    -moz-border-radius-bottomleft: 0px;
 
     button {
       &:extend(.btn-green all);
+      .border-left-radius(0);
     }
   }
 }

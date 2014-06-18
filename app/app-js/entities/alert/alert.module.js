@@ -11,7 +11,6 @@ define(function (require) {
   });
 
   alertEntities = app.module('alertEntities', AlertModule);
-  alertEntities.start();
 
   return alertEntities;
 });
