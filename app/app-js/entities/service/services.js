@@ -9,40 +9,88 @@ define(function (require) {
       'endpointKey': 'userprofile'
     }, {
       'endpointName': 'User\'s friends list',
-      'endpointKey': 'ownerfriends'
+      'endpointKey': 'ownerfriends',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s news feed',
-      'endpointKey': 'ownernews'
+      'endpointKey': 'ownernews',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s status feed',
-      'endpointKey': 'ownerstatus'
+      'endpointKey': 'ownerstatus',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s created events',
-      'endpointKey': 'ownerevents'
+      'endpointKey': 'ownerevents',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s group details',
-      'endpointKey': 'ownergroups'
+      'endpointKey': 'ownergroups',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s likes',
-      'endpointKey': 'ownerlikes'
+      'endpointKey': 'ownerlikes',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'Links shared by user',
-      'endpointKey': 'ownerlinks'
+      'endpointKey': 'ownerlinks',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s photos',
-      'endpointKey': 'ownerphotos'
+      'endpointKey': 'ownerphotos',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'Posts shared by user',
-      'endpointKey': 'ownerposts'
+      'endpointKey': 'ownerposts',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'Albums shared by user',
-      'endpointKey': 'owneralbums'
+      'endpointKey': 'owneralbums',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s notes',
-      'endpointKey': 'ownernotes'
+      'endpointKey': 'ownernotes',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s videos',
-      'endpointKey': 'ownervideos'
+      'endpointKey': 'ownervideos',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }]
   }, {
     'serviceName': 'Twitter',
@@ -131,6 +179,12 @@ define(function (require) {
     var service = _.where(this, { serviceKey: serviceKey }),
         endpoint = service.length && _.where(service[0].endpoints, { endpointKey: endpointKey });
     return endpoint.length && endpoint[0].endpointName;
+  };
+
+  services.isEndpointDisabled = function (serviceKey, endpointKey) {
+    var service = _.where(this, { serviceKey: serviceKey }),
+        endpoint = service.length && _.where(service[0].endpoints, { endpointKey: endpointKey });
+    return endpoint.length && endpoint[0].disabledMessage;
   };
 
   services.clone = function () {

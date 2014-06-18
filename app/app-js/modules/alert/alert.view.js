@@ -6,7 +6,7 @@ define(function (require) {
 
   AlertView = Marionette.ItemView.extend({
     template: template,
-    className: 'alert alert-danger fade',
+    className: 'alert fade',
 
     events: {
       'click .close': 'closeClicked'
@@ -16,21 +16,16 @@ define(function (require) {
       moduleChannel.vent.trigger('close:alert', this.model);
     },
 
+    onRender: function () {
+      this.$el.addClass('alert-' + this.model.get('state'));
+    },
+
     onShow: function () {
       var self = this;
 
       _.delay(function () {
         self.$el.addClass('in');
       }, 100);
-    },
-
-    remove: function () {
-      var self = this,
-          args = arguments;
-
-      _.delay(function () {
-        AlertView.__super__.remove.apply(self, args);
-      }, 500);
     }
   });
 

@@ -1,6 +1,7 @@
 define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/menu/menuItem/menuItem.view'),
+      appChannel = require('app.channel'),
       MenuItemView;
 
   MenuItemView = Marionette.ItemView.extend({
@@ -23,7 +24,20 @@ define(function (require) {
     },
 
     onSelect: function () {
+      var disabledMessage;
       this.ui.link.addClass('types-selected');
+
+      if (disabledMessage = this.model.get('disabledMessage')) {
+        var alert = {
+          title: this.model.get('disabledTitle'),
+          message: disabledMessage,
+          state: 'info',
+          uniqueGroup: 'endpoint',
+          uniqueValue: this.model.get('endpointKey')
+        };
+
+        appChannel.commands.execute('add:alert', alert);
+      }
     }
   });
 
