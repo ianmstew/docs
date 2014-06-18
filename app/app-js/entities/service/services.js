@@ -9,10 +9,18 @@ define(function (require) {
       'endpointKey': 'userprofile'
     }, {
       'endpointName': 'User\'s friends list',
-      'endpointKey': 'ownerfriends'
+      'endpointKey': 'ownerfriends',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s news feed',
-      'endpointKey': 'ownernews'
+      'endpointKey': 'ownernews',
+      'disabledTitle': 'Our Apologies!',
+      'disabledMessage':
+          'Live demonstration of some Facebook features is currently disabled, ' +
+          'pending approval from Facebook.'
     }, {
       'endpointName': 'User\'s status feed',
       'endpointKey': 'ownerstatus'
@@ -131,6 +139,12 @@ define(function (require) {
     var service = _.where(this, { serviceKey: serviceKey }),
         endpoint = service.length && _.where(service[0].endpoints, { endpointKey: endpointKey });
     return endpoint.length && endpoint[0].endpointName;
+  };
+
+  services.isEndpointDisabled = function (serviceKey, endpointKey) {
+    var service = _.where(this, { serviceKey: serviceKey }),
+        endpoint = service.length && _.where(service[0].endpoints, { endpointKey: endpointKey });
+    return endpoint.length && endpoint[0].disabledMessage;
   };
 
   services.clone = function () {
