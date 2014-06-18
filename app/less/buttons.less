@@ -2,10 +2,51 @@
 // Buttons
 // --------------------------------------------------
 
-// Modifications to button danger
-@btn-danger-color:  @brand-danger;
-@btn-danger-bg:     #fff;
-@btn-danger-border: @brand-danger;
+.btn-gray,
+.btn-gray-block,
+.btn-action,
+.btn-action-block,
+.btn-green,
+.btn-green-block,
+.btn-red,
+.btn-red-block,
+.btn-yellow,
+.btn-yellow-block {
+  &:extend(.btn all, .btn-md all);
+}
+
+.btn-gray-block,
+.btn-green-block,
+.btn-action-block,
+.btn-red-block,
+.btn-yellow-block {
+  &:extend(.btn-block all);
+}
+
+.btn-gray,
+.btn-gray-block {
+  &:extend(.btn-default all);
+}
+
+.btn-action,
+.btn-action-block {
+  &:extend(.btn-primary all);
+}
+
+.btn-green,
+.btn-green-block {
+  &:extend(.btn-success all);
+}
+
+.btn-red,
+.btn-red-block {
+  &:extend(.btn-danger all);
+}
+
+.btn-yellow,
+.btn-yellow-block {
+  &:extend(.btn-warning all);
+}
 
 // NOTE: This needs to be revised in accordance with engine-ui
 .btn-green {
@@ -14,8 +55,9 @@
 }
 
 .btn-red {
+  .button-variant(@brand-danger, #fff, @brand-danger);
   &:hover {
     color: #fff;
-    background-color: desaturate(lighten(@brand-danger, 10%), 15%);
+    background-color: lighten(@brand-danger, 5%);
   }
 }
