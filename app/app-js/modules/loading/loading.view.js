@@ -17,11 +17,10 @@ define(function (require) {
         corners: 1,
         rotate: 0,
         direction: 1,
-        color: '#fff',
-        speed: 1, // Rounds per second
-        trail: 60, // Afterglow percentage
-        className: 'spinner',
-        top: '25%'
+        color: '#007bb6',
+        speed: 1,
+        trail: 60,
+        className: 'spinner'
       };
 
       var spinner = new Spinner(opts).spin();
