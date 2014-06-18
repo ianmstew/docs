@@ -8,20 +8,12 @@ define(function (require) {
     className: 'loading-modal',
 
     /*
-    ui: {
-      loadingModal: '.loading-modal'
-    },
-
-    events: {
-    },
-
-    initialize: function () {
-      console.log('initializing loading view working!');
-    },
-
-    modalShow: function () {
+    onShow: function() {
+      var spinner = new Spinner().spin();
+      target.appendChild(spinner.el);
     }
     */
+    
   });
 
   return LoadingView;
