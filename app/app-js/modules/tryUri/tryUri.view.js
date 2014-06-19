@@ -1,6 +1,7 @@
 define(function (require) {
   var Marionette = require('marionette'),
       template = require('hgn!modules/tryUri/tryUri.view'),
+      moduleChannel = require('modules/tryUri/tryUri.channel'),
       TryUriView;
 
   TryUriView = Marionette.ItemView.extend({
