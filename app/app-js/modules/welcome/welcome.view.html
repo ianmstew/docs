@@ -6,7 +6,7 @@
     <li>Connect with any of our data sources to see the API in action.</li>
   </ol>
   <div class="help">
-    For more information, check out our github repo: <a href="https://github.com/LDEngine/Engine-Data-Module" target="_blank">https://github.com/LDEngine/Engine-Data-Module</a>
+    For more information, check out our github repo: <a href="https://github.com/APINetwork/personal-data-module" target="_blank" data-bypass>https://github.com/APINetwork/personal-data-module</a>
   </div>
 
   <h1 class="register-app">
@@ -45,112 +45,111 @@ var tokenStore = new EDM.DummyTokenStore();
 // The DummyTokenStore requires us to load it with the tokens we got when we registered
 // our app with Twitter.
 tokenStore.storeApplicationTokens(
-    'twitter',
-    {
-        "consumerKey": "GetThisFromTwitter",
-        "consumerSecret": "GetThisFromTwitterAsWellAndDontTellItToAnyone"
-    },
-    function() {
-      // Then we can actually instantiate the module.
-        var datamodule = new EDM.DataModule(
-            {
-                tokenStore: tokenStore,
-                // Specify which data sources we intend to use.  Anything listed in here
-                // that doesn't have keys in the tokenStore will throw an error when it tries
-                //to initialize.
-                services: [ 'twitter' ]
-            }
-        );
+  'twitter',
+  {
+    "consumerKey": "GetThisFromTwitter",
+    "consumerSecret": "GetThisFromTwitterAsWellAndDontTellItToAnyone"
+  },
+  function() {
+    // Then we can actually instantiate the module.
+    var datamodule = new EDM.DataModule(
+      {
+        tokenStore: tokenStore,
+        // Specify which data sources we intend to use.  Anything listed in here
+        // that doesn't have keys in the tokenStore will throw an error when it tries
+        //to initialize.
+        services: [ 'twitter' ]
+      }
+    );
 
-    // The DummyTokenStore needs to be populated with user access tokens as well.
-    // These would generally also be stored in a database in a real product.  You
-    // can use pretty much any string you want as a username.
-        tokenStore.storeUserTokens(
-            'curtis', 'acct:twitter:90542269',
-            {
-        // personal-data-module doesn't provide any of the authentication flow, you'll
-        // need to provde that.  https://github.com/jaredhanson/passport is an excellent
-        // choice when it comes to authenticating with remote services.
-              token: 'YouGetThisTokenWhenAUserAuthenticatesWithTwitter',
-            tokenSecret: 'YouAlsoGetThisTokenWhenTheUserAuthenticates'
-          },
-          function() {
+  // The DummyTokenStore needs to be populated with user access tokens as well.
+  // These would generally also be stored in a database in a real product.  You
+  // can use pretty much any string you want as a username.
+    tokenStore.storeUserTokens(
+      'curtis', 'acct:twitter:90542269',
+      {
+    // personal-data-module doesn't provide any of the authentication flow, you'll
+    // need to provde that.  https://github.com/jaredhanson/passport is an excellent
+    // choice when it comes to authenticating with remote services.
+        token: 'YouGetThisTokenWhenAUserAuthenticatesWithTwitter',
+      tokenSecret: 'YouAlsoGetThisTokenWhenTheUserAuthenticates'
+      },
+      function() {
 
-    // Now that we have everything set up, we can actually runa few sample queries.
-    // We're using async.series here to run the samples in series without having to
-    // Deeply indent and make things hard to read.
-                async.series(
-                    [
-                        function( done ) {
-                // For "curtis"'s twitter account, recover his user profile.
-                            datamodule.fetcher.fetch(
-                                'apinetwork://curtis//@acct:twitter:90542269/user/90542269',
-                                function( error, result ) {
-                                    if( error )
-                                    {
-                                        done( error );
-                                    }
-                                    else
-                                    {
-                                        console.log( '******************************************' );
-                                        console.log( 'Twitter User Profile:')
-                                        console.log( result );
-                                        console.log( '******************************************' );
-                                        done();
-                                    }
-                                }
-                            );
-                        },
-                        function( done ) {
-                        // Now let's recover his most recent mentions.
-                            datamodule.fetcher.fetch(
-                                'apinetwork://curtis//@acct:twitter:90542269/status/mentions',
-                                function( error, result ) {
-                                    if( error )
-                                    {
-                                        done( error );
-                                    }
-                                    else
-                                    {
-                                        console.log( '******************************************' );
-                                        console.log( 'Twitter Mentions of that user:')
-                                        console.log( result );
-                                        console.log( '******************************************' );
-                                        done();
-                                    }
-                                }
-                            );
-                        },
-                        function( done ) {
-                        // Recovering a user profile also works for a user other than the account owner.
-                            datamodule.fetcher.fetch(
-                                'apinetwork://curtis//@acct:twitter:90542269/user/130852105',
-                                function( error, result ) {
-                                    if( error )
-                                    {
-                                        done( error );
-                                    }
-                                    else
-                                    {
-                                        console.log( '******************************************' );
-                                        console.log( 'Twitter User Profile for a user other than the account holder:')
-                                        console.log( result );
-                                        console.log( '******************************************' );
-                                        done();
-                                    }
-                                }
-                            );
-                        }
-                    ],
-                    function( error ) {
-                        if( error )
-                            throw error;
-                    }
-                );
+  // Now that we have everything set up, we can actually runa few sample queries.
+  // We're using async.series here to run the samples in series without having to
+  // Deeply indent and make things hard to read.
+        async.series(
+          [
+            function( done ) {
+        // For "curtis"'s twitter account, recover his user profile.
+              datamodule.fetcher.fetch(
+                'apinetwork://curtis//@acct:twitter:90542269/user/90542269',
+                function( error, result ) {
+                  if( error )
+                  {
+                    done( error );
+                  }
+                  else
+                  {
+                    console.log( '******************************************' );
+                    console.log( 'Twitter User Profile:')
+                    console.log( result );
+                    console.log( '******************************************' );
+                    done();
+                  }
+                }
+              );
+            },
+            function( done ) {
+            // Now let's recover his most recent mentions.
+              datamodule.fetcher.fetch(
+                'apinetwork://curtis//@acct:twitter:90542269/status/mentions',
+                function( error, result ) {
+                  if( error )
+                  {
+                    done( error );
+                  }
+                  else
+                  {
+                    console.log( '******************************************' );
+                    console.log( 'Twitter Mentions of that user:')
+                    console.log( result );
+                    console.log( '******************************************' );
+                    done();
+                  }
+                }
+              );
+            },
+            function( done ) {
+            // Recovering a user profile also works for a user other than the account owner.
+              datamodule.fetcher.fetch(
+                'apinetwork://curtis//@acct:twitter:90542269/user/130852105',
+                function( error, result ) {
+                  if( error )
+                  {
+                    done( error );
+                  }
+                  else
+                  {
+                    console.log( '******************************************' );
+                    console.log( 'Twitter User Profile for a user other than the account holder:')
+                    console.log( result );
+                    console.log( '******************************************' );
+                    done();
+                  }
+                }
+              );
             }
+          ],
+          function( error ) {
+            if( error )
+              throw error;
+          }
         );
-    }
-);
-    </code>
+      }
+    );
+  }
+);</code>
   </div>
 </div>
