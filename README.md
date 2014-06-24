@@ -28,3 +28,12 @@
 1. Before committing any front end code, run `$ grunt jshint` and solve Javascript syntax issues, then `$ grunt jscs` and solve any style issues.
 
 **IMPORTANT**: `dist` and `temp` are transient folders and will be erased.
+
+## Signing with your PGP key
+
+Signing your commits with a PGP key is always appreciated. 
+
+1. Generate a key: http://stackoverflow.com/a/16725717/364485 
+2. Sign your commit: `git commit -S` (Works for merges too, don't need to sign every commit, just the last one before you push something up. 
+3. Check the signature on your commit: `git log --show-signature`
+4. You may not have all the contributor's public keys, to verify.  Most of them will be willing to send you either their key or its hash if you contact them (and contacting them is the best way to be sure you get the right one), then you can import it into your GPG client.  For example, to get mine (https://github.com/curtislacy), `gpg --recv-key 1c4176962f29735d'
