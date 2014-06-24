@@ -1,155 +1,23 @@
 <div class="try-uri-intro">
-  <h1>Let's Get Started!</h1>
-  <ol>
-    <li>Select a data source to begin.</li>
-    <li>Choose from one of the data sources to see an example URI.</li>
-    <li>Connect with any of our data sources to see the API in action.</li>
-  </ol>
+  <h1>What APINetwork Does</h1>
+  <p>API Network is an open source protocol for developers which easily links data and actions across personal emails, social networks, texts, cloud storage, contacts, calendars, and anything else you can think of. The goal of API Network is to take all the APIs out in the world, and provide a universal mechanism for querying them.</p>
+  <p>Every piece of data that can be recovered has a URI associated with it. This URI contains the user identification information, as well as a reference to the data that we want to recover. You can view <a href="https://github.com/APINetwork/personal-data-module#usage" target="_blank" data-bypass>sample URI usage</a> and <a href="https://github.com/APINetwork/personal-data-module/blob/master/README.md#sample-uris" target="_blank" data-bypass>a list of sample URIs here</a>.</p>
   <div class="help">
     For more information, check out our github repo: <a href="https://github.com/APINetwork/personal-data-module" target="_blank" data-bypass>https://github.com/APINetwork/personal-data-module</a>
   </div>
-
-  <h1 class="register-app">
-    Register Your App:
-    <button class="btn-gray btn-lg"></button>
-  </h1>
-
-  <div class="import-data-modules">
-    <h1>Importing Data Modules</h1>
-    <p>
-      Aside from authentication setup, there's essentially one call to recover data in the personal-data-module:
-      <code>datamodule.fetcher.fetch( uri, callback );</code>
-      where callback takes two arguments, an error and a result document.
-    </p>
-    <p>
-      How is this possible? Every piece of data that can be recovered has a URI associated with it. This URI contains the user identification information, as well as a reference to the data that we want to recover. For example:
-      <code>apinetwork://curtis//@acct:twitter:90542269/status/mentions</code>
-      is the URI of a document which includes all of the a particular twitter account's mentions. Also included in the URI is the user ID of the user in our local system, so that we can keep users' data separate from each other. The URI format is according to the following:
-      <code>{protocol}://{Local User ID}//@{Remote Data Source}/{Path describing the desired document}</code>
-    </p>
-    <p>
-      In the above example, <strong>{protocol}</strong> is "apinetwork", indicating a standard personal-data-module data document URI. <strong>{Local User ID}</strong> is "curtis", which is the user who created the example, and the key used to look up that user's access keys in the TokenStore. <strong>{Remote Data Source}</strong> is "acct:twitter:90542269", which indicates an account from Twitter, belonging to user #90542269. The path is "status/mentions", which is means we want user statuses which mention that user.
-    </p>
-
-    <h3>Code Sample</h3>
-    <code>// We're using https://github.com/caolan/async for flow control later on.
-// It's a nice package.
-var async = require( 'async' );
-
-// Include the personal-data-module library.
-var EDM = require( 'personal-data-module' );
-// In a real application, you'd probably want to store the tokens in a database,
-// but in this sample we'll use a simple in-memory datastore.
-var tokenStore = new EDM.DummyTokenStore();
-
-// The DummyTokenStore requires us to load it with the tokens we got when we registered
-// our app with Twitter.
-tokenStore.storeApplicationTokens(
-  'twitter',
-  {
-    "consumerKey": "GetThisFromTwitter",
-    "consumerSecret": "GetThisFromTwitterAsWellAndDontTellItToAnyone"
-  },
-  function() {
-    // Then we can actually instantiate the module.
-    var datamodule = new EDM.DataModule(
-      {
-        tokenStore: tokenStore,
-        // Specify which data sources we intend to use.  Anything listed in here
-        // that doesn't have keys in the tokenStore will throw an error when it tries
-        //to initialize.
-        services: [ 'twitter' ]
-      }
-    );
-
-  // The DummyTokenStore needs to be populated with user access tokens as well.
-  // These would generally also be stored in a database in a real product.  You
-  // can use pretty much any string you want as a username.
-    tokenStore.storeUserTokens(
-      'curtis', 'acct:twitter:90542269',
-      {
-    // personal-data-module doesn't provide any of the authentication flow, you'll
-    // need to provde that.  https://github.com/jaredhanson/passport is an excellent
-    // choice when it comes to authenticating with remote services.
-        token: 'YouGetThisTokenWhenAUserAuthenticatesWithTwitter',
-      tokenSecret: 'YouAlsoGetThisTokenWhenTheUserAuthenticates'
-      },
-      function() {
-
-  // Now that we have everything set up, we can actually runa few sample queries.
-  // We're using async.series here to run the samples in series without having to
-  // Deeply indent and make things hard to read.
-        async.series(
-          [
-            function( done ) {
-        // For "curtis"'s twitter account, recover his user profile.
-              datamodule.fetcher.fetch(
-                'apinetwork://curtis//@acct:twitter:90542269/user/90542269',
-                function( error, result ) {
-                  if( error )
-                  {
-                    done( error );
-                  }
-                  else
-                  {
-                    console.log( '******************************************' );
-                    console.log( 'Twitter User Profile:')
-                    console.log( result );
-                    console.log( '******************************************' );
-                    done();
-                  }
-                }
-              );
-            },
-            function( done ) {
-            // Now let's recover his most recent mentions.
-              datamodule.fetcher.fetch(
-                'apinetwork://curtis//@acct:twitter:90542269/status/mentions',
-                function( error, result ) {
-                  if( error )
-                  {
-                    done( error );
-                  }
-                  else
-                  {
-                    console.log( '******************************************' );
-                    console.log( 'Twitter Mentions of that user:')
-                    console.log( result );
-                    console.log( '******************************************' );
-                    done();
-                  }
-                }
-              );
-            },
-            function( done ) {
-            // Recovering a user profile also works for a user other than the account owner.
-              datamodule.fetcher.fetch(
-                'apinetwork://curtis//@acct:twitter:90542269/user/130852105',
-                function( error, result ) {
-                  if( error )
-                  {
-                    done( error );
-                  }
-                  else
-                  {
-                    console.log( '******************************************' );
-                    console.log( 'Twitter User Profile for a user other than the account holder:')
-                    console.log( result );
-                    console.log( '******************************************' );
-                    done();
-                  }
-                }
-              );
-            }
-          ],
-          function( error ) {
-            if( error )
-              throw error;
-          }
-        );
-      }
-    );
-  }
-);</code>
-  </div>
+  <h1>Let's Get Started!</h1>
+  <ol>
+    <li>
+      Click on a data source to display all data types for that source.
+    </li>
+    <img src="img/select-data-source.png" class="select-data-source" alt="Click on data source to see available data types" title="Step 1: Click on data source to see available data types" />
+    <li>
+      Select any data source to display an example URI and JSON data.
+    </li>
+    <img src="img/select-data-type.png" class="select-data-type" alt="Select data type to see example URI" title="Step 2: Select a data source to show data types" />
+    <li>
+      You can also connect with any of our data sources to see the API in action.
+    </li>
+    <img src="img/connect-data-source.png" class="connect-data-source"  alt="Connect with a data source to see API in action" title="Step 3: Connect with a data source to see API in action" />
+  </ol>
 </div>
