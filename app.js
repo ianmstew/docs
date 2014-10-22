@@ -170,6 +170,10 @@ app.configure(function () {
 
 });
 
+app.get('/status', function (req, res) {
+	res.send('OK');
+});
+
 // Return list of service keys for open connections
 app.get('/auth/connections', function (req, res) {
 	if (!req.isAuthenticated()) {
