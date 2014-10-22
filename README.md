@@ -1,5 +1,10 @@
 # Welcome to Engine Hosted APIs
 
+## Environment
+
+* `BASE_ENV`: Set to full base url for app; e.g., "https://docs.apinetwork.co"
+* `NODE_ENV`: When "production" app will use prod Facebook/Twitter/Gmail tokens
+
 ## Install
 
 1. Install latest Node.js
