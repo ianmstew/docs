@@ -95,6 +95,7 @@ module.exports = function (grunt) {
         dest: '<%- path.dist %>',
         options: {
           process: function (content) {
+            throw new Error();
             return content
               .replace(/\{version\}/g, grunt.config.data.pkg.version)
               .replace('src="vendor/requirejs/require.js" data-main="app-js/app-require.js"',
@@ -126,7 +127,7 @@ module.exports = function (grunt) {
           'mkdir -p <%- path.dist_style %>',
           'cd <%- path.dist_style %>',
           'rm -f app && ln -s ../../app app',
-          'rm -f dist && ln -s ../ dist'
+          'rm -f public && ln -s ../ public'
         ].join('&&')
       }
     },
