@@ -1,5 +1,6 @@
 // Node 0.10.x adds additional cert checking, which could cause problems here.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+var BASE_URL = process.env.BASE_URL;
 
 // Catch any and all exceptions.
 process.on( 'uncaughtException' ,function(err) {
@@ -41,7 +42,7 @@ passport.use( 'facebook', new FacebookStrategy(
 	{
 		clientID: TokenStore.tokens.facebook.clientID,
 		clientSecret: TokenStore.tokens.facebook.clientSecret,
-    	callbackURL: "http://local.apinetwork.co:3000/auth/facebook/callback",
+    	callbackURL: BASE_URL + "/auth/facebook/callback",
     	enableProof: false,
     	passReqToCallback: true
 	},
@@ -60,7 +61,7 @@ passport.use( 'twitter', new TwitterStrategy(
 	{
 		consumerKey: TokenStore.tokens.twitter.consumerKey,
 		consumerSecret: TokenStore.tokens.twitter.consumerSecret,
-		callbackUrl: 'http://local.apinetwork.co:3000/auth/twitter/callback',
+		callbackUrl: BASE_URL + '/auth/twitter/callback',
 		passReqToCallback: true
 	},
 	function( req, token, tokenSecret, profile, done ) {
@@ -106,7 +107,7 @@ passport.use( 'gmail', new GoogleOAuth2Strategy(
 	{
 		'clientID': TokenStore.tokens.gmail.clientID,
 		'clientSecret': TokenStore.tokens.gmail.clientSecret,
-		"callbackURL": "http://local.apinetwork.co:3000/auth/gmail/callback",
+		"callbackURL": BASE_URL + "/auth/gmail/callback",
 		"callbackPath": "/auth/gmail/callback",
 		'scope': [ 'https://www.googleapis.com/auth/userinfo.profile',
 				   'https://www.googleapis.com/auth/userinfo.email',
