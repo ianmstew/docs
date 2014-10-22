@@ -3,7 +3,13 @@
 ## Environment
 
 * `BASE_ENV`: Set to full base url for app; e.g., "https://docs.apinetwork.co"
-* `NODE_ENV`: When "production" app will use prod Facebook/Twitter/Gmail tokens
+* `NODE_ENV`: When "production" app will use prod Facebook/Twitter/Gmail API keys. Otherwise, app will use dev API keys.
+* There are two docs "apps" registered with the social service, a prod app and a dev app. To properly use these services, correlate `NODE_ENV` and `BASE_ENV` as follows:
+
+  | `NODE_ENV` | `BASE_ENV` |
+  | --- | --- |
+  | `production` | `https://docs.apinetwork.co` |
+  | `development` | `http://local.apinetwork.co:3000` |
 
 ## Install
 
