@@ -17,10 +17,10 @@ module.exports = function (grunt) {
       bower: 'bower_components',
 
       // Output folders (transient)
-      dist: 'dist',
-      dist_appjs: 'dist/app-js',
-      dist_style: 'dist/style',
-      dist_vendor: 'dist/vendor'
+      dist: 'public',
+      dist_appjs: 'public/app-js',
+      dist_style: 'public/style',
+      dist_vendor: 'public/vendor'
     },
 
     clean: {
