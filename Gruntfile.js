@@ -126,7 +126,7 @@ module.exports = function (grunt) {
           'mkdir -p <%- path.dist_style %>',
           'cd <%- path.dist_style %>',
           'rm -f app && ln -s ../../app app',
-          'rm -f dist && ln -s ../ dist'
+          'rm -f public && ln -s ../ public'
         ].join('&&')
       }
     },
