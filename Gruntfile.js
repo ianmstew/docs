@@ -95,7 +95,6 @@ module.exports = function (grunt) {
         dest: '<%- path.dist %>',
         options: {
           process: function (content) {
-            throw new Error();
             return content
               .replace(/\{version\}/g, grunt.config.data.pkg.version)
               .replace('src="vendor/requirejs/require.js" data-main="app-js/app-require.js"',
