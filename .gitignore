@@ -1,6 +1,6 @@
 node_modules
 bower_components
-dist
+public
 temp
 vendor
 .DS_Store
