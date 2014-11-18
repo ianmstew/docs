@@ -47,20 +47,20 @@ module.exports = function (grunt) {
 
       precompile: {
         files: {
-          '<%- path.temp %>/engine-ui-grid-precompile.less':
-              '<%- path.app_style %>/engine-ui-grid.less'
+          '<%- path.temp %>/api-network-ui-grid-precompile.less':
+              '<%- path.app_style %>/api-network-ui-grid.less'
         }
       },
 
       app: {
         options: {
           sourceMap: true,
-          sourceMapFilename: '<%- path.dist_style %>/hosted-apis.css.map',
+          sourceMapFilename: '<%- path.dist_style %>/docs.css.map',
           sourceMapBasepath: '<%- path.dist_style %>'
         },
         files: {
-          '<%- path.dist_style %>/hosted-apis.css':
-              '<%- path.app_style %>/hosted-apis.less'
+          '<%- path.dist_style %>/docs.css':
+              '<%- path.app_style %>/docs.less'
         }
       }
     },
@@ -183,7 +183,7 @@ module.exports = function (grunt) {
       less: {
         files: [
           '<%- path.app_style %>/**/*',
-          '<%- path.dist_vendor %>/engine-ui/less/**/*'
+          '<%- path.dist_vendor %>/api-network-ui/less/**/*'
         ],
         tasks: ['less:app']
       },

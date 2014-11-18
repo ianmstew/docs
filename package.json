@@ -1,5 +1,5 @@
 {
-  "name": "hosted-apis",
+  "name": "docs",
   "version": "0.0.1",
   "description": "API Network Hosted APIs",
   "main": "server.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/LDEngine/hosted-apis.git"
+    "url": "git://github.com/APINetwork/docs.git"
   },
   "author": "Engine, Inc.",
   "readmeFilename": "README.md",
